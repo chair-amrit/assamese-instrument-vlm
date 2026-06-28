@@ -1,4 +1,4 @@
-# AssameseInstrumentVQA
+# Assamese Instrument VQA
 
 Fine-tuning a Vision Language Model (VLM) on a custom dataset of 7 traditional Assamese musical instruments for visual question answering (VQA), achieving high performance on cultural object identification, part identification, and multi-dimensional factual reasoning.
 
