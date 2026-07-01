@@ -82,3 +82,20 @@ print("\nQuestions per instrument:")
 
 for instrument, questions in questions_per_instrument.items():
     print(f"{instrument}: {len(questions)}")
+
+#check for missing images
+missing = []
+
+for sample in data:
+
+    image_path = sample["image"].lower()
+
+    if not os.path.exists(image_path):
+        missing.append(image_path)
+
+print("Missing images:", len(missing))
+
+if missing:
+    print("\nMissing files:")
+    for m in missing:
+        print(m)
