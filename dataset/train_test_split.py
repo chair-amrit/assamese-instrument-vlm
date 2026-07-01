@@ -1,98 +1,82 @@
 import json
-from collections import Counter
+import os
 from sklearn.model_selection import train_test_split
 
-# Load dataset
 with open("dataset.json", "r", encoding="utf-8") as f:
-    data = json.load(f)
+    dataset = json.load(f)
 
-print("Total samples:", len(data))
+#number of images per instrument
+from collections import Counter
 
-# Stratified Split (70 / 15 / 15)
-labels = [sample["instrument"] for sample in data]
+image_instrument_map = {}
 
-# 70% train, 30% temp
-train_data, temp_data = train_test_split(
-    data,
-    test_size=0.30,
-    stratify=labels,
-    random_state=42
+for sample in dataset:
+    img = sample["image"]
+
+    if img not in image_instrument_map:
+        image_instrument_map[img] = sample["instrument"]
+
+image_counts = Counter(image_instrument_map.values())
+
+print("\n=== IMAGE COUNT PER INSTRUMENT ===")
+
+for instrument, count in sorted(image_counts.items()):
+    print(f"{instrument:10s}: {count}")
+
+print("Total Images:", len(image_instrument_map))
+
+# Step 1: Get unique images per instrument
+image_instrument_map = {}
+for sample in dataset:
+    img = sample["image"]
+    if img not in image_instrument_map:
+        image_instrument_map[img] = sample["instrument"]
+
+images = list(image_instrument_map.keys())
+labels = [image_instrument_map[img] for img in images]
+
+# Step 2: Split images (not samples), stratified by instrument
+train_imgs, temp_imgs, _, temp_labels = train_test_split(
+    images, labels, test_size=0.30, stratify=labels, random_state=42
+)
+val_imgs, test_imgs = train_test_split(
+    temp_imgs, test_size=0.50, stratify=temp_labels, random_state=42
 )
 
-# Split remaining 30% into 15% val + 15% test
-temp_labels = [sample["instrument"] for sample in temp_data]
+# Step 3: Assign ALL 9 QA pairs of each image to its split
+train_data = [s for s in dataset if s["image"] in train_imgs]
+val_data   = [s for s in dataset if s["image"] in val_imgs]
+test_data  = [s for s in dataset if s["image"] in test_imgs]
 
-val_data, test_data = train_test_split(
-    temp_data,
-    test_size=0.50,
-    stratify=temp_labels,
-    random_state=42
-)
+print(f"Train images: {len(train_imgs)}, QA pairs: {len(train_data)}")
+print(f"Val images:   {len(val_imgs)}, QA pairs: {len(val_data)}")
+print(f"Test images:  {len(test_imgs)}, QA pairs: {len(test_data)}")
 
-# Save Splits
-with open("train.json", "w", encoding="utf-8") as f:
-    json.dump(train_data, f, indent=2, ensure_ascii=False)
+# Step 4: Verify zero image overlap
+assert not set(train_imgs) & set(val_imgs)
+assert not set(train_imgs) & set(test_imgs)
+assert not set(val_imgs)   & set(test_imgs)
+print("No leakage confirmed.")
 
-with open("val.json", "w", encoding="utf-8") as f:
-    json.dump(val_data, f, indent=2, ensure_ascii=False)
+# Step 5: Save
+for name, split in [("train", train_data), ("val", val_data), ("test", test_data)]:
+    with open(f"{name}.json", "w") as f:
+        json.dump(split, f, indent=2)
 
-with open("test.json", "w", encoding="utf-8") as f:
-    json.dump(test_data, f, indent=2, ensure_ascii=False)
-
-# Overall Counts
-
-print("\nSAMPLE COUNTS:")
-print(f"Train      : {len(train_data)}")
-print(f"Validation : {len(val_data)}")
-print(f"Test       : {len(test_data)}")
-
-# Instrument Distribution
-def print_distribution(name, dataset):
+def print_image_distribution(name, image_list):
 
     counts = Counter(
-        sample["instrument"]
-        for sample in dataset
+        image_instrument_map[img]
+        for img in image_list
     )
 
-    print(f"\n=== {name.upper()} DISTRIBUTION ===")
+    print(f"\n=== {name.upper()} IMAGE DISTRIBUTION ===")
 
-    for instrument in sorted(counts):
-        print(f"{instrument:10s}: {counts[instrument]}")
+    for instrument, count in sorted(counts.items()):
+        print(f"{instrument:10s}: {count}")
 
-    print(f"Unique instruments: {len(counts)}")
+    print("Total Images:", len(image_list))
 
-print_distribution("Train", train_data)
-print_distribution("Validation", val_data)
-print_distribution("Test", test_data)
-
-# Verify All 7 Instruments Present
-required = {
-    "bahi",
-    "bihudhol",
-    "gogona",
-    "khutitaal",
-    "pepa",
-    "toka",
-    "xutuli"
-}
-
-for name, dataset in [
-    ("Train", train_data),
-    ("Validation", val_data),
-    ("Test", test_data)
-]:
-
-    present = {
-        sample["instrument"]
-        for sample in dataset
-    }
-
-    if required.issubset(present):
-        print(f"\n{name}: PASS")
-    else:
-        print(f"\n{name}: FAIL")
-        print("Missing:", required - present)
-
-print("\ntrain.json saved")
-print("val.json saved")
-print("test.json saved")
+print_image_distribution("Train", train_imgs)
+print_image_distribution("Validation", val_imgs)
+print_image_distribution("Test", test_imgs)

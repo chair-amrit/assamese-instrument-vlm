@@ -1,20 +1,104 @@
 [
   {
-    "image": "images/bihudhol5.jpg",
+    "image": "images/bihudhol3.jpg",
     "question": "In which festival is this instrument used?",
     "answer": "Used during Rongali or Bohag Bihu, the spring festival of Assam.",
     "instrument": "bihudhol"
   },
   {
-    "image": "images/bahi10.jpg",
-    "question": "What is the interaction region of this instrument?",
-    "answer": "Played by blowing air across the blow hole and covering finger holes.",
-    "instrument": "bahi"
+    "image": "images/bihudhol3.jpg",
+    "question": "Where did this instrument originate?",
+    "answer": "Originated in the Brahmaputra valley of Assam.",
+    "instrument": "bihudhol"
   },
   {
-    "image": "images/bihudhol10.jpg",
+    "image": "images/bihudhol3.jpg",
+    "question": "What material is this instrument made of?",
+    "answer": "Made of wood and animal skin.",
+    "instrument": "bihudhol"
+  },
+  {
+    "image": "images/bihudhol3.jpg",
+    "question": "What are the parts of this instrument?",
+    "answer": "Main parts: wooden barrel body, two leather drum heads, and carrying strap.",
+    "instrument": "bihudhol"
+  },
+  {
+    "image": "images/bihudhol3.jpg",
+    "question": "What sound does this instrument produce?",
+    "answer": "Produces a deep, resonant booming sound.",
+    "instrument": "bihudhol"
+  },
+  {
+    "image": "images/bihudhol3.jpg",
+    "question": "Which gender usually plays this instrument?",
+    "answer": "Traditionally played by men.",
+    "instrument": "bihudhol"
+  },
+  {
+    "image": "images/bihudhol3.jpg",
+    "question": "What is the interaction region of this instrument?",
+    "answer": "Played by striking both drum heads with hands and a stick.",
+    "instrument": "bihudhol"
+  },
+  {
+    "image": "images/bihudhol3.jpg",
+    "question": "What type of instrument is this?",
+    "answer": "A double-headed barrel-shaped percussion instrument.",
+    "instrument": "bihudhol"
+  },
+  {
+    "image": "images/bihudhol3.jpg",
+    "question": "Give a detailed description of this instrument including its origin, cultural significance, and role in Assamese music?",
+    "answer": "The Dhol is a double-headed barrel drum and the primary rhythm instrument of Assamese folk music. Originating in the Brahmaputra valley, it is crafted from wood and animal skin and holds central significance in Rongali Bihu celebrations. Its deep, booming beats accompany Bihu dance performances and are considered the heartbeat of Assamese cultural gatherings. It is exclusively played by men during festivals and community events.",
+    "instrument": "bihudhol"
+  },
+  {
+    "image": "images/bihudhol8.jpg",
     "question": "In which festival is this instrument used?",
     "answer": "Used during Rongali or Bohag Bihu, the spring festival of Assam.",
+    "instrument": "bihudhol"
+  },
+  {
+    "image": "images/bihudhol8.jpg",
+    "question": "Where did this instrument originate?",
+    "answer": "Originated in the Brahmaputra valley of Assam.",
+    "instrument": "bihudhol"
+  },
+  {
+    "image": "images/bihudhol8.jpg",
+    "question": "What material is this instrument made of?",
+    "answer": "Made of wood and animal skin.",
+    "instrument": "bihudhol"
+  },
+  {
+    "image": "images/bihudhol8.jpg",
+    "question": "What are the parts of this instrument?",
+    "answer": "Main parts: wooden barrel body, two leather drum heads, and carrying strap.",
+    "instrument": "bihudhol"
+  },
+  {
+    "image": "images/bihudhol8.jpg",
+    "question": "What sound does this instrument produce?",
+    "answer": "Produces a deep, resonant booming sound.",
+    "instrument": "bihudhol"
+  },
+  {
+    "image": "images/bihudhol8.jpg",
+    "question": "Which gender usually plays this instrument?",
+    "answer": "Traditionally played by men.",
+    "instrument": "bihudhol"
+  },
+  {
+    "image": "images/bihudhol8.jpg",
+    "question": "What is the interaction region of this instrument?",
+    "answer": "Played by striking both drum heads with hands and a stick.",
+    "instrument": "bihudhol"
+  },
+  {
+    "image": "images/bihudhol8.jpg",
+    "question": "What type of instrument is this?",
+    "answer": "A double-headed barrel-shaped percussion instrument.",
     "instrument": "bihudhol"
   },
   {
@@ -24,154 +108,52 @@
     "instrument": "bihudhol"
   },
   {
-    "image": "images/bahi8.jpg",
-    "question": "Give a detailed description of this instrument including its origin, cultural significance, and role in Assamese music?",
-    "answer": "The Bahi is a traditional Assamese transverse flute made entirely from bamboo, played by blowing air across a side blow hole while controlling pitch through finger holes along the tube. Originating in the rural communities of Assam, it is one of the oldest melodic instruments in Assamese folk music and is prominently used during Rongali Bihu celebrations. Unlike the rhythm-keeping instruments of the Bihu ensemble, the Bahi carries the melodic layer with its soft, flute-like tone. It is traditionally played by men and is closely associated with pastoral and folk music traditions of Assam.",
-    "instrument": "bahi"
-  },
-  {
-    "image": "images/bahi5.jpg",
-    "question": "Where did this instrument originate?",
-    "answer": "Originated in the rural communities of Assam.",
-    "instrument": "bahi"
-  },
-  {
-    "image": "images/khutitaal1.jpg",
+    "image": "images/pepa7.jpg",
     "question": "In which festival is this instrument used?",
     "answer": "Used during Rongali or Bohag Bihu, the spring festival of Assam.",
-    "instrument": "khutitaal"
-  },
-  {
-    "image": "images/gogona8.jpg",
-    "question": "What are the parts of this instrument?",
-    "answer": "Main parts: frame, vibrating tongue, and plucking end.",
-    "instrument": "gogona"
-  },
-  {
-    "image": "images/pepa3.jpg",
-    "question": "What is the interaction region of this instrument?",
-    "answer": "Played by blowing air through the mouthpiece.",
     "instrument": "pepa"
   },
   {
-    "image": "images/bihudhol1.jpg",
-    "question": "What sound does this instrument produce?",
-    "answer": "Produces a deep, resonant booming sound.",
-    "instrument": "bihudhol"
-  },
-  {
-    "image": "images/pepa10.jpg",
-    "question": "What is the interaction region of this instrument?",
-    "answer": "Played by blowing air through the mouthpiece.",
+    "image": "images/pepa7.jpg",
+    "question": "Where did this instrument originate?",
+    "answer": "Originated in the plains of Assam.",
     "instrument": "pepa"
   },
   {
-    "image": "images/pepa8.jpg",
+    "image": "images/pepa7.jpg",
+    "question": "What material is this instrument made of?",
+    "answer": "Made of buffalo horn and reed.",
+    "instrument": "pepa"
+  },
+  {
+    "image": "images/pepa7.jpg",
     "question": "What are the parts of this instrument?",
     "answer": "Main parts: buffalo horn body, reed and mouthpiece opening.",
     "instrument": "pepa"
   },
   {
-    "image": "images/bahi3.jpg",
-    "question": "What are the parts of this instrument?",
-    "answer": "Main parts: bamboo tube body, blow hole, and finger holes.",
-    "instrument": "bahi"
+    "image": "images/pepa7.jpg",
+    "question": "What sound does this instrument produce?",
+    "answer": "Produces a sharp, nasal, piercing sound.",
+    "instrument": "pepa"
   },
   {
-    "image": "images/bihudhol4.jpg",
-    "question": "What type of instrument is this?",
-    "answer": "A double-headed barrel-shaped percussion instrument.",
-    "instrument": "bihudhol"
-  },
-  {
-    "image": "images/bihudhol9.jpg",
-    "question": "In which festival is this instrument used?",
-    "answer": "Used during Rongali or Bohag Bihu, the spring festival of Assam.",
-    "instrument": "bihudhol"
-  },
-  {
-    "image": "images/pepa11.jpg",
+    "image": "images/pepa7.jpg",
     "question": "Which gender usually plays this instrument?",
     "answer": "Traditionally played by men.",
     "instrument": "pepa"
   },
   {
-    "image": "images/toka1.jpg",
-    "question": "What material is this instrument made of?",
-    "answer": "Made of bamboo.",
-    "instrument": "toka"
-  },
-  {
-    "image": "images/khutitaal1.jpg",
-    "question": "Where did this instrument originate?",
-    "answer": "Originated in the Brahmaputra valley of Assam.",
-    "instrument": "khutitaal"
-  },
-  {
-    "image": "images/khutitaal6.jpg",
-    "question": "What are the parts of this instrument?",
-    "answer": "Main parts: two small cymbal discs and connecting cord.",
-    "instrument": "khutitaal"
-  },
-  {
-    "image": "images/bihudhol5.jpg",
-    "question": "What type of instrument is this?",
-    "answer": "A double-headed barrel-shaped percussion instrument.",
-    "instrument": "bihudhol"
-  },
-  {
-    "image": "images/gogona7.jpg",
+    "image": "images/pepa7.jpg",
     "question": "What is the interaction region of this instrument?",
-    "answer": "Played by plucking the vibrating tongue near the mouth.",
-    "instrument": "gogona"
+    "answer": "Played by blowing air through the mouthpiece.",
+    "instrument": "pepa"
   },
   {
-    "image": "images/gogona7.jpg",
+    "image": "images/pepa7.jpg",
     "question": "What type of instrument is this?",
-    "answer": "A mouth-resonated plucked idiophone instrument.",
-    "instrument": "gogona"
-  },
-  {
-    "image": "images/khutitaal6.jpg",
-    "question": "Give a detailed description of this instrument including its origin, cultural significance, and role in Assamese music?",
-    "answer": "The Khuti-Taal is a small paired cymbal instrument made of bell metal, a brass alloy traditionally crafted in the Brahmaputra valley of Assam. It consists of two small metal discs connected by a cord and struck together to produce a bright, high-pitched ringing sound that provides rhythmic accompaniment during Bihu performances. The Khuti-Taal is traditionally played by women and is commonly used alongside the Dhol and Pepa during Rongali Bihu performances. Its metallic timbre and compact size make it an important rhythm-keeping instrument in Assamese folk music.",
-    "instrument": "khutitaal"
-  },
-  {
-    "image": "images/bihudhol8.jpg",
-    "question": "What material is this instrument made of?",
-    "answer": "Made of wood and animal skin.",
-    "instrument": "bihudhol"
-  },
-  {
-    "image": "images/bahi4.jpg",
-    "question": "What material is this instrument made of?",
-    "answer": "Made of bamboo.",
-    "instrument": "bahi"
-  },
-  {
-    "image": "images/xutuli6.jpg",
-    "question": "What sound does this instrument produce?",
-    "answer": "Produces a high-pitched, sharp whistling sound.",
-    "instrument": "xutuli"
-  },
-  {
-    "image": "images/gogona5.jpg",
-    "question": "In which festival is this instrument used?",
-    "answer": "Used during Rongali or Bohag Bihu, the spring festival of Assam.",
-    "instrument": "gogona"
-  },
-  {
-    "image": "images/khutitaal4.jpg",
-    "question": "Which gender usually plays this instrument?",
-    "answer": "Traditionally played by both men and women.",
-    "instrument": "khutitaal"
-  },
-  {
-    "image": "images/toka8.jpg",
-    "question": "What material is this instrument made of?",
-    "answer": "Made of bamboo.",
-    "instrument": "toka"
+    "answer": "A free-reed wind instrument made from natural horn.",
+    "instrument": "pepa"
   },
   {
     "image": "images/pepa7.jpg",
@@ -180,22 +162,46 @@
     "instrument": "pepa"
   },
   {
-    "image": "images/bahi7.jpg",
-    "question": "What sound does this instrument produce?",
-    "answer": "Produces a soft, melodic, flute-like sound.",
-    "instrument": "bahi"
+    "image": "images/gogona5.jpg",
+    "question": "In which festival is this instrument used?",
+    "answer": "Used during Rongali or Bohag Bihu, the spring festival of Assam.",
+    "instrument": "gogona"
   },
   {
-    "image": "images/toka6.jpg",
+    "image": "images/gogona5.jpg",
+    "question": "Where did this instrument originate?",
+    "answer": "Originated in the tribal communities of Assam.",
+    "instrument": "gogona"
+  },
+  {
+    "image": "images/gogona5.jpg",
     "question": "What material is this instrument made of?",
     "answer": "Made of bamboo.",
-    "instrument": "toka"
+    "instrument": "gogona"
   },
   {
-    "image": "images/bahi9.jpg",
-    "question": "What type of instrument is this?",
-    "answer": "A transverse bamboo flute instrument.",
-    "instrument": "bahi"
+    "image": "images/gogona5.jpg",
+    "question": "What are the parts of this instrument?",
+    "answer": "Main parts: frame, vibrating tongue, and plucking end.",
+    "instrument": "gogona"
+  },
+  {
+    "image": "images/gogona5.jpg",
+    "question": "What sound does this instrument produce?",
+    "answer": "Produces a soft, twangy, vibrating sound.",
+    "instrument": "gogona"
+  },
+  {
+    "image": "images/gogona5.jpg",
+    "question": "Which gender usually plays this instrument?",
+    "answer": "Traditionally played by young women.",
+    "instrument": "gogona"
+  },
+  {
+    "image": "images/gogona5.jpg",
+    "question": "What is the interaction region of this instrument?",
+    "answer": "Played by plucking the vibrating tongue near the mouth.",
+    "instrument": "gogona"
   },
   {
     "image": "images/gogona5.jpg",
@@ -204,237 +210,51 @@
     "instrument": "gogona"
   },
   {
-    "image": "images/xutuli7.jpg",
-    "question": "What material is this instrument made of?",
-    "answer": "Made of bamboo or baked clay.",
-    "instrument": "xutuli"
-  },
-  {
-    "image": "images/khutitaal6.jpg",
-    "question": "What material is this instrument made of?",
-    "answer": "Made of bell metal (brass alloy).",
-    "instrument": "khutitaal"
-  },
-  {
-    "image": "images/bihudhol10.jpg",
-    "question": "Where did this instrument originate?",
-    "answer": "Originated in the Brahmaputra valley of Assam.",
-    "instrument": "bihudhol"
-  },
-  {
-    "image": "images/khutitaal2.jpg",
-    "question": "What material is this instrument made of?",
-    "answer": "Made of bell metal (brass alloy).",
-    "instrument": "khutitaal"
-  },
-  {
-    "image": "images/bihudhol4.jpg",
-    "question": "Which gender usually plays this instrument?",
-    "answer": "Traditionally played by men.",
-    "instrument": "bihudhol"
-  },
-  {
-    "image": "images/xutuli2.jpg",
-    "question": "What material is this instrument made of?",
-    "answer": "Made of bamboo or baked clay.",
-    "instrument": "xutuli"
-  },
-  {
-    "image": "images/gogona6.jpg",
-    "question": "What type of instrument is this?",
-    "answer": "A mouth-resonated plucked idiophone instrument.",
+    "image": "images/gogona5.jpg",
+    "question": "Give a detailed description of this instrument including its origin, cultural significance, and role in Assamese music?",
+    "answer": "The Gogona is a small mouth-resonated plucked idiophone traditionally made from bamboo and associated with the tribal communities of Assam. It is played by holding the frame near the mouth and plucking the vibrating tongue, using the oral cavity as a resonance chamber to amplify and shape its soft, twangy sound. The Gogona is one of the few Assamese instruments traditionally played by young women during Rongali Bihu. Its unique playing technique make it one of the most culturally distinctive instruments of Assam.",
     "instrument": "gogona"
   },
   {
-    "image": "images/toka8.jpg",
+    "image": "images/toka7.jpg",
     "question": "In which festival is this instrument used?",
     "answer": "Used during Rongali or Bohag Bihu, the spring festival of Assam.",
     "instrument": "toka"
   },
   {
-    "image": "images/pepa6.jpg",
-    "question": "In which festival is this instrument used?",
-    "answer": "Used during Rongali or Bohag Bihu, the spring festival of Assam.",
-    "instrument": "pepa"
-  },
-  {
-    "image": "images/bihudhol3.jpg",
-    "question": "What sound does this instrument produce?",
-    "answer": "Produces a deep, resonant booming sound.",
-    "instrument": "bihudhol"
-  },
-  {
-    "image": "images/xutuli1.jpg",
+    "image": "images/toka7.jpg",
     "question": "Where did this instrument originate?",
     "answer": "Originated in the rural communities of Assam.",
-    "instrument": "xutuli"
+    "instrument": "toka"
   },
   {
-    "image": "images/khutitaal1.jpg",
-    "question": "What type of instrument is this?",
-    "answer": "A small paired metal cymbal percussion instrument.",
-    "instrument": "khutitaal"
+    "image": "images/toka7.jpg",
+    "question": "What material is this instrument made of?",
+    "answer": "Made of bamboo.",
+    "instrument": "toka"
   },
   {
-    "image": "images/pepa11.jpg",
+    "image": "images/toka7.jpg",
     "question": "What are the parts of this instrument?",
-    "answer": "Main parts: buffalo horn body, reed and mouthpiece opening.",
-    "instrument": "pepa"
+    "answer": "Main parts: two bamboo pieces, hinged joint, and striking ends.",
+    "instrument": "toka"
   },
   {
-    "image": "images/bihudhol4.jpg",
-    "question": "What is the interaction region of this instrument?",
-    "answer": "Played by striking both drum heads with hands and a stick.",
-    "instrument": "bihudhol"
+    "image": "images/toka7.jpg",
+    "question": "What sound does this instrument produce?",
+    "answer": "Produces a sharp, dry clicking sound.",
+    "instrument": "toka"
+  },
+  {
+    "image": "images/toka7.jpg",
+    "question": "Which gender usually plays this instrument?",
+    "answer": "Traditionally played by both men and women.",
+    "instrument": "toka"
   },
   {
     "image": "images/toka7.jpg",
     "question": "What is the interaction region of this instrument?",
     "answer": "Played by clapping the two bamboo pieces against each other.",
-    "instrument": "toka"
-  },
-  {
-    "image": "images/toka2.jpg",
-    "question": "What is the interaction region of this instrument?",
-    "answer": "Played by clapping the two bamboo pieces against each other.",
-    "instrument": "toka"
-  },
-  {
-    "image": "images/pepa6.jpg",
-    "question": "Where did this instrument originate?",
-    "answer": "Originated in the plains of Assam.",
-    "instrument": "pepa"
-  },
-  {
-    "image": "images/xutuli8.jpg",
-    "question": "What sound does this instrument produce?",
-    "answer": "Produces a high-pitched, sharp whistling sound.",
-    "instrument": "xutuli"
-  },
-  {
-    "image": "images/bahi1.jpg",
-    "question": "Where did this instrument originate?",
-    "answer": "Originated in the rural communities of Assam.",
-    "instrument": "bahi"
-  },
-  {
-    "image": "images/khutitaal7.jpg",
-    "question": "Which gender usually plays this instrument?",
-    "answer": "Traditionally played by both men and women.",
-    "instrument": "khutitaal"
-  },
-  {
-    "image": "images/bahi3.jpg",
-    "question": "Which gender usually plays this instrument?",
-    "answer": "Traditionally played by men.",
-    "instrument": "bahi"
-  },
-  {
-    "image": "images/toka4.jpg",
-    "question": "Where did this instrument originate?",
-    "answer": "Originated in the rural communities of Assam.",
-    "instrument": "toka"
-  },
-  {
-    "image": "images/pepa1.jpg",
-    "question": "Where did this instrument originate?",
-    "answer": "Originated in the plains of Assam.",
-    "instrument": "pepa"
-  },
-  {
-    "image": "images/khutitaal2.jpg",
-    "question": "Where did this instrument originate?",
-    "answer": "Originated in the Brahmaputra valley of Assam.",
-    "instrument": "khutitaal"
-  },
-  {
-    "image": "images/pepa10.jpg",
-    "question": "What sound does this instrument produce?",
-    "answer": "Produces a sharp, nasal, piercing sound.",
-    "instrument": "pepa"
-  },
-  {
-    "image": "images/khutitaal5.jpg",
-    "question": "In which festival is this instrument used?",
-    "answer": "Used during Rongali or Bohag Bihu, the spring festival of Assam.",
-    "instrument": "khutitaal"
-  },
-  {
-    "image": "images/toka6.jpg",
-    "question": "Which gender usually plays this instrument?",
-    "answer": "Traditionally played by both men and women.",
-    "instrument": "toka"
-  },
-  {
-    "image": "images/pepa4.jpg",
-    "question": "Which gender usually plays this instrument?",
-    "answer": "Traditionally played by men.",
-    "instrument": "pepa"
-  },
-  {
-    "image": "images/gogona8.jpg",
-    "question": "What sound does this instrument produce?",
-    "answer": "Produces a soft, twangy, vibrating sound.",
-    "instrument": "gogona"
-  },
-  {
-    "image": "images/pepa11.jpg",
-    "question": "Give a detailed description of this instrument including its origin, cultural significance, and role in Assamese music?",
-    "answer": "The Pepa is a traditional Assamese wind instrument crafted from the horn of a male buffalo fitted with a small reed made from bamboo, cane, or wood. Originating in the plains of Assam, it is inseparable from Rongali Bihu celebrations and is recognized as one of the most iconic symbols of Assamese folk culture. Its sharp, nasal tone accompanies Bihu dance performances. It is traditionally played by young men during Bihu festivities.",
-    "instrument": "pepa"
-  },
-  {
-    "image": "images/pepa3.jpg",
-    "question": "Give a detailed description of this instrument including its origin, cultural significance, and role in Assamese music?",
-    "answer": "The Pepa is a traditional Assamese wind instrument crafted from the horn of a male buffalo fitted with a small reed made from bamboo, cane, or wood. Originating in the plains of Assam, it is inseparable from Rongali Bihu celebrations and is recognized as one of the most iconic symbols of Assamese folk culture. Its sharp, nasal tone accompanies Bihu dance performances. It is traditionally played by young men during Bihu festivities.",
-    "instrument": "pepa"
-  },
-  {
-    "image": "images/bihudhol1.jpg",
-    "question": "What is the interaction region of this instrument?",
-    "answer": "Played by striking both drum heads with hands and a stick.",
-    "instrument": "bihudhol"
-  },
-  {
-    "image": "images/xutuli6.jpg",
-    "question": "Give a detailed description of this instrument including its origin, cultural significance, and role in Assamese music?",
-    "answer": "The Xutuli is a small conical end-blown wind instrument traditionally made from bamboo or clay in the rural communities of Assam. It is played by blowing air directly into one end, producing a distinctly high-pitched, sharp whistling tone. It is an important traditional wind instrument in Assamese folk music. Its compact size and traditional use make it popular during Bihu celebrations..",
-    "instrument": "xutuli"
-  },
-  {
-    "image": "images/pepa6.jpg",
-    "question": "Give a detailed description of this instrument including its origin, cultural significance, and role in Assamese music?",
-    "answer": "The Pepa is a traditional Assamese wind instrument crafted from the horn of a male buffalo fitted with a small reed made from bamboo, cane, or wood. Originating in the plains of Assam, it is inseparable from Rongali Bihu celebrations and is recognized as one of the most iconic symbols of Assamese folk culture. Its sharp, nasal tone accompanies Bihu dance performances. It is traditionally played by young men during Bihu festivities.",
-    "instrument": "pepa"
-  },
-  {
-    "image": "images/gogona1.jpg",
-    "question": "Where did this instrument originate?",
-    "answer": "Originated in the tribal communities of Assam.",
-    "instrument": "gogona"
-  },
-  {
-    "image": "images/xutuli3.jpg",
-    "question": "What type of instrument is this?",
-    "answer": "A small conical end-blown wind instrument.",
-    "instrument": "xutuli"
-  },
-  {
-    "image": "images/bahi10.jpg",
-    "question": "In which festival is this instrument used?",
-    "answer": "Used during Rongali or Bohag Bihu, the spring festival of Assam.",
-    "instrument": "bahi"
-  },
-  {
-    "image": "images/xutuli2.jpg",
-    "question": "What are the parts of this instrument?",
-    "answer": "Main parts: hollow body, blow end, and finger holes.",
-    "instrument": "xutuli"
-  },
-  {
-    "image": "images/toka8.jpg",
-    "question": "What are the parts of this instrument?",
-    "answer": "Main parts: two bamboo pieces, hinged joint, and striking ends.",
     "instrument": "toka"
   },
   {
@@ -444,22 +264,100 @@
     "instrument": "toka"
   },
   {
-    "image": "images/bahi1.jpg",
+    "image": "images/toka7.jpg",
+    "question": "Give a detailed description of this instrument including its origin, cultural significance, and role in Assamese music?",
+    "answer": "The Toka is a traditional Assamese percussion instrument made entirely from bamboo, consisting of two pieces joined and clapped together rhythmically. Originating in the rural communities of Assam, it is a commonly used folk instrument used during Rongali Bihu celebrations. Its sharp, dry clicking sound provides rhythmic accompaniment that complements heavier instruments like the Dhol. Toka is played by both men and women, making it an inclusive instrument in Assamese folk music.",
+    "instrument": "toka"
+  },
+  {
+    "image": "images/khutitaal3.jpg",
+    "question": "In which festival is this instrument used?",
+    "answer": "Used during Rongali or Bohag Bihu, the spring festival of Assam.",
+    "instrument": "khutitaal"
+  },
+  {
+    "image": "images/khutitaal3.jpg",
+    "question": "Where did this instrument originate?",
+    "answer": "Originated in the Brahmaputra valley of Assam.",
+    "instrument": "khutitaal"
+  },
+  {
+    "image": "images/khutitaal3.jpg",
+    "question": "What material is this instrument made of?",
+    "answer": "Made of bell metal (brass alloy).",
+    "instrument": "khutitaal"
+  },
+  {
+    "image": "images/khutitaal3.jpg",
+    "question": "What are the parts of this instrument?",
+    "answer": "Main parts: two small cymbal discs and connecting cord.",
+    "instrument": "khutitaal"
+  },
+  {
+    "image": "images/khutitaal3.jpg",
+    "question": "What sound does this instrument produce?",
+    "answer": "Produces a bright, high-pitched ringing sound.",
+    "instrument": "khutitaal"
+  },
+  {
+    "image": "images/khutitaal3.jpg",
+    "question": "Which gender usually plays this instrument?",
+    "answer": "Traditionally played by both men and women.",
+    "instrument": "khutitaal"
+  },
+  {
+    "image": "images/khutitaal3.jpg",
+    "question": "What is the interaction region of this instrument?",
+    "answer": "Played by striking the two metal discs against each other.",
+    "instrument": "khutitaal"
+  },
+  {
+    "image": "images/khutitaal3.jpg",
+    "question": "What type of instrument is this?",
+    "answer": "A small paired metal cymbal percussion instrument.",
+    "instrument": "khutitaal"
+  },
+  {
+    "image": "images/khutitaal3.jpg",
+    "question": "Give a detailed description of this instrument including its origin, cultural significance, and role in Assamese music?",
+    "answer": "The Khuti-Taal is a small paired cymbal instrument made of bell metal, a brass alloy traditionally crafted in the Brahmaputra valley of Assam. It consists of two small metal discs connected by a cord and struck together to produce a bright, high-pitched ringing sound that provides rhythmic accompaniment during Bihu performances. The Khuti-Taal is traditionally played by women and is commonly used alongside the Dhol and Pepa during Rongali Bihu performances. Its metallic timbre and compact size make it an important rhythm-keeping instrument in Assamese folk music.",
+    "instrument": "khutitaal"
+  },
+  {
+    "image": "images/bahi7.jpg",
+    "question": "In which festival is this instrument used?",
+    "answer": "Used during Rongali or Bohag Bihu, the spring festival of Assam.",
+    "instrument": "bahi"
+  },
+  {
+    "image": "images/bahi7.jpg",
+    "question": "Where did this instrument originate?",
+    "answer": "Originated in the rural communities of Assam.",
+    "instrument": "bahi"
+  },
+  {
+    "image": "images/bahi7.jpg",
     "question": "What material is this instrument made of?",
     "answer": "Made of bamboo.",
     "instrument": "bahi"
   },
   {
-    "image": "images/xutuli5.jpg",
-    "question": "What is the interaction region of this instrument?",
-    "answer": "Played by blowing air into the blow end and covering finger holes.",
-    "instrument": "xutuli"
+    "image": "images/bahi7.jpg",
+    "question": "What are the parts of this instrument?",
+    "answer": "Main parts: bamboo tube body, blow hole, and finger holes.",
+    "instrument": "bahi"
   },
   {
-    "image": "images/gogona1.jpg",
-    "question": "What material is this instrument made of?",
-    "answer": "Made of bamboo.",
-    "instrument": "gogona"
+    "image": "images/bahi7.jpg",
+    "question": "What sound does this instrument produce?",
+    "answer": "Produces a soft, melodic, flute-like sound.",
+    "instrument": "bahi"
+  },
+  {
+    "image": "images/bahi7.jpg",
+    "question": "Which gender usually plays this instrument?",
+    "answer": "Traditionally played by men.",
+    "instrument": "bahi"
   },
   {
     "image": "images/bahi7.jpg",
@@ -468,51 +366,177 @@
     "instrument": "bahi"
   },
   {
-    "image": "images/xutuli1.jpg",
+    "image": "images/bahi7.jpg",
     "question": "What type of instrument is this?",
-    "answer": "A small conical end-blown wind instrument.",
+    "answer": "A transverse bamboo flute instrument.",
+    "instrument": "bahi"
+  },
+  {
+    "image": "images/bahi7.jpg",
+    "question": "Give a detailed description of this instrument including its origin, cultural significance, and role in Assamese music?",
+    "answer": "The Bahi is a traditional Assamese transverse flute made entirely from bamboo, played by blowing air across a side blow hole while controlling pitch through finger holes along the tube. Originating in the rural communities of Assam, it is one of the oldest melodic instruments in Assamese folk music and is prominently used during Rongali Bihu celebrations. Unlike the rhythm-keeping instruments of the Bihu ensemble, the Bahi carries the melodic layer with its soft, flute-like tone. It is traditionally played by men and is closely associated with pastoral and folk music traditions of Assam.",
+    "instrument": "bahi"
+  },
+  {
+    "image": "images/bahi8.jpg",
+    "question": "In which festival is this instrument used?",
+    "answer": "Used during Rongali or Bohag Bihu, the spring festival of Assam.",
+    "instrument": "bahi"
+  },
+  {
+    "image": "images/bahi8.jpg",
+    "question": "Where did this instrument originate?",
+    "answer": "Originated in the rural communities of Assam.",
+    "instrument": "bahi"
+  },
+  {
+    "image": "images/bahi8.jpg",
+    "question": "What material is this instrument made of?",
+    "answer": "Made of bamboo.",
+    "instrument": "bahi"
+  },
+  {
+    "image": "images/bahi8.jpg",
+    "question": "What are the parts of this instrument?",
+    "answer": "Main parts: bamboo tube body, blow hole, and finger holes.",
+    "instrument": "bahi"
+  },
+  {
+    "image": "images/bahi8.jpg",
+    "question": "What sound does this instrument produce?",
+    "answer": "Produces a soft, melodic, flute-like sound.",
+    "instrument": "bahi"
+  },
+  {
+    "image": "images/bahi8.jpg",
+    "question": "Which gender usually plays this instrument?",
+    "answer": "Traditionally played by men.",
+    "instrument": "bahi"
+  },
+  {
+    "image": "images/bahi8.jpg",
+    "question": "What is the interaction region of this instrument?",
+    "answer": "Played by blowing air across the blow hole and covering finger holes.",
+    "instrument": "bahi"
+  },
+  {
+    "image": "images/bahi8.jpg",
+    "question": "What type of instrument is this?",
+    "answer": "A transverse bamboo flute instrument.",
+    "instrument": "bahi"
+  },
+  {
+    "image": "images/bahi8.jpg",
+    "question": "Give a detailed description of this instrument including its origin, cultural significance, and role in Assamese music?",
+    "answer": "The Bahi is a traditional Assamese transverse flute made entirely from bamboo, played by blowing air across a side blow hole while controlling pitch through finger holes along the tube. Originating in the rural communities of Assam, it is one of the oldest melodic instruments in Assamese folk music and is prominently used during Rongali Bihu celebrations. Unlike the rhythm-keeping instruments of the Bihu ensemble, the Bahi carries the melodic layer with its soft, flute-like tone. It is traditionally played by men and is closely associated with pastoral and folk music traditions of Assam.",
+    "instrument": "bahi"
+  },
+  {
+    "image": "images/xutuli2.jpg",
+    "question": "In which festival is this instrument used?",
+    "answer": "Used during Rongali or Bohag Bihu, the spring festival of Assam.",
     "instrument": "xutuli"
   },
   {
-    "image": "images/toka7.jpg",
-    "question": "In which festival is this instrument used?",
-    "answer": "Used during Rongali or Bohag Bihu, the spring festival of Assam.",
-    "instrument": "toka"
+    "image": "images/xutuli2.jpg",
+    "question": "Where did this instrument originate?",
+    "answer": "Originated in the rural communities of Assam.",
+    "instrument": "xutuli"
   },
   {
-    "image": "images/pepa6.jpg",
-    "question": "What type of instrument is this?",
-    "answer": "A free-reed wind instrument made from natural horn.",
-    "instrument": "pepa"
+    "image": "images/xutuli2.jpg",
+    "question": "What material is this instrument made of?",
+    "answer": "Made of bamboo or baked clay.",
+    "instrument": "xutuli"
   },
   {
-    "image": "images/gogona4.jpg",
-    "question": "In which festival is this instrument used?",
-    "answer": "Used during Rongali or Bohag Bihu, the spring festival of Assam.",
-    "instrument": "gogona"
+    "image": "images/xutuli2.jpg",
+    "question": "What are the parts of this instrument?",
+    "answer": "Main parts: hollow body, blow end, and finger holes.",
+    "instrument": "xutuli"
   },
   {
-    "image": "images/khutitaal4.jpg",
-    "question": "Give a detailed description of this instrument including its origin, cultural significance, and role in Assamese music?",
-    "answer": "The Khuti-Taal is a small paired cymbal instrument made of bell metal, a brass alloy traditionally crafted in the Brahmaputra valley of Assam. It consists of two small metal discs connected by a cord and struck together to produce a bright, high-pitched ringing sound that provides rhythmic accompaniment during Bihu performances. The Khuti-Taal is traditionally played by women and is commonly used alongside the Dhol and Pepa during Rongali Bihu performances. Its metallic timbre and compact size make it an important rhythm-keeping instrument in Assamese folk music.",
-    "instrument": "khutitaal"
+    "image": "images/xutuli2.jpg",
+    "question": "What sound does this instrument produce?",
+    "answer": "Produces a high-pitched, sharp whistling sound.",
+    "instrument": "xutuli"
   },
   {
-    "image": "images/xutuli4.jpg",
+    "image": "images/xutuli2.jpg",
     "question": "Which gender usually plays this instrument?",
     "answer": "Traditionally played by both men and women.",
     "instrument": "xutuli"
   },
   {
-    "image": "images/gogona5.jpg",
-    "question": "What material is this instrument made of?",
-    "answer": "Made of bamboo.",
-    "instrument": "gogona"
+    "image": "images/xutuli2.jpg",
+    "question": "What is the interaction region of this instrument?",
+    "answer": "Played by blowing air into the blow end and covering finger holes.",
+    "instrument": "xutuli"
   },
   {
-    "image": "images/bahi4.jpg",
+    "image": "images/xutuli2.jpg",
+    "question": "What type of instrument is this?",
+    "answer": "A small conical end-blown wind instrument.",
+    "instrument": "xutuli"
+  },
+  {
+    "image": "images/xutuli2.jpg",
+    "question": "Give a detailed description of this instrument including its origin, cultural significance, and role in Assamese music?",
+    "answer": "The Xutuli is a small conical end-blown wind instrument traditionally made from bamboo or clay in the rural communities of Assam. It is played by blowing air directly into one end, producing a distinctly high-pitched, sharp whistling tone. It is an important traditional wind instrument in Assamese folk music. Its compact size and traditional use make it popular during Bihu celebrations..",
+    "instrument": "xutuli"
+  },
+  {
+    "image": "images/xutuli8.jpg",
+    "question": "In which festival is this instrument used?",
+    "answer": "Used during Rongali or Bohag Bihu, the spring festival of Assam.",
+    "instrument": "xutuli"
+  },
+  {
+    "image": "images/xutuli8.jpg",
+    "question": "Where did this instrument originate?",
+    "answer": "Originated in the rural communities of Assam.",
+    "instrument": "xutuli"
+  },
+  {
+    "image": "images/xutuli8.jpg",
+    "question": "What material is this instrument made of?",
+    "answer": "Made of bamboo or baked clay.",
+    "instrument": "xutuli"
+  },
+  {
+    "image": "images/xutuli8.jpg",
+    "question": "What are the parts of this instrument?",
+    "answer": "Main parts: hollow body, blow end, and finger holes.",
+    "instrument": "xutuli"
+  },
+  {
+    "image": "images/xutuli8.jpg",
+    "question": "What sound does this instrument produce?",
+    "answer": "Produces a high-pitched, sharp whistling sound.",
+    "instrument": "xutuli"
+  },
+  {
+    "image": "images/xutuli8.jpg",
     "question": "Which gender usually plays this instrument?",
-    "answer": "Traditionally played by men.",
-    "instrument": "bahi"
+    "answer": "Traditionally played by both men and women.",
+    "instrument": "xutuli"
+  },
+  {
+    "image": "images/xutuli8.jpg",
+    "question": "What is the interaction region of this instrument?",
+    "answer": "Played by blowing air into the blow end and covering finger holes.",
+    "instrument": "xutuli"
+  },
+  {
+    "image": "images/xutuli8.jpg",
+    "question": "What type of instrument is this?",
+    "answer": "A small conical end-blown wind instrument.",
+    "instrument": "xutuli"
+  },
+  {
+    "image": "images/xutuli8.jpg",
+    "question": "Give a detailed description of this instrument including its origin, cultural significance, and role in Assamese music?",
+    "answer": "The Xutuli is a small conical end-blown wind instrument traditionally made from bamboo or clay in the rural communities of Assam. It is played by blowing air directly into one end, producing a distinctly high-pitched, sharp whistling tone. It is an important traditional wind instrument in Assamese folk music. Its compact size and traditional use make it popular during Bihu celebrations..",
+    "instrument": "xutuli"
   }
 ]
