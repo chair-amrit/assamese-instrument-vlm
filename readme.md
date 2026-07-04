@@ -44,3 +44,13 @@ This divergence demonstrates that **embedding-based similarity metrics alone can
 The likely root cause is **data scarcity**: with only ~9 base images per instrument class, fine-grained/mechanical questions have too few unique training examples for the model to learn instrument-specific details, causing it to generalize from generic "Assamese folk instrument" patterns rather than true instance-level understanding.
 
 ## Repository Structure
+```text
+├── notebook.ipynb              # Full training and evaluation pipeline
+├── results/
+│   ├── predictions.json        # Model predictions on test set
+│   ├── cosine_scores.json      # Cosine similarity evaluation results
+│   ├── lave_scores.json        # LAVE evaluation results (Gemini-judged)
+│   ├── final_results.csv       # Aggregated metrics
+│   └── loss_curve.png          # Training vs validation loss curve
+└── README.md
+```
