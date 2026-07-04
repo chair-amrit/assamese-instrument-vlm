@@ -1,109 +1,46 @@
-# Assamese Instrument VQA
-
-Fine-tuning a Vision Language Model (VLM) on a custom dataset of 7 traditional Assamese musical instruments for visual question answering (VQA), achieving high performance on cultural object identification, part identification, and multi-dimensional factual reasoning.
-
----
+# Assamese Musical Instrument VQA using PaliGemma-3B (QLoRA Fine-tuning)
 
 ## Overview
-
-Standard VLMs fail to recognize and reason about culturally specific objects due to the lack of regional data in their pretraining corpus. This project addresses that gap by fine-tuning PaliGemma-3B using QLoRA on a curated dataset of Assamese musical instruments, evaluated using LAVE and Cosine Similarity metrics.
-
-This work is part of an ongoing research internship at Gauhati University focused on Ethical Cultural AI.
-
----
-
-## Instruments Covered
-
-| Instrument | Type |
-|---|---|
-| Dhol | Percussion |
-| Pepa | Wind |
-| Gogona | Idiophone |
-| Toka | Percussion |
-| Khuti-Taal | Percussion |
-| Bahi | Wind |
-| Xutuli | Wind |
-
----
+This project fine-tunes Google's PaliGemma-3B vision-language model to perform Visual Question Answering (VQA) on 7 traditional Assamese musical instruments: **Toka, Khutitaal, Xutuli, Bihudhol, Pepa, Gogona, and Bahi**. The goal is to build a culturally grounded AI system capable of answering questions about instrument origin, material, sound, usage, and cultural significance.
 
 ## Dataset
+- 64 base images across 7 instrument classes
+- 9 question-answer pairs per image (576 base samples)
+- Questions cover: material, festival/usage context, origin, parts, sound, gender association, playing mechanism, instrument type, and detailed description
+- Split into train/validation/test sets, with data augmentation applied to the training set only
+- Augmented train set: 1980 samples | Validation: 90 | Test: 90
 
-- 7 instrument classes
-- ~7-11 images per instrument (full shots, part close-ups, performance context)
-- 9 questions per instrument (8 factual + 1 descriptive)
-- 63 unique ground truth QA pairs
-- ~577 base image-question-answer samples → ~2500+ after augmentation
-
-**Question dimensions covered:**
-Festival usage, origin, material, parts, sound, gender, interaction region, instrument type, detailed description.
-
----
-
-## Model
-
-| Component | Choice |
-|---|---|
-| Base model | PaliGemma-3B |
-| Fine-tuning method | QLoRA (4-bit quantization) |
-| LoRA rank | r=8 |
-| Target modules | q_proj, v_proj |
-| Vision encoder | Frozen |
-
----
-
-## Evaluation Metrics
-
-- **LAVE (LLM-Assisted VQA Evaluation)** — LLM judge scores factual correctness of predicted answers against ground truth
-- **Cosine Similarity** — embedding-based semantic closeness between prediction and reference answer
-
----
-
-## Project Structure
-AssameseInstrumentVQA/
-
-├── dataset/
-│   ├── Images/
-│   ├── Questions.txt
-│   └── dataset.json
-├── src/
-│   ├── build_dataset.py
-│   ├── augment.py
-│   ├── train.py
-│   └── evaluate.py
-├── results/
-│   └── scores.json
-└── README.md
-
----
+## Model & Training
+- **Base model:** `google/paligemma-3b-pt-224`
+- **Fine-tuning method:** QLoRA (4-bit quantization + LoRA adapters)
+- **LoRA config:** r=8, alpha=16, target modules: `q_proj`, `v_proj` (attention layers only)
+- **Frozen components:** Vision encoder (SigLIP) and base language model weights — only LoRA adapters trained
+- **Training setup:** 3 epochs, effective batch size 16 (via gradient accumulation), fp16 precision, gradient checkpointing
+- **Hardware:** Kaggle T4 GPU (single GPU)
+- **Prompt format:** `<image> answer en {question}` (PaliGemma's native VQA convention)
 
 ## Results
+| Metric | Score |
+|---|---|
+| Cosine Similarity (overall) | 0.66 |
+| LAVE Score (overall, LLM-judged via Gemini) | 0.13 |
 
-| Instrument | LAVE | Cosine Similarity |
-|---|---|---|
-| Dhol | - | - |
-| Pepa | - | - |
-| Gogona | - | - |
-| Toka | - | - |
-| Khuti-Taal | - | - |
-| Bahi | - | - |
-| Xutuli | - | - |
-| **Average** | - | - |
+### Per-Instrument Cosine Similarity
+| Instrument | Score |
+|---|---|
+| Bahi | 0.80 |
+| Toka | 0.74 |
+| Bihudhol | 0.70 |
+| Pepa | 0.67 |
+| Xutuli | 0.61 |
+| Khutitaal | 0.61 |
+| Gogona | 0.60 |
 
-*Results will be updated after training completion.*
+## Key Finding
+Training loss converged cleanly (4.0 → 0.02) with no train/val divergence, indicating stable QLoRA fine-tuning. However, evaluation revealed a significant gap between **Cosine Similarity (0.66)** and **LAVE (0.13)** scores. Manual inspection showed the model correctly learns high-level, memorizable facts (material, festival name, gender association) but **confabulates fine-grained mechanical details** (parts, playing mechanism, instrument type) — often using plausible-sounding but factually incorrect descriptions.
 
----
+This divergence demonstrates that **embedding-based similarity metrics alone can overstate model quality**, since incorrect answers using similar domain vocabulary still score well on cosine similarity. LLM-judged metrics like LAVE are essential for catching factual hallucination that surface-level similarity misses.
 
-## Setup
+The likely root cause is **data scarcity**: with only ~9 base images per instrument class, fine-grained/mechanical questions have too few unique training examples for the model to learn instrument-specific details, causing it to generalize from generic "Assamese folk instrument" patterns rather than true instance-level understanding.
 
-```bash
-git clone https://github.com/yourusername/AssameseInstrumentVQA
-cd AssameseInstrumentVQA
-pip install transformers peft accelerate bitsandbytes
-pip install sentence-transformers datasets Pillow
-```
-
----
-
-## Acknowledgements
-
-Research internship at Gauhati University under the guidance of Dr Rupam Bhattacharya, as part of the Ethical Cultural AI research group.
+## Repository Structure
