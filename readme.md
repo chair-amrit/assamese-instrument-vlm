@@ -54,3 +54,14 @@ The likely root cause is **data scarcity**: with only ~9 base images per instrum
 │   └── loss_curve.png          # Training vs validation loss curve
 └── README.md
 ```
+## Model Weights
+Fine-tuned LoRA adapter weights are hosted on HuggingFace:
+**[IsHereAmrit/paligemma-assamese-instruments-qlora](https://huggingface.co/IsHereAmrit/paligemma-assamese-instruments-qlora)**
+
+## Tech Stack
+`PyTorch` · `HuggingFace Transformers` · `PEFT (LoRA/QLoRA)` · `BitsAndBytes` · `Sentence-Transformers` · `Google Gemini API` (LAVE evaluation)
+
+## Future Work
+- Increase real (non-augmented) image diversity per instrument class
+- Investigate semantic grounding via counterfactual image-swap testing and embedding-space clustering, beyond attention-based methods (e.g., GradCAM)
+- Rebalance training data toward underrepresented fine-grained question types (parts, mechanism, instrument type)
