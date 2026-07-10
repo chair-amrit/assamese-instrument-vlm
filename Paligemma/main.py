@@ -264,3 +264,74 @@ trainer = Trainer(
     eval_dataset=val_dataset,
     callbacks=[EarlyStoppingCallback(early_stopping_patience=3)]
 )
+print(
+    f"Train samples: {len(train_dataset)}"
+)
+print(
+    f"Validation samples: {len(val_dataset)}"
+)
+
+import sys
+from tqdm.auto import tqdm
+tqdm.pandas()
+
+# Train
+trainer.train()
+
+# Save best LoRA adapter
+model.save_pretrained("./best_checkpoint")
+processor.save_pretrained("./best_checkpoint")
+print("Best checkpoint saved.")
+
+import shutil
+
+# Zip the checkpoint folder
+shutil.make_archive("best_checkpoint", "zip", "./best_checkpoint")
+
+# Also zip the full training logs/checkpoints folder
+shutil.make_archive("cultural-paligemma", "zip", "./cultural-paligemma")
+
+print("Zipped files ready in /kaggle/working/:")
+print("- best_checkpoint.zip")
+print("- cultural-paligemma.zip")
+
+
+# Step 7: Monitor Training Performance
+# Loads training logs from the latest checkpoint, extracts training and
+# validation losses, plots the loss curves, saves the visualization, and
+# reports the best validation loss achieved during training.
+
+import json
+import matplotlib.pyplot as plt
+import glob
+
+# Find the latest checkpoint's trainer_state.json
+checkpoint_dirs = sorted(glob.glob("./cultural-paligemma/checkpoint-*"), 
+                          key=lambda x: int(x.split("-")[-1]))
+latest_checkpoint = checkpoint_dirs[-1]
+print("Reading from:", latest_checkpoint)
+
+with open(f"{latest_checkpoint}/trainer_state.json") as f:
+    state = json.load(f)
+
+logs = state["log_history"]
+
+train_loss = [(x["step"], x["loss"]) for x in logs if "loss" in x and "eval_loss" not in x]
+eval_loss  = [(x["step"], x["eval_loss"]) for x in logs if "eval_loss" in x]
+
+train_steps, train_values = zip(*train_loss)
+eval_steps, eval_values = zip(*eval_loss)
+
+plt.figure(figsize=(10, 4))
+plt.plot(train_steps, train_values, label="Train Loss")
+plt.plot(eval_steps, eval_values, label="Validation Loss")
+plt.xlabel("Steps")
+plt.ylabel("Loss")
+plt.title("Training vs Validation Loss")
+plt.legend()
+plt.savefig("loss_curve.png", dpi=150, bbox_inches="tight")
+plt.show()
+
+print(f"Best eval_loss: {min(eval_values):.4f} at step {eval_steps[eval_values.index(min(eval_values))]}")
+
+
