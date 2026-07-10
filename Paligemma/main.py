@@ -159,3 +159,63 @@ lora_config = LoraConfig(
 model = get_peft_model(model, lora_config)
 model.print_trainable_parameters()
 # Expected: trainable params ~8M / 3B total = ~0.1%
+
+
+# Step 5: Create Custom Dataset
+# Defines a PyTorch Dataset for Assamese VQA that loads images, constructs
+# prompts, tokenizes text-image pairs with the processor, prepares model
+# inputs/labels, creates train/validation/test datasets, and verifies sample
+# sizes and tensor shapes.
+
+from torch.utils.data import Dataset
+from PIL import Image
+import os
+
+class AssameseVQADataset(Dataset):
+    def __init__(self, data, processor, image_dir):
+        self.data = data
+        self.processor = processor
+        self.image_dir = image_dir
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        sample = self.data[idx]
+
+        image = Image.open(
+            os.path.join(self.image_dir, sample["image"])
+        ).convert("RGB")
+
+        prompt = f"<image> answer en {sample['question']}"
+
+        inputs = self.processor(
+            text=prompt,
+            images=image,
+            suffix=sample["answer"],
+            return_tensors="pt",
+            padding="max_length",   # ADD
+            max_length=384,          # ADD
+            truncation=True          # ADD
+        )
+
+        return {
+            "input_ids": inputs["input_ids"].squeeze(0),
+            "attention_mask": inputs["attention_mask"].squeeze(0),
+            "pixel_values": inputs["pixel_values"].squeeze(0),
+            "token_type_ids": inputs["token_type_ids"].squeeze(0),
+            "labels": inputs["labels"].squeeze(0),
+        }
+
+
+train_dataset = AssameseVQADataset(train_data, processor, IMAGE_DIR)
+val_dataset = AssameseVQADataset(val_data, processor, IMAGE_DIR)
+test_dataset = AssameseVQADataset(test_data, processor, IMAGE_DIR)
+
+print(f"Train: {len(train_dataset)}")
+print(f"Val: {len(val_dataset)}")
+print(f"Test: {len(test_dataset)}")
+
+sample = train_dataset[0]
+for k, v in sample.items():
+    print(k, v.shape)
