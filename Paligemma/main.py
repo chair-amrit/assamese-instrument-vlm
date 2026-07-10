@@ -16,3 +16,18 @@ print(torch.cuda.is_available())
 print(torch.cuda.get_device_name(0))
 print(f"VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
 
+import torch, gc, subprocess
+
+# Clear Python/PyTorch memory
+gc.collect()
+torch.cuda.empty_cache()
+torch.cuda.ipc_collect()
+
+# Check GPU state
+print(subprocess.run(["nvidia-smi"], capture_output=True, text=True).stdout)
+
+# Check CUDA is initializable fresh
+print("CUDA available:", torch.cuda.is_available())
+print("Device count:", torch.cuda.device_count())
+print("Device name:", torch.cuda.get_device_name(0))
+print("Free/Total memory (GB):", [round(x/1e9,2) for x in torch.cuda.mem_get_info()])
