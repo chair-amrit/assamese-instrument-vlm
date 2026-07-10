@@ -603,3 +603,56 @@ for ex in good_examples:
     print(f"LAVE:         {ex['lave']:.4f}")
     print(f"Cosine Sim:   {ex['cosine_sim']:.4f}")
     print("─" * 60)
+
+
+
+# Step 11: Save & Publish Model
+# Securely authenticates with GitHub and Hugging Face, uploads the notebook,
+# results, and LoRA checkpoint to GitHub, and publishes the trained LoRA
+# adapter to the Hugging Face Hub for sharing and reuse.
+
+from kaggle_secrets import UserSecretsClient
+import subprocess
+
+# Get GitHub token securely from Kaggle Secrets
+github_token = UserSecretsClient().get_secret("GITHUB_TOKEN")
+github_user = "chair-amrit"
+repo_name = "assamese-instrument-vlm"
+
+# Set remote with token embedded (only in this session, not saved to notebook)
+subprocess.run(
+    f"git remote set-url origin https://{github_user}:{github_token}@github.com/{github_user}/{repo_name}.git",
+    shell=True, cwd="/kaggle/working/assamese-instrument-vlm", check=True
+)
+
+%cd /kaggle/working/assamese-instrument-vlm
+
+# Copy notebook itself (adjust filename to yours)
+!cp /kaggle/working/*.ipynb .
+
+# Copy results (already done, but re-run safe if you add more)
+!mkdir -p results
+!cp /kaggle/working/results/*.json results/
+!cp /kaggle/working/results/*.csv results/
+!cp /kaggle/working/loss_curve.png results/
+
+# Copy best_checkpoint ONLY if small enough (LoRA adapters are usually a few MB - fine for GitHub)
+!cp -r /kaggle/working/best_checkpoint .
+
+!git add .
+!git commit -m "Add notebook, results, and trained LoRA adapter"
+!git push
+
+from huggingface_hub import login
+from kaggle_secrets import UserSecretsClient
+
+hf_write_token = UserSecretsClient().get_secret("HF-WRITE")
+login(token = hf_write_token)#save model in hugging face
+from huggingface_hub import HfApi
+
+api = HfApi()
+api.upload_folder(
+    folder_path="./best_checkpoint",
+    repo_id="IsHereAmrit/paligemma-assamese-instruments-qlora",
+    repo_type="model"
+)
