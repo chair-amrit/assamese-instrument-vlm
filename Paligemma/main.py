@@ -531,3 +531,75 @@ with open("results/lave_scores.json", "w") as f:
     print(f"Pred: {p['prediction']}")
     print(f"LAVE: {p['lave']}")
     print("---")
+
+
+
+# Step 10: Summarize Results
+# Aggregates evaluation metrics by instrument, identifies the weakest question
+# for each instrument, generates a final results table (CSV), and selects the
+# best prediction examples for qualitative analysis and presentation.
+
+import pandas as pd
+
+instruments = sorted(set(
+    p["instrument"]
+    for p in predictions
+))
+rows = []
+
+for inst in instruments:
+    inst_preds = [p for p in predictions if p["instrument"] == inst]
+    avg_cos  = np.mean([p["cosine_sim"] for p in inst_preds])
+    avg_lave = np.mean([p["lave"] for p in inst_preds])
+    
+    # Find weakest question
+    q_scores = defaultdict(list)
+    for p in inst_preds:
+        q_scores[p["question"]].append(p["cosine_sim"])
+    weakest_q = min(q_scores, key=lambda q: np.mean(q_scores[q]))
+    
+    rows.append({
+        "Instrument":     inst,
+        "LAVE":           round(avg_lave, 4),
+        "Cosine Sim":     round(avg_cos,  4),
+        "Weakest Question": weakest_q[:40]
+    })
+
+# Add average row
+rows.append({
+    "Instrument":     "AVERAGE",
+    "LAVE":           round(np.mean([p["lave"]       for p in predictions]), 4),
+    "Cosine Sim":     round(np.mean([p["cosine_sim"] for p in predictions]), 4),
+    "Weakest Question": "-"
+})
+
+df = pd.DataFrame(rows)
+print(df.to_string(index=False))
+df.to_csv("results/final_results.csv", index=False) 
+
+# Show 3 best examples  
+import random
+
+seen = set()
+good_examples = []
+
+for p in sorted(
+    predictions,
+    key=lambda x: x["lave"] + x["cosine_sim"],
+    reverse=True
+):
+    if p["instrument"] not in seen:
+        good_examples.append(p)
+        seen.add(p["instrument"])
+
+    if len(good_examples) == 3:
+        break
+        
+for ex in good_examples:
+    print(f"Instrument:   {ex['instrument']}")
+    print(f"Question:     {ex['question']}")
+    print(f"Ground Truth: {ex['ground_truth']}")
+    print(f"Prediction:   {ex['prediction']}")
+    print(f"LAVE:         {ex['lave']:.4f}")
+    print(f"Cosine Sim:   {ex['cosine_sim']:.4f}")
+    print("─" * 60)
