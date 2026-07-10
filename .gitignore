@@ -2,7 +2,6 @@
 /image_data
 /image_dump
 /Paligemma/dataset
-/Paligemma/results/kaggle_dataset/images
 /Paligemma/best_checkpoint.zip
 /Paligemma/kaggle_dataset.zip
 /QWEN_2.5_VL3B
