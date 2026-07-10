@@ -335,3 +335,84 @@ plt.show()
 print(f"Best eval_loss: {min(eval_values):.4f} at step {eval_steps[eval_values.index(min(eval_values))]}")
 
 
+# Step 8: Run Inference & Save Predictions
+# Frees GPU memory, loads the fine-tuned LoRA checkpoint for inference,
+# generates answers for the test set, stores predictions alongside ground
+# truth, and saves the results as a JSON file for evaluation.
+import gc, torch
+
+# Force cleanup
+gc.collect()
+torch.cuda.empty_cache()
+torch.cuda.ipc_collect()
+
+print("Free VRAM (GB):", torch.cuda.mem_get_info()[0]/1e9)
+print("Total VRAM (GB):", torch.cuda.mem_get_info()[1]/1e9)
+
+# List any tensors still on GPU
+import gc
+count = 0
+for obj in gc.get_objects():
+    try:
+        if torch.is_tensor(obj) and obj.is_cuda:
+            count += 1
+    except:
+        pass
+print("Tensors still on GPU:", count)
+
+from peft import PeftModel
+
+# Load best checkpoint
+model_inf = PaliGemmaForConditionalGeneration.from_pretrained(
+    MODEL_ID,
+    quantization_config=bnb_config,
+    device_map={"": 0}
+)
+model_inf = PeftModel.from_pretrained(model_inf, "./best_checkpoint")
+model_inf.eval()
+
+def generate_answer(image_path, question, max_new_tokens=60):
+    image = Image.open(image_path).convert("RGB")
+    prompt = f"question: {question}\nanswer:"
+    
+    inputs = processor(
+        text=prompt,
+        images=image,
+        return_tensors="pt"
+    ).to("cuda")
+    
+    with torch.no_grad():
+        output = model_inf.generate(
+            **inputs,
+            max_new_tokens=max_new_tokens,
+            do_sample=True
+        )
+    
+    # Decode and strip prompt
+    full_output = processor.tokenizer.decode(
+        output[0],
+        skip_special_tokens=True
+    )
+    answer = full_output.split("answer:")[-1].strip()
+    return answer
+
+# Run inference on full test set
+predictions = []
+for sample in test_data:
+    img_path = os.path.join(IMAGE_DIR, sample["image"])
+    pred = generate_answer(img_path, sample["question"])
+    predictions.append({
+        "image":        sample["image"],
+        "instrument":   sample["instrument"],
+        "question":     sample["question"],
+        "ground_truth": sample["answer"],
+        "prediction":   pred
+    })
+
+import os 
+
+# Save predictions
+os.makedirs("results", exist_ok=True)
+with open("results/predictions.json", "w", encoding="utf-8") as f:
+    json.dump(predictions, f, ensure_ascii=False, indent=2)
+print(f"Saved {len(predictions)} predictions.")
