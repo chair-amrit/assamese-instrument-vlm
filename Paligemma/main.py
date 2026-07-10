@@ -132,3 +132,30 @@ print(
     f"Trainable parameters before LoRA: "
     f"{sum(p.numel() for p in model.parameters()):,}"
 )
+
+# Step 4: Attach LoRA Adapters
+# Prepares the quantized model for QLoRA training, configures LoRA adapters
+# (rank, alpha, dropout, target attention layers), attaches them to the model,
+# and verifies that only ~0.1% (~8M of 3B) of parameters are trainable.
+
+from peft import (
+    LoraConfig,
+    get_peft_model,
+    prepare_model_for_kbit_training
+)
+# Prepare for kbit training
+model = prepare_model_for_kbit_training(model)
+
+# LoRA config
+lora_config = LoraConfig(
+    r=8,
+    lora_alpha=16,
+    target_modules=r"model\.language_model\.layers\.\d+\.self_attn\.(q_proj|v_proj)",
+    lora_dropout=0.1,
+    bias="none",
+    task_type="CAUSAL_LM"
+)
+
+model = get_peft_model(model, lora_config)
+model.print_trainable_parameters()
+# Expected: trainable params ~8M / 3B total = ~0.1%
