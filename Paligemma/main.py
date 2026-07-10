@@ -81,3 +81,54 @@ from collections import Counter
 print("\nTrain distribution:", Counter(s["instrument"] for s in train_data))
 print("Val distribution:",   Counter(s["instrument"] for s in val_data))
 print("Test distribution:",  Counter(s["instrument"] for s in test_data))
+
+# Step 3: Load PaliGemma Model
+# Authenticates with Hugging Face, loads the PaliGemma-3B model and processor,
+# applies 4-bit (NF4) quantization for QLoRA, maps the model to the GPU, and
+# verifies successful loading with available VRAM and parameter count.
+
+import os
+os.environ["PYTORCH_ALLOC_CONF"] = "expandable_segments:True"
+os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
+from transformers import (
+    PaliGemmaForConditionalGeneration,
+    PaliGemmaProcessor,
+    BitsAndBytesConfig
+)
+
+MODEL_ID = "google/paligemma-3b-pt-224"
+
+# Login to HuggingFace (PaliGemma needs gated access)
+from huggingface_hub import login
+from kaggle_secrets import UserSecretsClient
+
+hf_token = UserSecretsClient().get_secret("HF_Paligemma")
+login(token=hf_token)
+
+import os
+os.environ["PYTORCH_ALLOC_CONF"] = "expandable_segments:True"
+
+bnb_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_compute_dtype=torch.float16,
+    bnb_4bit_quant_type="nf4",
+    bnb_4bit_use_double_quant=True
+)
+
+model = PaliGemmaForConditionalGeneration.from_pretrained(
+    MODEL_ID,
+    quantization_config=bnb_config,
+    device_map={"": 0},
+    low_cpu_mem_usage=True
+)
+
+processor = PaliGemmaProcessor.from_pretrained(MODEL_ID)
+
+print(f"Free VRAM after load: {torch.cuda.mem_get_info()[0]/1e9:.2f} GB")
+
+print("Model loaded successfully")
+print("Processor loaded successfully")
+print(
+    f"Trainable parameters before LoRA: "
+    f"{sum(p.numel() for p in model.parameters()):,}"
+)
