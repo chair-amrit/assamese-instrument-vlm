@@ -219,3 +219,48 @@ print(f"Test: {len(test_dataset)}")
 sample = train_dataset[0]
 for k, v in sample.items():
     print(k, v.shape)
+
+
+# Step 6: Configure Training
+# Sets training hyperparameters (batch size, learning rate, scheduler,
+# checkpointing, evaluation, mixed precision, and early stopping) and
+# initializes the Hugging Face Trainer for QLoRA fine-tuning.
+
+!pip install -q tqdm
+
+from transformers import TrainingArguments, Trainer, EarlyStoppingCallback
+
+training_args = TrainingArguments(
+    output_dir="./cultural-paligemma",
+    num_train_epochs=3,
+    per_device_train_batch_size=1,
+    per_device_eval_batch_size=2,
+    gradient_accumulation_steps=4,
+    learning_rate=1e-4,
+    warmup_steps=50,
+    weight_decay=0.01,
+    lr_scheduler_type="cosine",
+    eval_strategy="steps",
+    eval_steps=50,
+    save_strategy="steps",
+    save_steps=50,
+    load_best_model_at_end=True,
+    metric_for_best_model="eval_loss",
+    greater_is_better=False,
+    fp16=True,
+    gradient_checkpointing=True,
+    gradient_checkpointing_kwargs={"use_reentrant": False},
+    logging_steps=10,
+    report_to="none",
+    disable_tqdm=False,
+    remove_unused_columns=False
+)
+
+
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=train_dataset,
+    eval_dataset=val_dataset,
+    callbacks=[EarlyStoppingCallback(early_stopping_patience=3)]
+)
