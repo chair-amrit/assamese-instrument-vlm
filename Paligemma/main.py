@@ -416,3 +416,118 @@ os.makedirs("results", exist_ok=True)
 with open("results/predictions.json", "w", encoding="utf-8") as f:
     json.dump(predictions, f, ensure_ascii=False, indent=2)
 print(f"Saved {len(predictions)} predictions.")
+
+
+# Step 9: Evaluate Model Performance
+# Computes semantic similarity (cosine similarity using Sentence Transformers)
+# and LAVE scores (Gemini-based judge) for model predictions, reports overall
+# and per-category metrics, saves evaluation results, and displays sample
+# predictions for qualitative analysis.
+
+#cosine similarity scoring using Sentence Transformers
+from sentence_transformers import SentenceTransformer
+import numpy as np
+
+embedder = SentenceTransformer("all-MiniLM-L6-v2")
+
+def cosine_sim(pred, gt):
+    e1 = embedder.encode(pred)
+    e2 = embedder.encode(gt)
+    return float(np.dot(e1, e2) / (np.linalg.norm(e1) * np.linalg.norm(e2)))
+
+# Score all predictions
+for p in predictions:
+    p["cosine_sim"] = cosine_sim(p["prediction"], p["ground_truth"])
+
+# Overall average
+avg_cos = np.mean([p["cosine_sim"] for p in predictions])
+print(f"Overall Cosine Similarity: {avg_cos:.4f}")
+
+# Per instrument
+from collections import defaultdict
+instrument_cos = defaultdict(list)
+for p in predictions:
+    instrument_cos[p["instrument"]].append(p["cosine_sim"])
+
+print("\nPer Instrument Cosine Similarity:")
+for inst, scores in instrument_cos.items():
+    print(f"  {inst:15s}: {np.mean(scores):.4f}")
+
+# Per question type (Q1-Q9)
+questions_list = [
+    "festival", "origin", "material", "parts",
+    "sound", "gender", "interaction", "type", "description"
+]
+question_cos = defaultdict(list)
+for p in predictions:
+    for i, keyword in enumerate(questions_list):
+        if keyword in p["question"].lower():
+            question_cos[f"Q{i+1}"].append(p["cosine_sim"])
+
+print("\nPer Question Type Cosine Similarity:")
+for q, scores in question_cos.items():
+    print(f"  {q}: {np.mean(scores):.4f}")
+
+with open("results/cosine_scores.json", "w") as f:
+    json.dump(predictions, f, indent=2)
+    
+    
+#LAVE scoring using Gemini-2.5-flash model
+!pip install -q google-generativeaiimport google.generativeai as genai
+      
+import time
+import numpy as np
+from collections import defaultdict
+import json
+
+from kaggle_secrets import UserSecretsClient
+
+gemini_key = UserSecretsClient().get_secret("GOOGLE_API_KEY")
+genai.configure(api_key=gemini_key)
+
+model_judge = genai.GenerativeModel("gemini-2.5-flash")
+
+def lave_score(question, ground_truth, prediction):
+    prompt = f"""You are evaluating a Visual Question Answering model on Assamese cultural instruments.
+
+        Question: {question}
+        Reference Answer: {ground_truth}
+        Model Prediction: {prediction}
+
+        Rate the factual correctness of the model prediction compared to the reference answer.
+        Consider semantic equivalence, not exact wording.
+        A score of 1.0 means fully correct, 0.0 means completely wrong.
+        Return ONLY a number between 0 and 1. Nothing else."""
+
+    try:
+        response = model_judge.generate_content(prompt)
+        score = float(response.text.strip())
+        return min(max(score, 0.0), 1.0)
+    except:
+        return 0.0
+
+# Score all predictions (with rate limit handling)
+for i, p in enumerate(predictions):
+    p["lave"] = lave_score(p["question"], p["ground_truth"], p["prediction"])
+    time.sleep(1.5)  # free tier rate limit is stricter, ~4-5 req/sec cap but safer slow
+    if i % 10 == 0:
+        print(f"Progress: {i}/{len(predictions)}")
+
+avg_lave = np.mean([p["lave"] for p in predictions])
+print(f"\nOverall LAVE: {avg_lave:.4f}")
+
+instrument_lave = defaultdict(list)
+for p in predictions:
+    instrument_lave[p["instrument"]].append(p["lave"])
+
+print("\nPer Instrument LAVE:")
+for inst, scores in instrument_lave.items():
+    print(f"  {inst:15s}: {np.mean(scores):.4f}")
+
+with open("results/lave_scores.json", "w") as f:
+    json.dump(predictions, f, indent=2)for p in predictions[:10]:
+    print(f"Q: {p['question']}")
+    print(f"GT: {p['ground_truth']}")
+    print(f"Pred: {p['prediction']}")
+    print(f"LAVE: {p['lave']}")
+    print("---")
