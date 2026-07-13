@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-# CHANGE THESE
+# folder path   
 folder_path = r"D:\InternshipGU\Assamese_instrument_VLM\QWEN_2.5_VL3B\dataset_32images\xutuli\train"   
 base_name = "xutuli_train"                                        
 # Example output:
