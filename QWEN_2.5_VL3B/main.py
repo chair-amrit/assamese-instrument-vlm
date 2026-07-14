@@ -166,3 +166,79 @@ show_sample(train_data,0)
 show_sample(train_data,150)
 show_sample(val_data,10)
 show_sample(test_data,20)
+
+
+
+
+#Step 3 — Load Qwen Processor
+# Import AutoProcessor
+from transformers import AutoProcessor
+
+# Specify the pretrained Qwen2.5-VL model
+MODEL_ID = "Qwen/Qwen2.5-VL-3B-Instruct"
+
+# Load the processor
+processor=AutoProcessor.from_pretrained(
+    MODEL_ID,
+    trust_remote_code=True,
+    min_pixels=224*28*28,
+    max_pixels=384*28*28
+)
+
+# Display basic processor information
+print(f"Model: {MODEL_ID}")
+print(f"Processor Loaded: {type(processor).__name__}")
+
+# Check tokenizer vocabulary size
+print(f"Vocabulary Size: {processor.tokenizer.vocab_size:,}")
+
+# Display special tokens
+print("Special Tokens:")
+print(processor.tokenizer.special_tokens_map)
+
+# Verify processor components
+print(f"Tokenizer: {type(processor.tokenizer).__name__}")
+print(f"Image Processor: {type(processor.image_processor).__name__}")
+
+
+
+
+#Step 4 — Load Qwen2.5-VL-3B (QLoRA)
+# Import required libraries
+import torch
+from transformers import Qwen2_5_VLForConditionalGeneration, BitsAndBytesConfig
+
+# Specify model checkpoint
+MODEL_ID = "Qwen/Qwen2.5-VL-3B-Instruct"
+
+# Configure 4-bit quantization
+bnb_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_quant_type="nf4",
+    bnb_4bit_compute_dtype=torch.float16,
+    bnb_4bit_use_double_quant=True
+)
+
+# Load Qwen2.5-VL model in 4-bit
+model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+    MODEL_ID,
+    quantization_config=bnb_config,
+    torch_dtype=torch.float16,
+    device_map={"":0},
+    trust_remote_code=True
+)
+
+# Switch model to evaluation mode
+model.eval()
+
+# Print model information
+print(f"Model Loaded: {MODEL_ID}")
+print(f"Model Device: {next(model.parameters()).device}")
+print(f"Model Class: {type(model).__name__}")
+
+# Display GPU memory usage
+allocated = torch.cuda.memory_allocated()/1024**3
+reserved = torch.cuda.memory_reserved()/1024**3
+
+print(f"GPU Memory Allocated : {allocated:.2f} GB")
+print(f"GPU Memory Reserved  : {reserved:.2f} GB")
