@@ -643,7 +643,9 @@ subprocess.run(
 !git commit -m "Add notebook, results, and trained LoRA adapter"
 !git push
 
-from huggingface_hub import login
+f
+
+rom huggingface_hub import login
 from kaggle_secrets import UserSecretsClient
 
 hf_write_token = UserSecretsClient().get_secret("HF-WRITE")

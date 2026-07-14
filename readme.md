@@ -1,67 +1,171 @@
-# Assamese Musical Instrument VQA using PaliGemma-3B (QLoRA Fine-tuning)
+# Assamese Musical Instrument Visual Question Answering (VQA)
 
 ## Overview
-This project fine-tunes Google's PaliGemma-3B vision-language model to perform Visual Question Answering (VQA) on 7 traditional Assamese musical instruments: **Toka, Khutitaal, Xutuli, Bihudhol, Pepa, Gogona, and Bahi**. The goal is to build a culturally grounded AI system capable of answering questions about instrument origin, material, sound, usage, and cultural significance.
 
-## Dataset
-- 64 base images across 7 instrument classes
-- 9 question-answer pairs per image (576 base samples)
-- Questions cover: material, festival/usage context, origin, parts, sound, gender association, playing mechanism, instrument type, and detailed description
-- Split into train/validation/test sets, with data augmentation applied to the training set only
-- Augmented train set: 1980 samples | Validation: 90 | Test: 90
+This project develops a **Visual Question Answering (VQA)** pipeline for traditional Assamese musical instruments. Rather than focusing on a single vision-language model, the objective is to build a **reproducible fine-tuning and evaluation framework** that can be applied to different open-source Vision Language Models (VLMs).
 
-## Model & Training
-- **Base model:** `google/paligemma-3b-pt-224`
-- **Fine-tuning method:** QLoRA (4-bit quantization + LoRA adapters)
-- **LoRA config:** r=8, alpha=16, target modules: `q_proj`, `v_proj` (attention layers only)
-- **Frozen components:** Vision encoder (SigLIP) and base language model weights — only LoRA adapters trained
-- **Training setup:** 3 epochs, effective batch size 16 (via gradient accumulation), fp16 precision, gradient checkpointing
-- **Hardware:** Kaggle T4 GPU (single GPU)
-- **Prompt format:** `<image> answer en {question}` (PaliGemma's native VQA convention)
+The primary goal is to improve question answering performance on a culturally specific domain where publicly available datasets are extremely limited. Throughout this project, multiple VLMs—including **Google PaliGemma-3B** and **Qwen2.5-VL-3B**—were fine-tuned and compared using the same dataset, training strategy, and evaluation pipeline.
 
-## Results
+The system answers questions about traditional Assamese instruments such as:
+
+- Bahi
+- Bihu Dhol
+- Gogona
+- Khutitaal
+- Pepa
+- Toka
+- Xutuli
+
+Questions cover cultural significance, construction, playing technique, sound characteristics, origin, festival usage, and instrument descriptions.
+
+---
+
+# Project Objectives
+
+- Build a high-quality VQA dataset for Assamese musical instruments.
+- Design a reusable fine-tuning pipeline compatible with multiple Vision Language Models.
+- Compare different VLM architectures under identical experimental conditions.
+- Evaluate model performance using both semantic similarity and LLM-based factual evaluation.
+- Identify strengths and limitations of modern VLMs on culturally grounded visual reasoning tasks.
+
+---
+
+# Dataset
+
+### Instruments
+
+- Bahi: 51 usable images
+- Bihu Dhol: 60 usable images
+- Gogona: 51 usable images
+- Khutitaal: 48 usable images
+- Pepa: 50 usable images
+- Toka: 35 usable images
+- Xutuli: 32 usable images
+
+Each image contains nine question-answer pairs covering:
+
+- Festival
+- Origin
+- Material
+- Parts
+- Sound
+- Traditional Player
+- Playing Method
+- Instrument Type
+- Cultural Description
+
+---
+
+# Models Evaluated
+
+This repository is designed to support multiple Vision Language Models.
+
+Current experiments include:
+
+| Model | Fine-tuning |
+|--------|------------|
+| Google PaliGemma-3B | QLoRA |
+| Qwen2.5-VL-3B-Instruct | QLoRA |
+
+Additional VLMs can be incorporated into the same pipeline with minimal modification.
+
+---
+
+# Fine-tuning Pipeline
+
+The training pipeline includes:
+
+- Dataset verification
+- JSONL conversation generation
+- HuggingFace Processor integration
+- QLoRA fine-tuning (4-bit)
+- LoRA adapter training
+- Validation-based checkpoint selection
+- Inference on unseen test images
+- Automatic evaluation
+- Result visualization
+
+---
+
+# Evaluation Metrics
+
+Two complementary metrics are used.
+
+### LAVE (LLM-Assisted Visual Evaluation)
+
+Predictions are evaluated using **Gemini** as an LLM judge.
+
+LAVE measures:
+
+- factual correctness
+- semantic accuracy
+- completeness
+
+---
+
+### Cosine Similarity
+
+Sentence embeddings are generated using Sentence-Transformers and compared using cosine similarity.
+
+This metric measures semantic similarity between predicted and reference answers.
+
+---
+
+# Experimental Results
+
+## PaliGemma-3B
+
 | Metric | Score |
-|---|---|
-| Cosine Similarity (overall) | 0.66 |
-| LAVE Score (overall, LLM-judged via Gemini) | 0.13 |
+|---------|-------:|
+| Cosine Similarity | 0.66 |
+| LAVE | 0.13 |
 
-### Per-Instrument Cosine Similarity
-| Instrument | Score |
-|---|---|
-| Bahi | 0.80 |
-| Toka | 0.74 |
-| Bihudhol | 0.70 |
-| Pepa | 0.67 |
-| Xutuli | 0.61 |
-| Khutitaal | 0.61 |
-| Gogona | 0.60 |
+---
 
-## Key Finding
-Training loss converged cleanly (4.0 → 0.02) with no train/val divergence, indicating stable QLoRA fine-tuning. However, evaluation revealed a significant gap between **Cosine Similarity (0.66)** and **LAVE (0.13)** scores. Manual inspection showed the model correctly learns high-level, memorizable facts (material, festival name, gender association) but **confabulates fine-grained mechanical details** (parts, playing mechanism, instrument type) — often using plausible-sounding but factually incorrect descriptions.
+## Qwen2.5-VL-3B
 
-This divergence demonstrates that **embedding-based similarity metrics alone can overstate model quality**, since incorrect answers using similar domain vocabulary still score well on cosine similarity. LLM-judged metrics like LAVE are essential for catching factual hallucination that surface-level similarity misses.
+| Metric | Score |
+|---------|-------:|
+| Cosine Similarity | **0.8333** |
+| LAVE | **0.7675** |
 
-The likely root cause is **data scarcity**: with only ~9 base images per instrument class, fine-grained/mechanical questions have too few unique training examples for the model to learn instrument-specific details, causing it to generalize from generic "Assamese folk instrument" patterns rather than true instance-level understanding.
+Qwen2.5-VL significantly outperformed the earlier PaliGemma baseline under the same evaluation protocol.
 
-## Repository Structure
-```text
-├── notebook.ipynb              # Full training and evaluation pipeline
-├── results/
-│   ├── predictions.json        # Model predictions on test set
-│   ├── cosine_scores.json      # Cosine similarity evaluation results
-│   ├── lave_scores.json        # LAVE evaluation results (Gemini-judged)
-│   ├── final_results.csv       # Aggregated metrics
-│   └── loss_curve.png          # Training vs validation loss curve
-└── README.md
-```
-## Model Weights
-Fine-tuned LoRA adapter weights are hosted on HuggingFace:
-**[IsHereAmrit/paligemma-assamese-instruments-qlora](https://huggingface.co/IsHereAmrit/paligemma-assamese-instruments-qlora)**
+---
 
-## Tech Stack
-`PyTorch` · `HuggingFace Transformers` · `PEFT (LoRA/QLoRA)` · `BitsAndBytes` · `Sentence-Transformers` · `Google Gemini API` (LAVE evaluation)
+# Key Findings
 
-## Future Work
-- Increase real (non-augmented) image diversity per instrument class
-- Investigate semantic grounding via counterfactual image-swap testing and embedding-space clustering, beyond attention-based methods (e.g., GradCAM)
-- Rebalance training data toward underrepresented fine-grained question types (parts, mechanism, instrument type)
+- QLoRA enables efficient fine-tuning of large Vision Language Models on consumer GPUs.
+- Larger instruction-tuned VLMs substantially outperform smaller baselines on culturally grounded VQA.
+- Questions requiring direct visual recognition (material, sound, playing method) achieve the highest accuracy.
+- Questions involving historical or cultural knowledge (origin, festival) remain more challenging because they require knowledge beyond purely visual cues.
+- Combining embedding-based metrics (Cosine Similarity) with LLM-based evaluation (LAVE) provides a more reliable assessment than using either metric alone.
+
+---
+
+# Technology Stack
+
+- PyTorch
+- HuggingFace Transformers
+- PEFT (LoRA / QLoRA)
+- BitsAndBytes
+- Sentence Transformers
+- Google Gemini API
+- Pandas
+- Matplotlib
+
+---
+
+# Future Work
+
+- Retrain models using techniques, learnt from previous training runs which held back generalisation.
+- Create dataset accordingly to support generalisation of VQA for this dataset.
+- Compare other Vision Language Models.
+- Investigate multilingual VQA for Assamese and English.
+- Explore Retrieval-Augmented VQA for questions requiring historical or cultural knowledge.
+
+---
+
+# Acknowledgement
+
+This project aims to contribute toward AI systems capable of understanding and preserving the cultural heritage of Assamese traditional musical instruments through Vision Language Models and Visual Question Answering.
