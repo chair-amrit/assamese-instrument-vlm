@@ -242,3 +242,146 @@ reserved = torch.cuda.memory_reserved()/1024**3
 
 print(f"GPU Memory Allocated : {allocated:.2f} GB")
 print(f"GPU Memory Reserved  : {reserved:.2f} GB")
+
+
+
+
+#Step 5 — Build Dataset Class
+# Import required libraries
+import os
+import json
+from PIL import Image
+from torch.utils.data import Dataset
+from qwen_vl_utils import process_vision_info
+
+# Custom Dataset for Qwen2.5-VL
+class QwenVQADataset(Dataset):
+
+    # Initialize dataset
+    def __init__(self,jsonl_path,dataset_root):
+        self.dataset_root=dataset_root
+        self.samples=[]
+
+        with open(jsonl_path,"r",encoding="utf-8") as f:
+            for line in f:
+                self.samples.append(json.loads(line))
+
+    # Return total number of samples
+    def __len__(self):
+        return len(self.samples)
+
+    # Return one sample
+    def __getitem__(self,idx):
+
+        sample=self.samples[idx]
+
+        messages=sample["messages"]
+
+        image_path=os.path.join(
+            self.dataset_root,
+            messages[1]["content"][0]["image"]
+        )
+
+        image=Image.open(image_path).convert("RGB")
+
+        # Update image path inside the conversation
+        messages[1]["content"][0]["image"]=image_path
+
+        image_inputs,video_inputs=process_vision_info(messages)
+
+        return{
+            "messages":messages,
+            "image":image,
+            "image_inputs":image_inputs,
+            "video_inputs":video_inputs
+        }
+
+# Create dataset objects
+train_dataset=QwenVQADataset(TRAIN_JSON,DATASET_ROOT)
+val_dataset=QwenVQADataset(VAL_JSON,DATASET_ROOT)
+test_dataset=QwenVQADataset(TEST_JSON,DATASET_ROOT)
+
+# Verify dataset
+print(f"Train Samples : {len(train_dataset)}")
+print(f"Validation Samples : {len(val_dataset)}")
+print(f"Test Samples : {len(test_dataset)}")
+
+sample=train_dataset[0]
+
+print(f"Loaded Image Size : {sample['image'].size}")
+print(f"Number of Messages : {len(sample['messages'])}")
+print(f"Vision Inputs Created : {sample['image_inputs'] is not None}")
+
+
+
+
+
+
+#Step 6 — Build Data Collator
+# Import required library
+import torch
+
+# Custom data collator for Qwen2.5-VL
+class QwenDataCollator:
+
+    # Initialize collator
+    def __init__(self,processor):
+        self.processor=processor
+
+    # Build one training batch
+    def __call__(self,batch):
+
+        # Extract conversations
+        conversations=[sample["messages"] for sample in batch]
+
+        # Extract images
+        images=[sample["image"] for sample in batch]
+
+        # Apply Qwen chat template
+        texts=[
+            self.processor.apply_chat_template(
+                conversation,
+                tokenize=False,
+                add_generation_prompt=False
+            )
+            for conversation in conversations
+        ]
+
+        # Tokenize text and images
+        model_inputs=self.processor(
+            text=texts,
+            images=images,
+            padding=True,
+            return_tensors="pt"
+        )
+
+        # Create labels from input ids
+        labels=model_inputs["input_ids"].clone()
+
+        # Ignore padding tokens
+        labels[labels==self.processor.tokenizer.pad_token_id]=-100
+
+        # Ignore image tokens
+        if hasattr(self.processor,"image_token_id"):
+            labels[labels==self.processor.image_token_id]=-100
+
+        # Return training batch
+        model_inputs["labels"]=labels
+
+        return model_inputs
+
+# Create collator
+data_collator=QwenDataCollator(processor)
+
+# Verify collator
+batch=data_collator([
+    train_dataset[0],
+    train_dataset[1]
+])
+
+print(batch.keys())
+
+print(batch["input_ids"].shape)
+print(batch["attention_mask"].shape)
+print(batch["pixel_values"].shape)
+print(batch["labels"].shape)
