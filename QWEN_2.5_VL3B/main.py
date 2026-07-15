@@ -385,3 +385,139 @@ print(batch["input_ids"].shape)
 print(batch["attention_mask"].shape)
 print(batch["pixel_values"].shape)
 print(batch["labels"].shape)
+
+
+
+
+
+#Step 7 — Configure QLoRA
+# Import PEFT utilities
+from peft import LoraConfig,get_peft_model,prepare_model_for_kbit_training
+
+# Prepare model for k-bit training
+model=prepare_model_for_kbit_training(model)
+
+# Freeze all vision encoder parameters
+for name,param in model.named_parameters():
+    if name.startswith("model.visual."):
+        param.requires_grad=False
+
+vision_trainable=sum(
+    p.numel()
+    for n,p in model.named_parameters()
+    if n.startswith("model.visual.") and p.requires_grad
+)
+
+print(f"Vision trainable parameters: {vision_trainable}")
+
+# Configure LoRA
+lora_config=LoraConfig(
+    r=8,
+    lora_alpha=16,
+    lora_dropout=0.05,
+    bias="none",
+    task_type="CAUSAL_LM",
+    target_modules=[
+        "q_proj",
+        "v_proj"
+    ]
+)
+
+# Attach LoRA adapters
+model=get_peft_model(model,lora_config)
+
+# Print trainable parameter statistics
+model.print_trainable_parameters()
+
+# Verify vision encoder is frozen
+vision_trainable=sum(
+    p.numel()
+    for n,p in model.named_parameters()
+    if n.startswith("model.visual.") and p.requires_grad
+)
+
+language_trainable=sum(
+    p.numel()
+    for p in model.parameters()
+    if p.requires_grad
+)
+
+print(f"Vision Trainable Parameters : {vision_trainable:,}")
+print(f"Total Trainable Parameters : {language_trainable:,}")
+
+
+
+
+
+#Step 8 — Sanity Check
+# Import required libraries
+from torch.utils.data import DataLoader
+import torch
+
+# Create training dataloader
+train_loader=DataLoader(
+    train_dataset,
+    batch_size=1,
+    shuffle=True,
+    collate_fn=data_collator
+)
+
+# Create optimizer
+optimizer=torch.optim.AdamW(
+    model.parameters(),
+    lr=2e-4
+)
+
+# Enable training mode
+model.train()
+model.gradient_checkpointing_enable()
+
+# Get one training batch
+batch=next(iter(train_loader))
+
+# Move tensors to GPU
+batch={k:v.to(model.device) if isinstance(v,torch.Tensor) else v for k,v in batch.items()}
+
+# Clear previous gradients
+optimizer.zero_grad()
+
+# Forward pass
+outputs=model(**batch)
+
+# Compute loss
+loss=outputs.loss
+
+# Verify loss
+assert torch.isfinite(loss),"Loss is NaN or Inf."
+
+print(f"Initial Loss : {loss.item():.4f}")
+
+# Backward pass
+loss.backward()
+
+# Verify gradients
+grad_found=False
+
+for name,param in model.named_parameters():
+    if param.requires_grad and param.grad is not None:
+        grad_found=True
+        break
+
+assert grad_found,"No gradients were computed."
+
+print("Backward pass successful.")
+
+# Optimizer step
+optimizer.step()
+
+# Clear gradients
+optimizer.zero_grad()
+
+# Display GPU memory usage
+allocated=torch.cuda.memory_allocated()/1024**3
+reserved=torch.cuda.memory_reserved()/1024**3
+
+print(f"GPU Memory Allocated : {allocated:.2f} GB")
+print(f"GPU Memory Reserved : {reserved:.2f} GB")
+
+print("Sanity check completed successfully.")

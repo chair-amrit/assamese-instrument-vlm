@@ -4,9 +4,6 @@
 /Paligemma/dataset
 /Paligemma/best_checkpoint.zip
 /Paligemma/kaggle_dataset.zip
-/QWEN_2.5_VL3B/dataset_32images
+/QWEN_2.5_VL3B/dataset/kaggle_dataset32.zip
 /QWEN_2.5_VL3B/images
-/QWEN_2.5_VL3B/kaggle_dataset32.zip
-/QWEN_2.5_VL3B/kaggle_dataset32
-/QWEN_2.5_VL3B/Qwen2.5VL_Assamese_VLM_Project2.zip
 /QWEN_2.5_VL3B/.agents
