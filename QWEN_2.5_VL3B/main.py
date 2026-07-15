@@ -521,3 +521,140 @@ print(f"GPU Memory Allocated : {allocated:.2f} GB")
 print(f"GPU Memory Reserved : {reserved:.2f} GB")
 
 print("Sanity check completed successfully.")
+
+
+
+
+
+#Step 9 — Fine-tune
+# Import required libraries
+from transformers import TrainingArguments,Trainer,EarlyStoppingCallback
+
+print("train args start")
+
+# Configure training arguments
+training_args=TrainingArguments(
+    output_dir="./qwen2.5vl_lora_output",
+    num_train_epochs=5,
+    per_device_train_batch_size=1,
+    per_device_eval_batch_size=1,
+    gradient_accumulation_steps=8,
+    learning_rate=2e-4,
+    lr_scheduler_type="cosine",
+    warmup_steps=50,
+    weight_decay=0.01,
+    fp16=True,
+    gradient_checkpointing=True,
+    do_train=True,
+    do_eval=True,
+    use_cache=False,
+    logging_strategy="steps",
+    logging_steps=10,
+    eval_strategy="epoch",
+    save_strategy="epoch",
+    save_total_limit=2,
+    load_best_model_at_end=True,
+    metric_for_best_model="eval_loss",
+    greater_is_better=False,
+    report_to="none",
+    remove_unused_columns=False,
+    dataloader_num_workers=2,
+    dataloader_pin_memory=True,
+    max_grad_norm=1.0
+)
+
+model.config.use_cache=False
+model.enable_input_require_grads()
+
+print("train args end")
+
+print("trainer start")
+# Create trainer
+trainer=Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=train_dataset,
+    eval_dataset=val_dataset,
+    data_collator=data_collator,
+    processing_class=processor,
+    callbacks=[
+        EarlyStoppingCallback(
+            early_stopping_patience=2
+        )
+    ]
+)
+
+print(len(train_dataset),len(val_dataset))
+batch=data_collator([train_dataset[0]])
+print(batch.keys())
+
+print("trainer end")
+
+print("training start")
+# Start fine-tuning
+trainer.train()
+print("training end")
+
+print("eval best checkpoint start")
+
+# Evaluate best checkpoint on validation set
+validation_metrics=trainer.evaluate()
+
+# Display validation metrics
+print(validation_metrics)
+
+print("eval best checkpoint end")
+
+
+
+
+
+#Step 10 — Save Model
+# Import required libraries
+import os
+import json
+import torch
+import shutil
+from transformers import TrainerState
+
+# Create output directory
+SAVE_DIR="/kaggle/working/qwen2.5vl_lora"
+os.makedirs(SAVE_DIR,exist_ok=True)
+
+# Save LoRA adapter
+model.save_pretrained(os.path.join(SAVE_DIR,"adapter"))
+
+# Save processor
+processor.save_pretrained(os.path.join(SAVE_DIR,"processor"))
+
+# Save tokenizer
+processor.tokenizer.save_pretrained(os.path.join(SAVE_DIR,"tokenizer"))
+
+# Save training arguments
+torch.save(
+    trainer.args,
+    os.path.join(SAVE_DIR, "training_args.pt")
+)
+
+# Save trainer state
+trainer.state.save_to_json(os.path.join(SAVE_DIR,"trainer_state.json"))
+
+# Save evaluation metrics
+validation_metrics=trainer.evaluate()
+
+with open(os.path.join(SAVE_DIR,"validation_metrics.json"),"w") as f:
+    json.dump(validation_metrics,f,indent=4)
+
+# Save training log history
+with open(os.path.join(SAVE_DIR,"log_history.json"),"w") as f:
+    json.dump(trainer.state.log_history,f,indent=4)
+
+# Create compressed backup
+shutil.make_archive(
+    base_name="/kaggle/working/qwen2.5vl_lora_backup",
+    format="zip",
+    root_dir=SAVE_DIR
+)
+
+print(f"Model saved to: {SAVE_DIR}")
+print("Backup ZIP created successfully.")
