@@ -824,6 +824,7 @@ print(f"Saved {len(predictions)} predictions to {OUTPUT_JSON}")
 
 
 
+
 #Step 12 — LAVE Evaluation
 # Import required libraries
 import os
@@ -965,3 +966,305 @@ print(instrument_lave)
 
 print("\nConcept-wise LAVE")
 print(concept_lave)
+
+
+
+
+
+#Step 13 — Cosine Similarity Evaluation
+# Import required libraries
+import json
+import pandas as pd
+from sentence_transformers import SentenceTransformer
+from sentence_transformers.util import cos_sim
+from tqdm import tqdm
+
+# Define file paths
+PREDICTIONS_JSON="/kaggle/working/test_predictions.json"
+OUTPUT_JSON="/kaggle/working/cosine_results.json"
+
+# Load prediction file
+with open(PREDICTIONS_JSON,"r",encoding="utf-8") as f:
+    predictions=json.load(f)
+
+# Load sentence embedding model
+embedding_model=SentenceTransformer("all-mpnet-base-v2")
+
+# Prepare text lists
+ground_truth_list=[sample["ground_truth"] for sample in predictions]
+prediction_list=[sample["prediction"] for sample in predictions]
+
+# Encode all ground truths in batches
+gt_embeddings=embedding_model.encode(
+    ground_truth_list,
+    batch_size=32,
+    convert_to_tensor=True,
+    normalize_embeddings=True,
+    show_progress_bar=True
+)
+
+# Encode all predictions in batches
+pred_embeddings=embedding_model.encode(
+    prediction_list,
+    batch_size=32,
+    convert_to_tensor=True,
+    normalize_embeddings=True,
+    show_progress_bar=True
+)
+
+# Store cosine similarity results
+results=[]
+
+# Compute cosine similarity for every sample
+for sample,gt_embedding,pred_embedding in zip(
+    predictions,
+    gt_embeddings,
+    pred_embeddings
+):
+
+    cosine_score=cos_sim(
+        gt_embedding,
+        pred_embedding
+    ).item()
+
+    cosine_score=max(0.0,min(1.0,cosine_score))
+
+    results.append({
+        "instrument":sample["instrument"],
+        "question_id":sample["question_id"],
+        "concept":sample["concept"],
+        "question":sample["question"],
+        "ground_truth":sample["ground_truth"],
+        "prediction":sample["prediction"],
+        "cosine_similarity":cosine_score
+    })
+
+# Save detailed cosine results
+with open(OUTPUT_JSON,"w",encoding="utf-8") as f:
+    json.dump(results,f,indent=4,ensure_ascii=False)
+
+# Create dataframe
+df=pd.DataFrame(results)
+
+df.to_csv(
+    "/kaggle/working/cosine_results.csv",
+    index=False
+)
+
+# Compute overall cosine similarity
+overall_cosine=df["cosine_similarity"].mean()
+
+# Compute instrument-wise cosine similarity
+instrument_cosine=df.groupby("instrument")["cosine_similarity"].mean().sort_values(ascending=False)
+
+# Compute concept-wise cosine similarity
+concept_cosine=df.groupby("concept")["cosine_similarity"].mean().sort_values(ascending=False)
+
+# Display results
+print(f"Overall Cosine Similarity : {overall_cosine:.4f}")
+
+print("\nInstrument-wise Cosine Similarity")
+print(instrument_cosine)
+
+print("\nConcept-wise Cosine Similarity")
+print(concept_cosine)
+
+
+
+
+
+
+#Step 14 — Result Analysis & Visualization
+# Import required libraries
+import json
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Define file paths
+TRAINER_STATE="/kaggle/working/qwen2.5vl_lora/trainer_state.json"
+LAVE_RESULTS="/kaggle/working/lave_results.json"
+COSINE_RESULTS="/kaggle/working/cosine_results.json"
+
+# Define PaliGemma baseline
+PALIGEMMA_COSINE=0.66
+PALIGEMMA_LAVE=0.13
+
+# Load trainer state
+with open(TRAINER_STATE,"r",encoding="utf-8") as f:
+    trainer_state=json.load(f)
+
+# Load evaluation results
+with open(LAVE_RESULTS,"r",encoding="utf-8") as f:
+    lave_results=pd.DataFrame(json.load(f))
+
+with open(COSINE_RESULTS,"r",encoding="utf-8") as f:
+    cosine_results=pd.DataFrame(json.load(f))
+
+# Extract training and validation loss
+train_loss=[]
+train_steps=[]
+
+eval_loss=[]
+eval_steps=[]
+
+for log in trainer_state["log_history"]:
+
+    if "loss" in log:
+        train_steps.append(log["step"])
+        train_loss.append(log["loss"])
+
+    if "eval_loss" in log:
+        eval_steps.append(log["step"])
+        eval_loss.append(log["eval_loss"])
+
+# Compute overall metrics
+overall_lave=lave_results["lave_score"].mean()
+overall_cosine=cosine_results["cosine_similarity"].mean()
+
+best_checkpoint=trainer_state["best_model_checkpoint"]
+best_metric=trainer_state["best_metric"]
+
+print(f"Best Checkpoint : {best_checkpoint}")
+print(f"Best Validation Loss : {best_metric:.4f}")
+
+# Merge evaluation results
+merged=lave_results.merge(
+    cosine_results[
+        [
+            "instrument",
+            "question_id",
+            "question",
+            "cosine_similarity"
+        ]
+    ],
+    on=[
+        "instrument",
+        "question_id",
+        "question"
+    ]
+)
+
+# Compute per-instrument metrics
+instrument_scores=merged.groupby("instrument")[["lave_score","cosine_similarity"]].mean()
+
+instrument_scores.to_csv(
+    "/kaggle/working/instrument_scores.csv"
+)
+
+# Compute per-concept metrics
+concept_scores=merged.groupby("concept")[["lave_score","cosine_similarity"]].mean()
+
+concept_scores.to_csv(
+    "/kaggle/working/concept_scores.csv"
+)
+
+# Compute improvement over baseline
+lave_improvement=((overall_lave-PALIGEMMA_LAVE)/PALIGEMMA_LAVE)*100
+cosine_improvement=((overall_cosine-PALIGEMMA_COSINE)/PALIGEMMA_COSINE)*100
+
+# Select best and worst predictions
+best_predictions=merged.sort_values("lave_score",ascending=False).head(5)
+
+worst_predictions=merged.sort_values("lave_score").head(5)
+
+# Plot training and validation loss
+plt.figure(figsize=(8,5))
+plt.plot(train_steps,train_loss,label="Training Loss")
+plt.plot(eval_steps,eval_loss,label="Validation Loss")
+plt.xlabel("Training Step")
+plt.ylabel("Loss")
+plt.title("Training vs Validation Loss")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.savefig("/kaggle/working/loss_curve.png",dpi=300)
+plt.show()
+
+# Plot instrument-wise LAVE
+plt.figure(figsize=(8,5))
+instrument_scores["lave_score"].plot(kind="bar")
+plt.ylabel("Average LAVE")
+plt.title("LAVE by Instrument")
+plt.grid(axis="y")
+plt.tight_layout()
+plt.savefig("/kaggle/working/instrument_lave.png",dpi=300)
+plt.show()
+
+# Plot instrument-wise cosine similarity
+plt.figure(figsize=(8,5))
+instrument_scores["cosine_similarity"].plot(kind="bar")
+plt.ylabel("Average Cosine Similarity")
+plt.title("Cosine Similarity by Instrument")
+plt.grid(axis="y")
+plt.tight_layout()
+plt.savefig("/kaggle/working/instrument_cosine.png",dpi=300)
+plt.show()
+
+# Plot concept-wise LAVE
+plt.figure(figsize=(10,5))
+concept_scores["lave_score"].plot(kind="bar")
+plt.ylabel("Average LAVE")
+plt.title("LAVE by Question Concept")
+plt.grid(axis="y")
+plt.tight_layout()
+plt.savefig("/kaggle/working/concept_lave.png",dpi=300)
+plt.show()
+
+# Plot concept-wise cosine similarity
+plt.figure(figsize=(10,5))
+concept_scores["cosine_similarity"].plot(kind="bar")
+plt.ylabel("Average Cosine Similarity")
+plt.title("Cosine Similarity by Question Concept")
+plt.grid(axis="y")
+plt.tight_layout()
+plt.savefig("/kaggle/working/concept_cosine.png",dpi=300)
+plt.show()
+
+# Plot baseline comparison
+comparison=pd.DataFrame({
+    "PaliGemma":[PALIGEMMA_LAVE,PALIGEMMA_COSINE],
+    "Qwen2.5-VL":[overall_lave,overall_cosine]
+},index=["LAVE","Cosine Similarity"])
+
+plt.figure(figsize=(6,5))
+comparison.plot(kind="bar")
+plt.ylabel("Score")
+plt.title("Qwen2.5-VL vs PaliGemma")
+plt.grid(axis="y")
+plt.tight_layout()
+plt.savefig("/kaggle/working/baseline_comparison.png",dpi=300)
+plt.show()
+
+# Display summary
+print(f"Overall LAVE : {overall_lave:.4f}")
+print(f"Overall Cosine Similarity : {overall_cosine:.4f}")
+print(f"LAVE Improvement : {lave_improvement:.2f}%")
+print(f"Cosine Improvement : {cosine_improvement:.2f}%")
+
+print("\nInstrument-wise Performance")
+print(instrument_scores)
+
+print("\nConcept-wise Performance")
+print(concept_scores)
+
+print("\nTop 5 Best Predictions")
+print(best_predictions[[
+    "instrument",
+    "concept",
+    "question",
+    "prediction",
+    "ground_truth",
+    "lave_score",
+    "cosine_similarity"
+]])
+
+print("\nTop 5 Worst Predictions")
+print(worst_predictions[[
+    "instrument",
+    "concept",
+    "question",
+    "prediction",
+    "ground_truth",
+    "lave_score",
+    "cosine_similarity"
+]])
