@@ -1268,3 +1268,211 @@ print(worst_predictions[[
     "lave_score",
     "cosine_similarity"
 ]])
+
+
+
+
+#Save results
+best_predictions.to_csv(
+    "/kaggle/working/best_predictions_overall.csv",
+    index=False
+)
+
+worst_predictions.to_csv(
+    "/kaggle/working/worst_predictions_overall.csv",
+    index=False
+)
+
+# Best/Worst per concept
+best_per_concept=(
+    merged.sort_values("lave_score",ascending=False)
+    .groupby("concept",group_keys=False)
+    .head(5)
+)
+
+worst_per_concept=(
+    merged.sort_values("lave_score")
+    .groupby("concept",group_keys=False)
+    .head(5)
+)
+
+best_per_concept.to_csv(
+    "/kaggle/working/best_predictions_per_concept.csv",
+    index=False
+)
+
+worst_per_concept.to_csv(
+    "/kaggle/working/worst_predictions_per_concept.csv",
+    index=False
+)
+
+best_per_instrument=(
+    merged.sort_values("lave_score",ascending=False)
+    .groupby("instrument",group_keys=False)
+    .head(5)
+)
+
+worst_per_instrument=(
+    merged.sort_values("lave_score")
+    .groupby("instrument",group_keys=False)
+    .head(5)
+)
+
+best_per_instrument.to_csv(
+    "/kaggle/working/best_predictions_per_instrument.csv",
+    index=False
+)
+
+worst_per_instrument.to_csv(
+    "/kaggle/working/worst_predictions_per_instrument.csv",
+    index=False
+)
+
+merged.to_csv(
+    "/kaggle/working/final_evaluation_table.csv",
+    index=False
+)
+
+summary=pd.DataFrame({
+    "Metric":[
+        "Overall LAVE",
+        "Overall Cosine",
+        "Best Validation Loss",
+        "Training Images",
+        "Validation Images",
+        "Test Images",
+        "Training Samples",
+        "Validation Samples",
+        "Test Samples"
+    ],
+    "Value":[
+        overall_lave,
+        overall_cosine,
+        trainer_state["best_metric"],
+        154,
+        35,
+        35,
+        1386,
+        315,
+        315
+    ]
+})
+
+summary.to_csv(
+    "/kaggle/working/experiment_summary.csv",
+    index=False
+)
+
+pd.DataFrame(trainer_state["log_history"]).to_csv(
+    "/kaggle/working/training_log.csv",
+    index=False
+)
+
+training_config=pd.DataFrame({
+    "Parameter":[
+        "Model",
+        "LoRA Rank",
+        "LoRA Alpha",
+        "Learning Rate",
+        "Epochs",
+        "Batch Size",
+        "Gradient Accumulation",
+        "Scheduler",
+        "Best Checkpoint"
+    ],
+    "Value":[
+        "Qwen2.5-VL-3B-Instruct",
+        8,
+        16,
+        2e-4,
+        5,
+        1,
+        8,
+        "cosine",
+        trainer_state["best_model_checkpoint"]
+    ]
+})
+
+training_config.to_csv(
+    "/kaggle/working/training_config.csv",
+    index=False
+)
+
+import shutil
+
+shutil.copy(
+    TRAINER_STATE,
+    "/kaggle/working/trainer_state.json"
+)
+
+import os
+import glob
+import shutil
+
+SAVE_DIR="/kaggle/working/final_project_outputs"
+ZIP_NAME="/kaggle/working/Qwen2.5VL_Assamese_VLM_Project_Final"
+
+# Create fresh output folder
+if os.path.exists(SAVE_DIR):
+    shutil.rmtree(SAVE_DIR)
+os.makedirs(SAVE_DIR)
+
+# Files to copy
+files=[
+    "/kaggle/working/test_predictions.json",
+    "/kaggle/working/lave_results.json",
+    "/kaggle/working/cosine_results.json",
+    "/kaggle/working/cosine_results.csv",
+    "/kaggle/working/instrument_scores.csv",
+    "/kaggle/working/concept_scores.csv",
+    "/kaggle/working/final_evaluation_table.csv",
+    "/kaggle/working/experiment_summary.csv",
+    "/kaggle/working/training_config.csv",
+    "/kaggle/working/training_log.csv",
+    "/kaggle/working/best_predictions_overall.csv",
+    "/kaggle/working/worst_predictions_overall.csv",
+    "/kaggle/working/best_predictions_per_concept.csv",
+    "/kaggle/working/worst_predictions_per_concept.csv",
+    "/kaggle/working/best_predictions_per_instrument.csv",
+    "/kaggle/working/worst_predictions_per_instrument.csv",
+    "/kaggle/working/trainer_state.json"
+]
+
+# Copy files
+for f in files:
+    if os.path.exists(f):
+        shutil.copy(f,SAVE_DIR)
+
+# Copy all PNG figures
+for f in glob.glob("/kaggle/working/*.png"):
+    shutil.copy(f,SAVE_DIR)
+
+# Copy trained LoRA adapter
+if os.path.exists("/kaggle/working/qwen2.5vl_lora"):
+    shutil.copytree(
+        "/kaggle/working/qwen2.5vl_lora",
+        os.path.join(SAVE_DIR,"qwen2.5vl_lora"),
+        dirs_exist_ok=True
+    )
+
+# Copy training checkpoints
+if os.path.exists("/kaggle/working/qwen2.5vl_lora_output"):
+    shutil.copytree(
+        "/kaggle/working/qwen2.5vl_lora_output",
+        os.path.join(SAVE_DIR,"training_output"),
+        dirs_exist_ok=True
+    )
+
+# Remove old zip if it exists
+if os.path.exists(ZIP_NAME+".zip"):
+    os.remove(ZIP_NAME+".zip")
+
+# Create final zip
+shutil.make_archive(
+    ZIP_NAME,
+    "zip",
+    SAVE_DIR
+)
+
+print("Final ZIP created successfully!")
+print(ZIP_NAME+".zip")
