@@ -160,3 +160,64 @@ Return JSON only
             "reason": str(e)
 
         }
+    
+for idx in tqdm(wrong_df.index):
+
+    row = wrong_df.loc[idx]
+
+    response = get_predicted_attribute(
+
+        row["question"],
+        row["ground_truth"],
+        row["prediction"]
+
+    )
+
+    wrong_df.at[idx, "predicted_attribute"] = response["predicted_attribute"]
+
+    wrong_df.at[idx, "attribute_confidence"] = response["confidence"]
+
+    wrong_df.at[idx, "attribute_reason"] = response["reason"]
+
+    time.sleep(4.5)
+
+# Copy new columns into original dataframe
+
+df["predicted_attribute"] = ""
+
+df["attribute_confidence"] = ""
+
+df["attribute_reason"] = ""
+
+df.loc[wrong_df.index, "predicted_attribute"] = wrong_df["predicted_attribute"]
+
+df.loc[wrong_df.index, "attribute_confidence"] = wrong_df["attribute_confidence"]
+
+df.loc[wrong_df.index, "attribute_reason"] = wrong_df["attribute_reason"]
+
+df.to_csv(
+
+    OUTPUT_CSV,
+
+    index=False,
+
+    encoding="utf-8-sig"
+
+)
+
+print("Saved")
+
+print(OUTPUT_CSV)
+
+#create confusion matrix    
+confusion = pd.crosstab(
+
+    wrong_df["concept"],
+
+    wrong_df["predicted_attribute"]
+
+)
+
+confusion.to_csv(CONFUSION_CSV)
+
+print(confusion)
