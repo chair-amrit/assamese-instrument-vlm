@@ -1,4 +1,5 @@
 /venv
+.env
 /image_data
 /image_dump
 /Paligemma/dataset
