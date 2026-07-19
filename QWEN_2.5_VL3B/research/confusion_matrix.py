@@ -44,64 +44,68 @@ wrong_df["attribute_reason"] = ""
 def get_predicted_attribute(question, ground_truth, prediction):
 
     prompt = f"""
-You are an expert researcher analyzing prediction errors in a Vision-Language Model.
+You are an expert researcher analyzing prediction errors in a Vision-Language Model (VLM) for Visual Question Answering (VQA).
 
-Your task is NOT to judge correctness.
+Your task is NOT to judge whether the prediction is correct.
 
-Instead, determine which ATTRIBUTE the prediction is primarily answering.
+Instead, determine which ATTRIBUTE the prediction is primarily attempting to answer.
 
-Possible attributes (return EXACTLY one):
+The allowed attributes are EXACTLY:
+
+- festival
+- origin
+- material
+- parts
+- playing_method
+- sound
+- traditional_player
+- instrument_type
+- description
+- none
+
+Attribute definitions:
 
 festival
-origin
-material
-parts
-playing_method
-sound
-traditional_player
-instrument_type
-description
-none
-
-Definitions
-
-festival
-The prediction talks about festivals or celebrations.
+The prediction discusses a festival or celebration where the instrument is played.
 
 origin
-The prediction talks about geographical or cultural origin.
+The prediction discusses the geographical, historical, or cultural origin of the instrument.
 
 material
-The prediction talks about materials used to make the instrument.
+The prediction describes the materials from which the instrument is made.
 
 parts
-The prediction talks about components or physical parts.
+The prediction describes the physical components or structure of the instrument.
 
 playing_method
 The prediction explains how the instrument is played.
 
 sound
-The prediction describes the produced sound.
+The prediction describes the sound produced by the instrument.
 
 traditional_player
-The prediction identifies who traditionally plays it.
+The prediction identifies who traditionally plays the instrument.
 
 instrument_type
-The prediction classifies the instrument.
+The prediction classifies the instrument (e.g., wind instrument, percussion instrument, idiophone).
 
 description
-The prediction gives a general description.
+The prediction provides a general description of the instrument rather than focusing on one specific attribute.
 
 none
-The prediction clearly answers none of these.
+The prediction does not clearly express any of the above attributes.
 
-Rules
+Rules:
 
-1. Ignore whether the answer is correct.
-2. Ignore the question being asked.
-3. Decide ONLY what attribute the prediction is actually describing.
-4. If truncated but clearly discussing an attribute, choose that attribute.
-5. Return ONLY valid JSON.
+1. Consider BOTH the Question and the Prediction.
+2. Ignore whether the prediction is factually correct.
+3. Determine which attribute the prediction is primarily attempting to answer.
+4. Return EXACTLY ONE label from the allowed list.
+5. Do NOT invent new labels or modify the spelling.
+6. If the prediction is truncated but it is still obvious which attribute it is attempting to answer, return that attribute.
+7. If the prediction mainly gives a general explanation instead of answering a specific attribute, return "description".
+8. If no attribute can reasonably be identified, return "none".
+9. Return ONLY valid JSON.
 
 Question:
 {question}
@@ -112,12 +116,12 @@ Ground Truth:
 Prediction:
 {prediction}
 
-Return JSON only
+Return ONLY this JSON format:
 
 {{
-"predicted_attribute":"material",
-"confidence":0.95,
-"reason":"The prediction describes the material."
+  "predicted_attribute": "material",
+  "confidence": 0.95,
+  "reason": "The prediction primarily discusses the material."
 }}
 """
 
@@ -136,7 +140,22 @@ Return JSON only
 
         )
 
-        response = json.loads(response.text)
+        response["predicted_attribute"] = response.get("predicted_attribute", "none").strip().lower()
+        allowed = {
+            "festival",
+            "origin",
+            "material",
+            "parts",
+            "playing_method",
+            "sound",
+            "traditional_player",
+            "instrument_type",
+            "description",
+            "none"
+        }
+
+        if response["predicted_attribute"] not in allowed:
+            response["predicted_attribute"] = "none"
 
         response.setdefault("predicted_attribute", "none")
         response.setdefault("confidence", 0.0)
@@ -184,7 +203,7 @@ for col in [
     "attribute_reason"
 ]:
     df.loc[wrong_df.index, col] = wrong_df[col]
-    
+
 df.to_csv(
 
     OUTPUT_CSV,
@@ -206,7 +225,7 @@ confusion = pd.crosstab(
 
 )
 confusion.to_csv(CONFUSION_CSV)
-print(confusion)
+print(confusion.to_string())
 
 #normalize confusion matrix 
 confusion_norm = pd.crosstab(
