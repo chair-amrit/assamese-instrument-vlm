@@ -221,3 +221,77 @@ confusion = pd.crosstab(
 confusion.to_csv(CONFUSION_CSV)
 
 print(confusion)
+
+#normalize confusion matrix 
+confusion_norm = pd.crosstab(
+
+    wrong_df["concept"],
+
+    wrong_df["predicted_attribute"],
+
+    normalize="index"
+
+)
+
+confusion_norm = confusion_norm.round(3)
+
+confusion_norm.to_csv(CONFUSION_NORM_CSV)
+
+#heatmaps
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.figure(figsize=(12,7))
+
+sns.heatmap(
+
+    confusion,
+
+    annot=True,
+
+    fmt="d",
+
+    cmap="Blues"
+
+)
+
+plt.title("Attribute Confusion Matrix")
+
+plt.ylabel("Actual Attribute")
+
+plt.xlabel("Predicted Attribute")
+
+plt.tight_layout()
+
+plt.savefig(CONFUSION_PNG,dpi=300)
+
+plt.close()
+
+
+plt.figure(figsize=(12,7))
+
+sns.heatmap(
+
+    confusion_norm,
+
+    annot=True,
+
+    fmt=".2f",
+
+    cmap="Blues"
+
+)
+
+plt.title("Normalized Attribute Confusion Matrix")
+
+plt.ylabel("Actual Attribute")
+
+plt.xlabel("Predicted Attribute")
+
+plt.tight_layout()
+
+plt.savefig(CONFUSION_NORM_PNG,dpi=300)
+
+plt.close()
+
+print("Finished.")
