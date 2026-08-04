@@ -1,0 +1,10 @@
+question_id,concept,phrase_1,phrase_2,phrase_3
+q1,festival,What festival is this instrument played in?,During which festival is this instrument played?,In which festival is this instrument played?
+q2,origin,What is the origin place of this instrument?,From which place does this instrument originate?,Where did this instrument originate?
+q3,material,What is this instrument made from?,Which material is used to make this instrument?,What material is this instrument made of?
+q4,parts,What are the parts of this instrument?,List the main parts of this instrument.,Name the major parts of this instrument.
+q5,sound,What kind of sound does this instrument make?,What type of sound is produced by this instrument?,What sound does this instrument produce?
+q6,traditional_player,Who traditionally plays this instrument?,Which gender plays this instrument traditionally?,Which gender traditionally plays this instrument?
+q7,playing_method,How do you play this instrument?,What is the method of playing this instrument?,How is this instrument played?
+q8,instrument_type,Which type of musical instrument does this belong to?,What type of musical instrument can this be classified as?,What type of musical instrument is this?
+q9,description,"Describe this instrument—its cultural significance, and use in Assamese music.","Explain this instrument's cultural importance, and musical role.","Give a description of this instrument including its cultural significance, and role in Assamese music."
