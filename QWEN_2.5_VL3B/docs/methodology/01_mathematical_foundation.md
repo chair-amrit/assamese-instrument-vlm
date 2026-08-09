@@ -20,7 +20,7 @@ $$
 \text{Failure Category}
 $$
 
-This mathematical representation serves as the foundation for the subsequent quantitative formulation and taxonomy algorithm.
+The mathematical representation established here serves as the foundation for the subsequent quantitative formulation and taxonomy algorithm.
 
 ---
 
@@ -29,7 +29,7 @@ This mathematical representation serves as the foundation for the subsequent qua
 The following notation is used throughout the failure taxonomy.
 
 | Symbol | Meaning |
-|---|---|
+|--------|---------|
 | $\mathcal{I}$ | Image space |
 | $I$ | Individual image |
 | $\mathcal{Q}$ | Question space |
@@ -43,7 +43,7 @@ The following notation is used throughout the failure taxonomy.
 | $\theta$ | Learned model parameters |
 | $T$ | Complete prediction tuple |
 | $\tau$ | Taxonomy classification function |
-| $C$ | Classification or failure category |
+| $C$ | Resulting classification or failure category |
 
 ---
 
@@ -170,7 +170,7 @@ Keeping $G$ and $P$ as separate mathematical objects is essential because the fa
 A single VQA dataset sample is represented as:
 
 $$
-x = (I,Q,G)
+x=(I,Q,G)
 $$
 
 where:
@@ -190,7 +190,7 @@ $$
 where:
 
 $$
-x_i = (I_i,Q_i,G_i)
+x_i=(I_i,Q_i,G_i)
 $$
 
 and $N$ is the number of VQA samples being analyzed.
@@ -212,14 +212,14 @@ where $\theta$ denotes the learned model parameters.
 Given an image-question pair $(I,Q)$, the model generates a prediction:
 
 $$
-P = f_\theta(I,Q)
+P=f_\theta(I,Q)
 $$
 
 Therefore, the VQA model can be represented as the mapping:
 
 $$
 f_\theta:
-\mathcal{I} \times \mathcal{Q}
+\mathcal{I}\times\mathcal{Q}
 \rightarrow
 \mathcal{P}
 $$
@@ -239,19 +239,19 @@ After model inference, the prediction can be combined with the original VQA samp
 The complete prediction tuple is defined as:
 
 $$
-T = (I,Q,G,P)
+T=(I,Q,G,P)
 $$
 
 Since:
 
 $$
-P = f_\theta(I,Q)
+P=f_\theta(I,Q)
 $$
 
 the tuple can equivalently be written as:
 
 $$
-T =
+T=
 \left(I,Q,G,f_\theta(I,Q)\right)
 $$
 
@@ -282,7 +282,7 @@ Therefore, evaluating the prediction using only $P$ is insufficient.
 Instead, the complete evidence required for classification is represented by:
 
 $$
-T = (I,Q,G,P)
+T=(I,Q,G,P)
 $$
 
 This formulation allows subsequent decision functions to operate on a complete prediction instance.
@@ -294,25 +294,25 @@ This formulation allows subsequent decision functions to operate on a complete p
 For each dataset sample:
 
 $$
-x_i = (I_i,Q_i,G_i)
+x_i=(I_i,Q_i,G_i)
 $$
 
 the model produces:
 
 $$
-P_i = f_\theta(I_i,Q_i)
+P_i=f_\theta(I_i,Q_i)
 $$
 
 The corresponding complete prediction tuple is:
 
 $$
-T_i = (I_i,Q_i,G_i,P_i)
+T_i=(I_i,Q_i,G_i,P_i)
 $$
 
 or equivalently:
 
 $$
-T_i =
+T_i=
 \left(I_i,Q_i,G_i,f_\theta(I_i,Q_i)\right)
 $$
 
@@ -343,7 +343,7 @@ denote the taxonomy function.
 The taxonomy function maps a prediction tuple to a classification:
 
 $$
-\tau(T) = C
+\tau(T)=C
 $$
 
 where:
@@ -374,13 +374,13 @@ The taxonomy distinguishes between correct predictions and different forms of pr
 The classification produced by the taxonomy function satisfies:
 
 $$
-C = \tau(T)
+C=\tau(T)
 $$
 
 where:
 
 $$
-C \in \mathcal{C}
+C\in\mathcal{C}
 $$
 
 At the highest level, the classification space can be represented conceptually as:
@@ -418,28 +418,28 @@ $$
 
 More explicitly:
 
-### VQA sample
+### VQA Sample
 
 $$
-x = (I,Q,G)
+x=(I,Q,G)
 $$
 
-### Model inference
+### Model Inference
 
 $$
-P = f_\theta(I,Q)
+P=f_\theta(I,Q)
 $$
 
-### Complete prediction tuple
+### Complete Prediction Tuple
 
 $$
-T = (I,Q,G,P)
+T=(I,Q,G,P)
 $$
 
-### Taxonomy classification
+### Taxonomy Classification
 
 $$
-C = \tau(T)
+C=\tau(T)
 $$
 
 This sequence establishes the mathematical foundation for the proposed failure taxonomy.
@@ -459,25 +459,25 @@ $$
 where:
 
 $$
-x_i = (I_i,Q_i,G_i)
+x_i=(I_i,Q_i,G_i)
 $$
 
 model inference produces:
 
 $$
-P_i = f_\theta(I_i,Q_i)
+P_i=f_\theta(I_i,Q_i)
 $$
 
 The corresponding prediction tuple is:
 
 $$
-T_i = (I_i,Q_i,G_i,P_i)
+T_i=(I_i,Q_i,G_i,P_i)
 $$
 
 The taxonomy function then assigns a category:
 
 $$
-C_i = \tau(T_i)
+C_i=\tau(T_i)
 $$
 
 Therefore, the complete set of taxonomy classifications for the dataset is:
@@ -498,7 +498,7 @@ The complete framework can therefore be summarized as:
 
 $$
 \boxed{
-x_i = (I_i,Q_i,G_i)
+x_i=(I_i,Q_i,G_i)
 }
 $$
 
@@ -506,7 +506,7 @@ followed by model inference:
 
 $$
 \boxed{
-P_i = f_\theta(I_i,Q_i)
+P_i=f_\theta(I_i,Q_i)
 }
 $$
 
@@ -514,7 +514,7 @@ which produces the complete prediction tuple:
 
 $$
 \boxed{
-T_i = (I_i,Q_i,G_i,P_i)
+T_i=(I_i,Q_i,G_i,P_i)
 }
 $$
 
@@ -522,7 +522,7 @@ and finally the taxonomy classification:
 
 $$
 \boxed{
-C_i = \tau(T_i)
+C_i=\tau(T_i)
 }
 $$
 
@@ -574,25 +574,25 @@ These components are developed in the subsequent methodology documents.
 The proposed VQA failure-analysis framework begins by representing every VQA sample as:
 
 $$
-x_i = (I_i,Q_i,G_i)
+x_i=(I_i,Q_i,G_i)
 $$
 
 The trained model produces a prediction:
 
 $$
-P_i = f_\theta(I_i,Q_i)
+P_i=f_\theta(I_i,Q_i)
 $$
 
 The complete prediction instance is then represented as:
 
 $$
-T_i = (I_i,Q_i,G_i,P_i)
+T_i=(I_i,Q_i,G_i,P_i)
 $$
 
 Finally, the taxonomy assigns a classification:
 
 $$
-C_i = \tau(T_i)
+C_i=\tau(T_i)
 $$
 
 Across the dataset, the resulting classifications are represented as:
