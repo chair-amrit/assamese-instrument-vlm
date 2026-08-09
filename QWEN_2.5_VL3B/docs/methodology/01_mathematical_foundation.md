@@ -1,608 +1,376 @@
 # Mathematical Foundation
 
-## 1. Overview
+## 1. Purpose
 
-This document defines the mathematical representation used to formalize the Visual Question Answering (VQA) failure taxonomy developed for the Assamese Musical Instrument VQA system.
+This document establishes the mathematical representation of the VQA task used in the Assamese Musical Instrument VLM project. The definitions introduced here provide the formal foundation for the subsequent failure taxonomy, decision functions, quantitative formulation, and taxonomy algorithm.
 
-The purpose of this formulation is to represent each VQA prediction as a structured mathematical object so that subsequent failure categories can be defined through explicit decision functions rather than subjective inspection.
-
-The overall framework follows:
-
-$$
-\text{VQA Sample}
-\rightarrow
-\text{Model Inference}
-\rightarrow
-\text{Prediction Tuple}
-\rightarrow
-\text{Decision Functions}
-\rightarrow
-\text{Failure Category}
-$$
-
-The mathematical representation established here serves as the foundation for the subsequent quantitative formulation and taxonomy algorithm.
+The objective is to represent each VQA prediction as a mathematical object that can later be mapped to a well-defined failure category.
 
 ---
 
-## 2. Mathematical Notation
+## 2. VQA Dataset
 
-The following notation is used throughout the failure taxonomy.
+Let the complete VQA dataset be represented by
 
-| Symbol | Meaning |
-|--------|---------|
-| $\mathcal{I}$ | Image space |
-| $I$ | Individual image |
-| $\mathcal{Q}$ | Question space |
-| $Q$ | Individual question |
-| $\mathcal{G}$ | Ground-truth answer space |
-| $G$ | Ground-truth answer |
-| $\mathcal{P}$ | Prediction space |
-| $P$ | Model prediction |
-| $x$ | Individual VQA sample |
-| $f_\theta$ | Trained VQA model |
-| $\theta$ | Learned model parameters |
-| $T$ | Complete prediction tuple |
-| $\tau$ | Taxonomy classification function |
-| $C$ | Resulting classification or failure category |
+$$
+\mathcal{D} = \{x_i\}_{i=1}^{N}
+$$
+
+where each sample is
+
+$$
+x_i = (I_i, Q_i, G_i)
+$$
+
+and:
+
+- \(I_i\) is the input image.
+- \(Q_i\) is the question associated with the image.
+- \(G_i\) is the ground-truth answer.
+- \(N\) is the total number of VQA samples.
+
+For the current dataset:
+
+$$
+N = 2016
+$$
+
+The dataset contains seven Assamese musical instruments, with 32 images per instrument:
+
+$$
+N_I = 7 \times 32 = 224
+$$
+
+Each image is associated with nine VQA concepts, producing:
+
+$$
+224 \times 9 = 2016
+$$
+
+VQA samples.
 
 ---
 
 ## 3. Image Space
 
-Let $\mathcal{I}$ denote the space of valid input images.
+Let \(\mathcal{I}\) denote the image space.
 
-An individual image is represented as:
+An individual image is represented as
 
 $$
 I \in \mathcal{I}
 $$
 
-If the dataset contains $N_I$ unique images, the image space can be represented as:
+For the 224 unique images used in the project:
 
 $$
-\mathcal{I}
-=
-\{I_1, I_2, \ldots, I_{N_I}\}
+\mathcal{I} =
+\{I_1, I_2, \ldots, I_{224}\}
 $$
 
-where $N_I$ represents the number of images under consideration.
-
-The image space provides the visual input to the VQA model.
+The image space represents the visual inputs provided to the VQA model.
 
 ---
 
 ## 4. Question Space
 
-Let $\mathcal{Q}$ denote the space of questions used in the VQA dataset.
+Let \(\mathcal{Q}\) denote the space of questions used in the VQA dataset.
 
-An individual question is represented as:
+An individual question is represented as
 
 $$
 Q \in \mathcal{Q}
 $$
 
-If there are $N_Q$ question instances, the question space can be represented as:
+If the dataset contains \(N_Q\) question instances, then
 
 $$
-\mathcal{Q}
-=
+\mathcal{Q} =
 \{Q_1, Q_2, \ldots, Q_{N_Q}\}
 $$
 
-The question space contains the different question formulations associated with the semantic concepts evaluated in the dataset.
+Questions are associated with semantic concepts such as instrument identity, material, origin, festival, sound, playing method, and other instrument-related attributes.
 
-Examples of question concepts include:
-
-- Festival
-- Origin
-- Material
-- Parts
-- Sound
-- Traditional player
-- Playing method
-- Instrument type
-- Detailed description
+Different linguistic formulations may represent the same underlying semantic concept.
 
 ---
 
 ## 5. Ground-Truth Answer Space
 
-Let $\mathcal{G}$ denote the space of valid ground-truth answers.
+Let \(\mathcal{G}\) denote the ground-truth answer space.
 
-An individual ground-truth answer is represented as:
+An individual ground-truth answer is represented as
 
 $$
 G \in \mathcal{G}
 $$
 
-The ground truth represents the expected answer associated with a particular image-question pair.
+For a VQA sample, \(G\) is the reference answer associated with the image-question pair.
 
-For example:
-
-$$
-Q =
-\text{"What material is this instrument made of?"}
-$$
-
-may have the corresponding ground-truth answer:
+Therefore,
 
 $$
-G =
-\text{"This instrument is made of bamboo."}
+G_i = \text{ground-truth answer for } (I_i,Q_i)
 $$
 
-The ground truth is provided by the dataset and is independent of the model prediction.
+The ground truth is treated as the reference against which the model prediction is evaluated.
 
 ---
 
 ## 6. Prediction Space
 
-Let $\mathcal{P}$ denote the space of possible model-generated answers.
+Let \(\mathcal{P}\) denote the model prediction space.
 
-An individual prediction is represented as:
+An individual prediction is represented as
 
 $$
 P \in \mathcal{P}
 $$
 
-Unlike the ground-truth answer, $P$ is generated by the trained VQA model.
-
-For example:
+The fine-tuned Qwen2.5-VL-3B model produces a prediction from an image-question pair:
 
 $$
-P =
-\text{"This instrument is made of bamboo."}
-$$
-
-or, in an incorrect case:
-
-$$
-P =
-\text{"This instrument is made of wood."}
-$$
-
-Keeping $G$ and $P$ as separate mathematical objects is essential because the failure taxonomy evaluates the relationship between the expected answer and the generated answer.
-
----
-
-## 7. Individual VQA Sample
-
-A single VQA dataset sample is represented as:
-
-$$
-x=(I,Q,G)
+P = f_{\theta}(I,Q)
 $$
 
 where:
 
-- $I$ is the input image,
-- $Q$ is the question,
-- $G$ is the ground-truth answer.
+- \(f_{\theta}\) is the trained VQA model.
+- \(\theta\) represents the learned model parameters.
+- \(I\) is the input image.
+- \(Q\) is the input question.
+- \(P\) is the generated answer.
 
-The complete dataset can therefore be represented as:
-
-$$
-\mathcal{D}
-=
-\{x_i\}_{i=1}^{N}
-$$
-
-where:
+Thus, the model can be formally represented as the mapping
 
 $$
-x_i=(I_i,Q_i,G_i)
-$$
-
-and $N$ is the number of VQA samples being analyzed.
-
-Each element of $\mathcal{D}$ therefore represents one image-question-ground-truth combination.
-
----
-
-## 8. Model Inference
-
-Let the trained VQA model be represented by:
-
-$$
-f_\theta
-$$
-
-where $\theta$ denotes the learned model parameters.
-
-Given an image-question pair $(I,Q)$, the model generates a prediction:
-
-$$
-P=f_\theta(I,Q)
-$$
-
-Therefore, the VQA model can be represented as the mapping:
-
-$$
-f_\theta:
-\mathcal{I}\times\mathcal{Q}
+f_{\theta} :
+\mathcal{I} \times \mathcal{Q}
 \rightarrow
 \mathcal{P}
 $$
 
-In words:
+---
 
-> The trained VQA model maps an input image and question to a predicted answer.
+## 7. VQA Sample
 
-For the present work, $f_\theta$ corresponds to the fine-tuned Qwen2.5-VL model used for Assamese musical instrument VQA.
+A single ground-truth VQA sample is represented as
+
+$$
+x = (I,Q,G)
+$$
+
+This contains the complete input and reference information required before model inference.
+
+After inference, the corresponding prediction is
+
+$$
+P = f_{\theta}(I,Q)
+$$
+
+The complete prediction instance is therefore represented by
+
+$$
+T = (I,Q,G,P)
+$$
+
+or equivalently,
+
+$$
+T = (I,Q,G,f_{\theta}(I,Q))
+$$
+
+The tuple \(T\) contains all information required for subsequent error and failure analysis.
 
 ---
 
-## 9. Complete Prediction Tuple
+## 8. Semantic Concepts
 
-After model inference, the prediction can be combined with the original VQA sample.
+Each question in the dataset is associated with a semantic concept.
 
-The complete prediction tuple is defined as:
+Let
+
+$$\mathcal{K} = \{K_1, K_2, \ldots, K_M\}$$
+
+denote the set of semantic concepts considered in the VQA task.
+
+For a particular sample,
+
+$$K = h(Q)$$
+
+where \(h\) maps a question to its underlying semantic concept.
+
+For example, different question formulations may correspond to the same concept:
+
+$$Q_1, Q_2, Q_3 \rightarrow K_{\text{material}}$$
+
+This separation is important because failure analysis should distinguish the semantic concept being evaluated from the exact wording of the question.
+
+---
+
+## 9. Attributes
+
+A semantic concept may require one or more attributes to determine whether a prediction is correct.
+
+Let the attribute space be
+
+$$
+\mathcal{A}
+$$
+
+and let
+
+$$
+A \in \mathcal{A}
+$$
+
+represent an attribute relevant to the evaluated concept.
+
+For example, a material-related question may involve the attribute
+
+$$
+A_{\text{material}} = \text{bamboo}
+$$
+
+while an instrument-related question may involve
+
+$$
+A_{\text{instrument}} = \text{pepa}
+$$
+
+The attribute representation allows the failure taxonomy to compare the semantic content of \(G\) and \(P\), rather than relying only on exact string matching.
+
+---
+
+## 10. Prediction Evaluation
+
+Given a prediction tuple
 
 $$
 T=(I,Q,G,P)
 $$
 
-Since:
+the relationship between the ground truth \(G\) and prediction \(P\) determines the outcome of the VQA prediction.
+
+Define an evaluation function
 
 $$
-P=f_\theta(I,Q)
+E :
+\mathcal{G} \times \mathcal{P}
+\rightarrow
+\mathcal{R}
 $$
 
-the tuple can equivalently be written as:
+where \(\mathcal{R}\) represents the space of evaluation outcomes.
+
+At the simplest level,
 
 $$
-T=
-\left(I,Q,G,f_\theta(I,Q)\right)
+E(G,P)=
+\begin{cases}
+1, & \text{if } P \text{ is correct with respect to } G\\
+0, & \text{otherwise}
+\end{cases}
 $$
 
-where:
+However, exact equality alone is insufficient for the proposed failure taxonomy because an incorrect answer may represent different types of errors.
 
-- $I$ = input image,
-- $Q$ = question,
-- $G$ = ground-truth answer,
-- $P$ = model prediction.
-
-This tuple contains the information required to analyze an individual model prediction.
+Therefore, the taxonomy requires additional semantic and decision functions.
 
 ---
 
-## 10. Why the Prediction Tuple Is Required
+## 11. Failure Taxonomy as a Mapping
 
-The failure taxonomy must distinguish between several different aspects of a model response.
+Let
 
-The interpretation of a prediction depends on:
+$$\mathcal{C} = \{C_1, C_2, \ldots, C_R\}$$
 
-- which image was provided,
-- which question was asked,
-- what the correct answer was,
-- and what the model actually generated.
+denote the set of failure categories defined by the proposed taxonomy.
 
-Therefore, evaluating the prediction using only $P$ is insufficient.
+The taxonomy is represented as a mapping
 
-Instead, the complete evidence required for classification is represented by:
+$$\tau : \mathcal{T} \rightarrow \mathcal{C}$$
 
-$$
-T=(I,Q,G,P)
-$$
+where \(\mathcal{T}\) is the space of complete prediction tuples.
 
-This formulation allows subsequent decision functions to operate on a complete prediction instance.
+Thus,
 
----
+$$\tau(T) = C_r$$
 
-## 11. Dataset-Level Prediction Representation
+means that the prediction instance \(T\) is assigned to failure category \(C_r\).
 
-For each dataset sample:
+The important distinction is:
 
-$$
-x_i=(I_i,Q_i,G_i)
-$$
+$$T = (I,Q,G,P)$$
 
-the model produces:
+contains the evidence, while
 
-$$
-P_i=f_\theta(I_i,Q_i)
-$$
+$$\tau(T)$$
 
-The corresponding complete prediction tuple is:
-
-$$
-T_i=(I_i,Q_i,G_i,P_i)
-$$
-
-or equivalently:
-
-$$
-T_i=
-\left(I_i,Q_i,G_i,f_\theta(I_i,Q_i)\right)
-$$
-
-Thus, the model transforms the original VQA dataset into a collection of prediction tuples:
-
-$$
-\mathcal{T}
-=
-\{T_i\}_{i=1}^{N}
-$$
-
-where $\mathcal{T}$ represents the set of prediction instances generated from the dataset.
+represents the resulting taxonomy decision.
 
 ---
 
-## 12. From Prediction to Taxonomy
+## 12. Formal Pipeline
 
-The mathematical representation becomes useful when each prediction tuple is passed to a taxonomy classification function.
-
-Let:
+The complete mathematical process can therefore be expressed as
 
 $$
-\tau
+(I,Q,G)
+\xrightarrow{f_{\theta}}
+(I,Q,G,P)
+\xrightarrow{\tau}
+C
 $$
 
-denote the taxonomy function.
+or equivalently,
 
-The taxonomy function maps a prediction tuple to a classification:
+$$
+T=(I,Q,G,f_{\theta}(I,Q))
+$$
+
+followed by
 
 $$
 \tau(T)=C
 $$
 
-where:
+This establishes the foundation for the subsequent modules.
 
-- $T$ is the complete prediction tuple,
-- $\tau$ is the taxonomy classification function,
-- $C$ is the resulting classification.
-
-Formally:
-
-$$
-\tau:
-\mathcal{T}
-\rightarrow
-\mathcal{C}
-$$
-
-where $\mathcal{C}$ represents the space of possible prediction and failure categories.
-
-The taxonomy is therefore formalized as a mapping from a prediction instance to a defined category.
+The later formulation will define the internal decision functions used by \(\tau\), determine how ground truth and predictions are compared, and formally distinguish the different failure categories.
 
 ---
 
-## 13. Correct and Failure Outcomes
-
-The taxonomy distinguishes between correct predictions and different forms of prediction failure.
-
-The classification produced by the taxonomy function satisfies:
-
-$$
-C=\tau(T)
-$$
-
-where:
-
-$$
-C\in\mathcal{C}
-$$
-
-At the highest level, the classification space can be represented conceptually as:
-
-$$
-\mathcal{C}
-=
-\{
-\text{Correct},
-\text{Failure Categories}
-\}
-$$
-
-The individual failure categories and their formal decision conditions are defined in the subsequent methodology sections.
-
-The important distinction is that the category is produced through defined classification rules rather than through an informal subjective judgment.
-
----
-
-## 14. Relationship Between the Components
-
-The complete mathematical pipeline can be expressed as:
-
-$$
-(I,Q,G)
-\rightarrow
-f_\theta(I,Q)
-\rightarrow
-P
-\rightarrow
-T
-\rightarrow
-\tau(T)
-$$
-
-More explicitly:
-
-### VQA Sample
-
-$$
-x=(I,Q,G)
-$$
-
-### Model Inference
-
-$$
-P=f_\theta(I,Q)
-$$
-
-### Complete Prediction Tuple
-
-$$
-T=(I,Q,G,P)
-$$
-
-### Taxonomy Classification
-
-$$
-C=\tau(T)
-$$
-
-This sequence establishes the mathematical foundation for the proposed failure taxonomy.
-
----
-
-## 15. Dataset-Level Taxonomy Representation
-
-For a dataset containing $N$ VQA samples:
-
-$$
-\mathcal{D}
-=
-\{x_i\}_{i=1}^{N}
-$$
-
-where:
-
-$$
-x_i=(I_i,Q_i,G_i)
-$$
-
-model inference produces:
-
-$$
-P_i=f_\theta(I_i,Q_i)
-$$
-
-The corresponding prediction tuple is:
-
-$$
-T_i=(I_i,Q_i,G_i,P_i)
-$$
-
-The taxonomy function then assigns a category:
-
-$$
-C_i=\tau(T_i)
-$$
-
-Therefore, the complete set of taxonomy classifications for the dataset is:
-
-$$
-\mathcal{C}_{\mathcal{D}}
-=
-\{C_i\}_{i=1}^{N}
-$$
-
-where $\mathcal{C}_{\mathcal{D}}$ represents the collection of classifications assigned to the $N$ analyzed VQA samples.
-
----
-
-## 16. Mathematical Pipeline
-
-The complete framework can therefore be summarized as:
-
-$$
-\boxed{
-x_i=(I_i,Q_i,G_i)
-}
-$$
-
-followed by model inference:
-
-$$
-\boxed{
-P_i=f_\theta(I_i,Q_i)
-}
-$$
-
-which produces the complete prediction tuple:
-
-$$
-\boxed{
-T_i=(I_i,Q_i,G_i,P_i)
-}
-$$
-
-and finally the taxonomy classification:
-
-$$
-\boxed{
-C_i=\tau(T_i)
-}
-$$
-
-At the dataset level:
-
-$$
-\boxed{
-\mathcal{C}_{\mathcal{D}}
-=
-\{C_i\}_{i=1}^{N}
-}
-$$
-
-Thus, the proposed framework transforms each VQA sample into a formally classified prediction instance.
-
----
-
-## 17. Scope of This Formulation
-
-This mathematical foundation defines the fundamental objects required for the subsequent failure-taxonomy formulation.
-
-It establishes:
-
-1. the image space,
-2. the question space,
-3. the ground-truth answer space,
-4. the prediction space,
-5. the VQA sample representation,
-6. the model inference function,
-7. the complete prediction tuple,
-8. and the taxonomy classification function.
-
-However, this formulation does not yet specify the mathematical conditions that determine whether a particular prediction belongs to a particular failure category.
-
-Those conditions require additional definitions involving:
-
-- semantic properties of the question,
-- relationships between the ground truth and prediction,
-- answer attributes,
-- category-specific decision rules,
-- and the ordering or precedence of classification decisions.
-
-These components are developed in the subsequent methodology documents.
-
----
-
-## 18. Summary
-
-The proposed VQA failure-analysis framework begins by representing every VQA sample as:
-
-$$
-x_i=(I_i,Q_i,G_i)
-$$
-
-The trained model produces a prediction:
-
-$$
-P_i=f_\theta(I_i,Q_i)
-$$
-
-The complete prediction instance is then represented as:
-
-$$
-T_i=(I_i,Q_i,G_i,P_i)
-$$
-
-Finally, the taxonomy assigns a classification:
-
-$$
-C_i=\tau(T_i)
-$$
-
-Across the dataset, the resulting classifications are represented as:
-
-$$
-\mathcal{C}_{\mathcal{D}}
-=
-\{C_i\}_{i=1}^{N}
-$$
-
-This formulation converts an individual VQA prediction from an informal observation into a mathematically defined object that can subsequently be evaluated using explicit decision functions.
-
-The resulting mathematical structure provides the foundation for the quantitative formulation and algorithmic definition of the proposed failure taxonomy.
+## 13. Summary of Core Definitions
+
+| Symbol | Definition |
+|---|---|
+| 𝔻 | Complete VQA dataset |
+| 𝕀 | Image space |
+| I | Individual image |
+| ℚ | Question space |
+| Q | Individual question |
+| 𝔾 | Ground-truth answer space |
+| G | Ground-truth answer |
+| ℙ | Prediction space |
+| P | Model prediction |
+| f_θ | Fine-tuned VQA model |
+| x = (I, Q, G) | Ground-truth VQA sample |
+| T = (I, Q, G, P) | Complete prediction tuple |
+| 𝕂 | Semantic concept space |
+| K | Semantic concept |
+| 𝔸 | Attribute space |
+| A | Relevant semantic attribute |
+| ℂ | Failure-category space |
+| τ | Failure-taxonomy mapping |
+| C | Assigned failure category |
+
+The central formulation established in this module is:
+
+T = (I, Q, G, f_θ(I, Q))
+
+and
+
+τ(T) = C
+
+These two expressions form the mathematical starting point for formalizing the proposed VQA failure taxonomy.
