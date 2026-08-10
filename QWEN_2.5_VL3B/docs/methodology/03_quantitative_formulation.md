@@ -20,7 +20,7 @@ where:
 The taxonomy categories are:
 
 $$
-C = \{C_{\text{correct}}, C_{\text{QM}}, C_{\text{HA}}, C_{\text{PA}}, C_{\text{TR}}, C_{\text{REP}}, C_{\text{MA}}\}
+\mathbb{C} = \{C_{\text{correct}}, C_{\text{QM}}, C_{\text{HA}}, C_{\text{PA}}, C_{\text{TR}}, C_{\text{REP}}, C_{\text{MA}}\}
 $$
 
 where:
@@ -37,31 +37,27 @@ where:
 
 ## 2. Semantic Evaluation Variables
 
-Exact string equality is insufficient for the proposed taxonomy because semantically equivalent answers may use different wording.
-
-Therefore, define the following binary indicators:
+Using the concept and attribute functions from `02_decision_functions.md`:
 
 $$
-m_G(G, P) \in \{0,1\}
+K = h(Q), \qquad A = \alpha(K)
 $$
 
-where $m_G = 1$ indicates that the prediction is semantically consistent with the ground-truth answer.
-
-Define:
+Define the ground-truth and predicted attribute-match indicator as the semantic agreement function $\sigma$:
 
 $$
-m_Q(Q, P) \in \{0,1\}
+m_G(G,P) := \sigma(T) \in \{0,1\}
 $$
 
-where $m_Q = 1$ indicates that the prediction addresses the question that was actually asked.
+where $m_G = 1$ indicates the prediction is semantically consistent with the ground-truth answer (i.e. $A_G = A_P$).
 
-The semantic concept associated with the question is represented by:
+Define the question-relevance indicator as the attribute-consistency function $\gamma$:
 
 $$
-K = \alpha(Q)
+m_Q(Q,P) := \gamma(T) \in \{0,1\}
 $$
 
-where $\alpha$ maps a question to its evaluated semantic concept.
+where $m_Q = 1$ indicates the prediction addresses the attribute $A$ required by $K$.
 
 These variables provide the basis for distinguishing different types of incorrect predictions.
 
@@ -80,18 +76,18 @@ represent the degree to which the required information in the ground truth is co
 A prediction with sufficiently complete semantic coverage satisfies:
 
 $$
-\kappa(G, P) \geq \tau_{\text{complete}}
+\kappa(G, P) \geq \theta_{\text{complete}}
 $$
 
 while an incomplete prediction satisfies:
 
 $$
-0 < \kappa(G, P) < \tau_{\text{complete}}
+0 < \kappa(G, P) < \theta_{\text{complete}}
 $$
 
 This variable supports the distinction between a fully correct answer and a partial or incomplete answer.
 
-The threshold $\tau_{\text{complete}}$ must be fixed before applying the taxonomy and documented in the experimental implementation.
+The threshold $\theta_{\text{complete}}$ must be fixed before applying the taxonomy and documented in the experimental implementation.
 
 ---
 
@@ -167,42 +163,14 @@ This category is used when the prediction combines correct and incorrect informa
 
 ## 8. Correctness
 
-A prediction is assigned to the Correct category when it answers the question appropriately, is semantically consistent with the ground truth, and provides sufficiently complete information.
-
-Define:
+A prediction is assigned to the Correct category when it answers the question appropriately, is semantically consistent with the ground truth, provides sufficiently complete information, and exhibits none of the other failure conditions.
 
 $$
-C_{\text{correct}}(T) = 1
+C_{\text{correct}}(T) = 1 \iff
+\delta(T)=1 \ \wedge\ m_Q(Q,P)=1 \ \wedge\ m_G(G,P)=1 \ \wedge\ \kappa(G,P) \geq \theta_{\text{complete}}
 $$
-
-when:
-
 $$
-m_Q(Q, P) = 1
-$$
-
-and
-
-$$
-m_G(G, P) = 1
-$$
-
-and
-
-$$
-\kappa(G, P) \geq \tau_{\text{complete}}
-$$
-
-and
-
-$$
-R_{\text{tr}}(P) = 0
-$$
-
-and
-
-$$
-R_{\text{rep}}(P) = 0
+\wedge\ \ R_{\text{tr}}(P)=0 \ \wedge\ R_{\text{rep}}(P)=0 \ \wedge\ H(G,P)=0 \ \wedge\ MA(G,P)=0
 $$
 
 Minor wording differences are therefore permitted when the semantic content of the prediction remains correct.
@@ -219,11 +187,15 @@ Mixed Attribute applies when the prediction contains both correct and incorrect 
 
 Therefore, when both conditions are potentially satisfied, Mixed Attribute takes priority over the general Hallucination category.
 
-The operational priority is:
+Therefore, when both conditions are potentially satisfied, Mixed Attribute takes priority over the general Hallucination category.
+
+The operational priority order is:
 
 $$
-C_{\text{MA}} \rightarrow C_{\text{HA}}
+C_{\text{MA}} \ \succ\ C_{\text{HA}}
 $$
+
+(read: $C_{\text{MA}}$ is checked before, and takes precedence over, $C_{\text{HA}}$ — this is a priority ordering, not a functional mapping.)
 
 This priority is implemented in the taxonomy decision algorithm rather than by redefining the categories themselves.
 
@@ -234,13 +206,13 @@ This priority is implemented in the taxonomy decision algorithm rather than by r
 The final taxonomy is represented by the decision function:
 
 $$
-\tau : \mathbb{T} \rightarrow C
+\tau : \mathbb{T} \rightarrow \mathbb{C}
 $$
 
 where:
 
 - $\mathbb{T}$ is the space of complete prediction tuples.
-- $C$ is the category space.
+- $\mathbb{C}$ is the category space.
 
 Thus:
 
@@ -267,10 +239,10 @@ The exact priority and mutually exclusive decision rules are defined in the subs
 
 | Category | Mathematical evidence |
 |---|---|
-| Correct | $m_Q = 1$, $m_G = 1$, $\kappa \geq \tau_{\text{complete}}$, $R_{\text{tr}} = 0$, $R_{\text{rep}} = 0$ |
+| Correct | $\delta=1$, $m_Q=1$, $m_G=1$, $\kappa \geq \theta_{\text{complete}}$, $R_{\text{tr}}=0$, $R_{\text{rep}}=0$, $H=0$, $MA=0$ |
 | Question Misunderstanding | $m_Q = 0$ |
 | Hallucination | $H = 1$ when Mixed Attribute does not apply |
-| Partial Answer / Incomplete Answer | Correct semantic content with $0 < \kappa < \tau_{\text{complete}}$ |
+| Partial Answer / Incomplete Answer | Correct semantic content with $0 < \kappa < \theta_{\text{complete}}$ |
 | Truncation | $R_{\text{tr}} = 1$ |
 | Repetition | $R_{\text{rep}} = 1$ |
 | Mixed Attribute | $MA = 1$ |

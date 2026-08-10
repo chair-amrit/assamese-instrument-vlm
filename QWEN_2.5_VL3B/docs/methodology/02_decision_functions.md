@@ -63,47 +63,43 @@ This provides the first branch of the taxonomy.
 
 ---
 
-## 3. Semantic Comparison
+## 4. Concept Condition
 
-Exact string equality is not sufficient for all VQA predictions.
-
-Two answers may differ lexically while expressing the same semantic attribute, while two answers may appear related lexically but represent different attributes.
-
-Therefore, the taxonomy requires semantic comparison between the ground-truth answer and the model prediction.
-
-Let
+The question determines which semantic concept is being evaluated:
 
 $$
-s_G(T) \in \mathbb{A}
+K = h(Q)
 $$
 
-represent the semantic attribute expressed by the ground-truth answer.
-
-Let
+The corresponding relevant attribute is:
 
 $$
-s_P(T) \in \mathbb{A}
+A = \alpha(K)
 $$
 
-represent the semantic attribute expressed by the model prediction.
+Therefore, the taxonomy evaluates the prediction relative to the attribute required by the question.
 
-The semantic agreement function is then:
+Define the attribute-consistency function:
 
 $$
-\sigma : \mathbb{T} \rightarrow \{0,1\}
+\gamma : \mathbb{T} \rightarrow \{0,1\}
 $$
 
 where
 
 $$
-\sigma(T) =
+\gamma(T) =
 \begin{cases}
-1, & \text{if } s_G(T) = s_P(T) \\
+1, & \text{if the prediction addresses the attribute } A \text{ required by } K \\
 0, & \text{otherwise}
 \end{cases}
 $$
 
-This separates semantic correctness from exact textual matching.
+This allows the taxonomy to distinguish an answer that is wrong because of its value from an answer that addresses the wrong semantic attribute entirely.
+
+Note the distinction from $\sigma$ (Section 3): $\gamma$ tests whether the prediction is even *relevant to* the required attribute $A$, while $\sigma$ tests whether the extracted attribute values $A_G$ and $A_P$ are *equal*. A prediction can be relevant to the right attribute ($\gamma(T)=1$) while still being wrong in value ($\sigma(T)=0$).
+
+---
 
 
 
@@ -126,20 +122,22 @@ Therefore, the taxonomy evaluates the prediction relative to the attribute requi
 Define the attribute-consistency function:
 
 $$
-\kappa : \mathbb{T} \rightarrow \{0,1\}
+\gamma : \mathbb{T} \rightarrow \{0,1\}
 $$
 
 where
 
 $$
-\kappa(T) =
+\gamma(T) =
 \begin{cases}
 1, & \text{if the prediction addresses the attribute } A \text{ required by } K \\
 0, & \text{otherwise}
 \end{cases}
 $$
 
-This allows the taxonomy to distinguish an answer that is wrong because of its value from an answer that addresses the wrong semantic attribute.
+This allows the taxonomy to distinguish an answer that is wrong because of its value from an answer that addresses the wrong semantic attribute entirely.
+
+Note the distinction from $\sigma$ (Section 3): $\gamma$ tests whether the prediction is even *relevant to* the required attribute $A$, while $\sigma$ tests whether the extracted attribute values $A_G$ and $A_P$ are *equal*. A prediction can be relevant to the right attribute ($\gamma(T)=1$) while still being wrong in value ($\sigma(T)=0$).
 
 ---
 
@@ -150,10 +148,10 @@ The ground-truth answer can be mapped to the attribute expected for the evaluate
 Define:
 
 $$
-A_G = g(G,K)
+A_G = g_G(G,K)
 $$
 
-where $g$ is a semantic interpretation function.
+where $g_G : \mathbb{G} \times \mathbb{K} \rightarrow \mathbb{A}$ is a semantic interpretation function applied to the ground truth.
 
 The expected attribute therefore satisfies:
 
@@ -164,10 +162,10 @@ $$
 Similarly, the predicted answer can be interpreted as:
 
 $$
-A_P = g(P,K)
+A_P = g_P(P,K)
 $$
 
-where
+where $g_P : \mathbb{P} \times \mathbb{K} \rightarrow \mathbb{A}$ is the corresponding interpretation function applied to the prediction, and
 
 $$
 A_P \in \mathbb{A}
@@ -186,6 +184,7 @@ $$
 This provides a semantic basis for comparing the reference answer and the model prediction.
 
 ---
+
 
 ## 6. Prediction-Type Decision
 
@@ -286,7 +285,7 @@ The exact category-specific conditions are defined by the final taxonomy.
 
 Each failure category must be represented by an explicit decision predicate.
 
-For category \(C_r\), define:
+For category $C_r$, define:
 
 $$
 d_r : \mathbb{T} \rightarrow \{0,1\}
@@ -298,7 +297,7 @@ $$
 d_r(T)=1
 $$
 
-means that prediction tuple \(T\) satisfies the decision conditions for category \(C_r\).
+means that prediction tuple $T$ satisfies the decision conditions for category $C_r$.
 
 The taxonomy function assigns the corresponding category when:
 
@@ -314,8 +313,7 @@ $$
 
 The category predicates must be defined so that overlapping conditions are resolved by the operational decision order specified in the taxonomy algorithm.
 
-
-
+---
 
 
 ## 9. Correctness and Failure Separation
@@ -547,11 +545,11 @@ The category-specific conditions are therefore defined independently of individu
 | $h$ | $\mathbb{Q} \rightarrow \mathbb{K}$ | Identifies the semantic concept represented by the question |
 | $\alpha$ | $\mathbb{K} \rightarrow \mathbb{A}$ | Identifies the relevant semantic attribute |
 | $E$ | $\mathbb{G} \times \mathbb{P} \rightarrow \mathbb{R}$ | Produces an evaluation score for the prediction against the ground truth |
-| $\delta$ | $\mathbb{T} \rightarrow \{0,1\}$ | Determines binary semantic correctness |
+| $\delta$ | $\mathbb{T} \rightarrow \{0,1\}$ | Determines binary correctness relative to the ground truth |
 | $g_G$ | $\mathbb{G} \times \mathbb{K} \rightarrow \mathbb{A}$ | Extracts the ground-truth attribute associated with the evaluated concept |
 | $g_P$ | $\mathbb{P} \times \mathbb{K} \rightarrow \mathbb{A}$ | Extracts the predicted attribute associated with the evaluated concept |
 | $\sigma$ | $\mathbb{T} \rightarrow \{0,1\}$ | Determines semantic agreement between ground-truth and predicted attributes |
-| $\gamma$ | $\mathbb{T} \rightarrow \{0,1\}$ | Determines attribute-level consistency |
+| $\gamma$ | $\mathbb{T} \rightarrow \{0,1\}$ | Determines whether the prediction addresses the attribute required by the question (attribute-level consistency) |
 | $d_r$ | $\mathbb{T} \rightarrow \{0,1\}$ | Tests whether prediction tuple $T$ satisfies the conditions associated with category $C_r$ |
 | $\tau$ | $\mathbb{T} \rightarrow \mathbb{C}$ | Assigns the final taxonomy category |
 

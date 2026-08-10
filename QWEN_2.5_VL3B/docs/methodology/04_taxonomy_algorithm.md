@@ -47,24 +47,24 @@ The additional outcome $C_{\mathrm{review}}$ is an internal fallback used when t
 
 The algorithm uses the evaluation variables defined in the quantitative formulation:
 
-- $m_G(G,P)$ — semantic correctness of the information contained in the prediction with respect to the ground truth.
-- $m_Q(Q,P)$ — alignment of the prediction with the question.
+- $m_G(G,P) := \sigma(T)$ — semantic agreement between the ground-truth and predicted attributes (doc 02's $\sigma$).
+- $m_Q(Q,P) := \gamma(T)$ — attribute-consistency of the prediction with the question (doc 02's $\gamma$).
 - $\kappa(G,P)$ — completeness of the prediction.
 - $H(G,P)$ — hallucination indicator.
 - $R_{\mathrm{tr}}(P)$ — truncation indicator.
 - $R_{\mathrm{rep}}(P)$ — repetition indicator.
 - $MA(G,P)$ — Mixed Attribute indicator.
-- $\tau_{\mathrm{complete}}$ — predefined completeness threshold.
+- $\theta_{\mathrm{complete}}$ — predefined completeness threshold.
 
 These variables provide the evidence used by the ordered decision procedure.
 
 The semantic concept associated with the question is represented by:
 
 $$
-K = \alpha(Q)
+K = h(Q)
 $$
 
-where $\alpha$ maps a question to its evaluated semantic concept.
+where $h$ maps a question to its evaluated semantic concept.
 
 The decision procedure evaluates these variables in a fixed order so that overlapping failure conditions are resolved consistently.
 
@@ -240,7 +240,13 @@ $$
 and
 
 $$
-\kappa(G,P)\geq\tau_{\mathrm{complete}}
+\kappa(G,P)\geq\theta_{\mathrm{complete}}
+$$
+
+and
+
+$$
+H(G,P)=0 \quad \text{and} \quad MA(G,P)=0
 $$
 
 then
@@ -268,11 +274,6 @@ Predictions assigned to $C_{\mathrm{review}}$ must be reviewed and resolved befo
 $C_{\mathrm{review}}$ is an internal operational outcome and is not part of the final taxonomy category space $\mathbb{C}$.
 
 
-priority over Hallucination and assigns unresolved cases to the internal Review outcome.
-
-$C_{\mathrm{review}}$ is not included in the seven final taxonomy categories and must be resolved before final category statistics are reported.
-
-
 ## 5. Compact Decision Function
 
 The complete decision procedure can be represented as the following ordered piecewise function.
@@ -284,8 +285,8 @@ Define the ordered decision conditions:
 - $D_{\mathrm{QM}}$: $R_{\mathrm{tr}}(P)=0$, $R_{\mathrm{rep}}(P)=0$, and $m_Q(Q,P)=0$
 - $D_{\mathrm{MA}}$: $R_{\mathrm{tr}}(P)=0$, $R_{\mathrm{rep}}(P)=0$, $m_Q(Q,P)=1$, and $MA(G,P)=1$
 - $D_{\mathrm{HA}}$: $R_{\mathrm{tr}}(P)=0$, $R_{\mathrm{rep}}(P)=0$, $m_Q(Q,P)=1$, $MA(G,P)=0$, and $H(G,P)=1$
-- $D_{\mathrm{PA}}$: $R_{\mathrm{tr}}(P)=0$, $R_{\mathrm{rep}}(P)=0$, $m_Q(Q,P)=1$, $m_G(G,P)=1$, and $0<\kappa(G,P)<\tau_{\mathrm{complete}}$
-- $D_{\mathrm{correct}}$: $R_{\mathrm{tr}}(P)=0$, $R_{\mathrm{rep}}(P)=0$, $m_Q(Q,P)=1$, $m_G(G,P)=1$, and $\kappa(G,P)\geq\tau_{\mathrm{complete}}$
+- $D_{\mathrm{PA}}$: $R_{\mathrm{tr}}(P)=0$, $R_{\mathrm{rep}}(P)=0$, $m_Q(Q,P)=1$, $m_G(G,P)=1$, and $0<\kappa(G,P)<\theta_{\mathrm{complete}}$
+- $D_{\mathrm{correct}}$: $R_{\mathrm{tr}}(P)=0$, $R_{\mathrm{rep}}(P)=0$, $m_Q(Q,P)=1$, $m_G(G,P)=1$, $\kappa(G,P)\geq\theta_{\mathrm{complete}}$, $H(G,P)=0$, and $MA(G,P)=0$
 
 The taxonomy function is then:
 
@@ -305,7 +306,7 @@ $$
 
 The conditions are evaluated from top to bottom. Therefore, the first satisfied condition determines the operational outcome.
 
-This ordered structure gives Mixed Attribute priority over Hallucination and assigns unresolved cases to the internal Review outcome.
+This ordered structure gives Mixed Attribute priority ($C_{\mathrm{MA}} \succ C_{\mathrm{HA}}$) and assigns unresolved cases to the internal Review outcome.
 
 $C_{\mathrm{review}}$ is not included in the seven final taxonomy categories and must be resolved before final category statistics are reported.
 
@@ -316,13 +317,13 @@ $C_{\mathrm{review}}$ is not included in the seven final taxonomy categories and
 The ordered decision procedure assigns each prediction exactly one operational outcome from the extended outcome space:
 
 $$
-\mathcal{O} = C \cup \{C_{\mathrm{review}}\}
+\mathbb{O} = \mathbb{C} \cup \{C_{\mathrm{review}}\}
 $$
 
 For every evaluated prediction $T_i$:
 
 $$
-\sum_{r=1}^{|C|}
+\sum_{r=1}^{|\mathbb{C}|}
 \mathbf{1}\!\left[\tau(T_i)=C_r\right]
 +
 \mathbf{1}\!\left[\tau(T_i)=C_{\mathrm{review}}\right]
@@ -336,7 +337,7 @@ This means that each prediction receives exactly one operational outcome during 
 After all predictions assigned to $C_{\mathrm{review}}$ have been manually resolved into one of the seven final taxonomy categories, the final category assignment satisfies:
 
 $$
-\sum_{r=1}^{|C|}
+\sum_{r=1}^{|\mathbb{C}|}
 \mathbf{1}\!\left[\tau(T_i)=C_r\right]
 =1
 $$
@@ -346,13 +347,12 @@ for every evaluated prediction $T_i$.
 Therefore, for a dataset containing $N$ evaluated predictions, the final category counts satisfy:
 
 $$
-\sum_{r=1}^{|C|} N_r = N
+\sum_{r=1}^{|\mathbb{C}|} N_r = N
 $$
 
 where $N_r$ denotes the number of predictions assigned to category $C_r$.
 
 Thus, the seven final taxonomy categories form a complete and mutually exclusive partition of the evaluated test set after all Review cases have been resolved.
-
 
 
 
@@ -409,7 +409,7 @@ The procedure:
 - permits an internal $C_{\mathrm{review}}$ outcome when automatic evidence is insufficient; and
 - requires all Review cases to be resolved before final seven-category statistics are reported.
 
-The taxonomy does not require every category to occur in the evaluated dataset. For any category $C_r \in C$, its observed count may therefore be zero:
+The taxonomy does not require every category to occur in the evaluated dataset. For any category $C_r \in \mathbb{C}$, its observed count may therefore be zero:
 
 $$
 N_r = 0.

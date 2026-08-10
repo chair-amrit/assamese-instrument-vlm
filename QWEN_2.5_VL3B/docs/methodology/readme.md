@@ -8,11 +8,12 @@ Manually reviewing model predictions and labeling failures by eye does not scale
 
 The pipeline proceeds as follows:
 
-\`\`\`
+```text
 VQA Sample → Model Prediction → Evaluation Functions → Quantitative Conditions → Taxonomy Algorithm → Category Statistics
-\`\`\`
+```
 
 Each stage is defined precisely in one of the four methodology documents listed below. The fixed evaluation definitions, thresholds, decision priority, and documented Review procedure are intended to ensure consistent categorization across runs and reviewers.
+
 ---
 
 ## 2. Methodology Documents
@@ -64,8 +65,9 @@ To address this, the methodology defines a set of evaluation mechanisms in [`02_
 
 | Function | Symbol | Checks for |
 |---|---|---|
-| Question alignment | m_Q | Whether the prediction addresses the question that was actually asked. |
-| Ground-truth/prediction match | m_G | Whether the prediction's content semantically matches the ground truth. |
+| Correctness | δ | Base binary correctness of the prediction relative to the ground truth. |
+| Question alignment | m_Q (:= γ) | Whether the prediction addresses the attribute the question requires. |
+| Ground-truth/prediction match | m_G (:= σ) | Whether the prediction's content semantically matches the ground truth. |
 | Completeness | κ | Measures the degree to which the prediction covers the required information in the ground truth. |
 | Hallucination | H | Whether the prediction introduces unsupported factual content relative to the available ground-truth evidence. |
 | Truncation | R_tr | Whether the prediction is cut off or incomplete due to generation length. |
@@ -88,9 +90,10 @@ The evaluation mechanisms above are qualitative checks; the quantitative formula
 | Hallucination indicator | A binary flag derived from the hallucination check, indicating unsupported content in the prediction. |
 | Truncation / repetition indicators | Binary structural flags identifying truncation or unnecessary repeated content; these conditions are evaluated before the semantic failure categories. |
 | Mixed-attribute indicator | A binary flag identifying predictions that contain both correct and incorrect attribute-level information for the evaluated concept. |
-| Completeness threshold τ_complete | The fixed cutoff value of κ above which a prediction is considered complete rather than partial. |
+| Completeness threshold θ_complete | The fixed cutoff value of κ above which a prediction is considered complete rather than partial. |
 
 These indicators and the predefined completeness threshold provide the quantitative evidence used by the priority-ordered decision rules in the taxonomy algorithm.
+
 ---
 
 ## 6. Taxonomy Decision Algorithm
@@ -106,7 +109,7 @@ The taxonomy algorithm operates over the extended outcome space consisting of th
 7. Correct
 8. Review (fallback)
 
-The ordering matters: for example, Mixed Attribute is evaluated before Hallucination because it represents a distinct attribute-level failure mode. Hallucination is then used for unsupported factual content that does not satisfy the higher-priority Mixed Attribute condition. The **Review** outcome is an internal operational fallback only — it is not one of the seven final taxonomy categories, and every Review case must be resolved into one of the seven before final statistics are reported.
+The ordering matters: for example, Mixed Attribute is evaluated before Hallucination ($C_{\mathrm{MA}} \succ C_{\mathrm{HA}}$) because it represents a distinct attribute-level failure mode. Hallucination is then used for unsupported factual content that does not satisfy the higher-priority Mixed Attribute condition. Correct additionally requires that neither Hallucination nor Mixed Attribute applies. The **Review** outcome is an internal operational fallback only — it is not one of the seven final taxonomy categories, and every Review case must be resolved into one of the seven before final statistics are reported.
 
 
 ## 7. Final Taxonomy Categories
@@ -115,7 +118,7 @@ Once all Review cases have been resolved, every prediction falls into exactly on
 
 | Symbol | Category | Description |
 |---|---|---|
-| C_correct | Correct | The prediction is semantically correct and complete relative to the ground truth. |
+| C_correct | Correct | The prediction is semantically correct and complete relative to the ground truth, with no hallucination and no mixed-attribute content. |
 | C_QM | Question Misunderstanding | The prediction does not address the semantic concept the question is asking about. |
 | C_HA | Hallucination | The prediction introduces unsupported factual content relative to the available ground-truth evidence. |
 | C_PA | Partial Answer / Incomplete Answer | The prediction is on-topic and supported, but does not fully cover the expected content. |
@@ -161,7 +164,7 @@ This sequence is applied identically to every prediction in the dataset, ensurin
 For the taxonomy to produce consistent, comparable results across runs and reviewers, the methodology enforces the following operational requirements:
 
 - **Fixed evaluation definitions** — the decision functions (Section 4) are defined once and applied identically to every prediction; they are not adjusted case by case.
-- **Fixed thresholds** — quantitative thresholds such as τ_complete (Section 5) are set in advance and held constant across the full dataset.
+- **Fixed thresholds** — quantitative thresholds such as θ_complete (Section 5) are set in advance and held constant across the full dataset.
 - **Fixed decision priority** — the ordering of conditions in the taxonomy algorithm (Section 6) does not change between evaluation runs.
 - **Consistent application** — every prediction in the dataset is passed through the same pipeline, with no exceptions or manual shortcuts outside the defined Review process.
 - **Review procedure for unresolved cases** — predictions that do not resolve cleanly under the fixed rules are routed to Review and resolved through a documented process, rather than being classified ad hoc.
