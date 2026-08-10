@@ -387,7 +387,7 @@ This allows the taxonomy to analyze the semantic task rather than treating diffe
 
 ---
 
-## 9. Attribute Space
+## 11. Attribute Space
 
 Let $\mathbb{A}$ denote the semantic attribute space.
 
@@ -432,7 +432,7 @@ This provides a structured representation of what semantic attribute the questio
 ---
 
 
-## 10. Ground-Truth and Prediction Evaluation
+## 12. Ground-Truth and Prediction Evaluation
 
 Given
 
@@ -470,7 +470,7 @@ Therefore, additional semantic and decision functions are required to determine 
 
 ---
 
-## 11. Failure-Category Space
+## 13. Failure-Category Space
 
 Let $\mathbb{C}$ denote the failure-category space.
 
@@ -492,7 +492,7 @@ The categories represent distinct model-error mechanisms identified by the propo
 
 ---
 
-## 12. Taxonomy Function
+## 14. Taxonomy Function
 
 The failure taxonomy is represented as a mapping from the complete prediction-tuple space to the category space:
 
@@ -510,7 +510,6 @@ or equivalently:
 
 $$
 \tau(T) = C
-=======
 the relationship between the ground truth \(G\) and prediction \(P\) determines the outcome of the VQA prediction.
 
 Define an evaluation function
@@ -540,7 +539,7 @@ Therefore, the taxonomy requires additional semantic and decision functions.
 
 ---
 
-## 11. Failure Taxonomy as a Mapping
+## 15. Failure Taxonomy as a Mapping
 
 Let
 
@@ -572,7 +571,7 @@ represents the resulting taxonomy decision.
 
 ---
 
-## 12. Formal Pipeline
+## 15. Formal Pipeline
 
 The complete mathematical process can therefore be expressed as
 
@@ -594,12 +593,10 @@ followed by
 
 $$
 \tau(T)=C
->>>>>>> 8f950591cb73bebc751e1c8b18b7b6125d444796
 $$
 
 This establishes the foundation for the subsequent modules.
 
-<<<<<<< HEAD
 - $T$ contains the evidence associated with the prediction.
 - $\tau$ is the taxonomy decision function.
 - $C$ is the assigned failure category.
@@ -625,7 +622,7 @@ The internal decision rules used by $\tau$ are defined in the subsequent decisio
 ---
 
 
-## 13. Mathematical Structure of the Framework
+## 16. Mathematical Structure of the Framework
 
 The complete mathematical structure can be expressed as:
 
@@ -693,7 +690,7 @@ The individual functions provide the mathematical interfaces required for the su
 
 ---
 
-## 14. Why the Formulation Requires Multiple Functions
+## 17. Why the Formulation Requires Multiple Functions
 
 A single correctness function cannot adequately describe the behavior of a VQA model.
 
@@ -735,7 +732,7 @@ It also allows each component to be independently defined and evaluated.
 
 ---
 
-## 15. Core Mathematical Objects
+## 18. Core Mathematical Objects
 
 | Object | Symbol | Space | Role |
 |---|---|---|---|
@@ -757,7 +754,7 @@ It also allows each component to be independently defined and evaluated.
 ---
 
 
-## 16. Central Formulation
+## 19. Central Formulation
 
 The mathematical foundation of the proposed framework is summarized by:
 
@@ -784,12 +781,12 @@ $$
 These definitions establish a consistent mathematical vocabulary for the complete failure-taxonomy framework.
 
 The next stage is to formally define the internal decision functions that determine how the relationship between $G$, $P$, $K$, and $A$ produces each failure category.
-=======
+
 The later formulation will define the internal decision functions used by \(\tau\), determine how ground truth and predictions are compared, and formally distinguish the different failure categories.
 
 ---
 
-## 13. Summary of Core Definitions
+## 20. Summary of Core Definitions
 
 | Symbol | Definition |
 |---|---|
@@ -822,4 +819,3 @@ and
 τ(T) = C
 
 These two expressions form the mathematical starting point for formalizing the proposed VQA failure taxonomy.
->>>>>>> 8f950591cb73bebc751e1c8b18b7b6125d444796
