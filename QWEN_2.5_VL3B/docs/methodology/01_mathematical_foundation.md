@@ -348,13 +348,11 @@ The attribute representation allows the failure taxonomy to compare the semantic
 ## 10. Prediction Evaluation
 
 Given a prediction tuple
->>>>>>> 8f950591cb73bebc751e1c8b18b7b6125d444796
 
 $$
 K \in \mathbb{K}
 $$
 
-<<<<<<< HEAD
 For the current VQA task, concepts correspond to the semantic properties being evaluated, including:
 
 - instrument identity
