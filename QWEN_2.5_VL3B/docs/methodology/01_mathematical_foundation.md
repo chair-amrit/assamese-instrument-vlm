@@ -130,27 +130,22 @@ $$
 Questions are associated with semantic concepts such as instrument identity, material, origin, festival, sound, playing method, and other instrument-related attributes.
 
 Different linguistic formulations may represent the same underlying semantic concept.
->>>>>>> 8f950591cb73bebc751e1c8b18b7b6125d444796
 
 ---
 
 ## 5. Ground-Truth Answer Space
 
-<<<<<<< HEAD
 Let $\mathbb{G}$ denote the ground-truth answer space.
 
 An individual ground-truth answer is represented by
-=======
 Let \(\mathcal{G}\) denote the ground-truth answer space.
 
 An individual ground-truth answer is represented as
->>>>>>> 8f950591cb73bebc751e1c8b18b7b6125d444796
 
 $$
 G \in \mathbb{G}
 $$
 
-<<<<<<< HEAD
 For a VQA sample,
 
 $$
@@ -164,7 +159,6 @@ $$
 $$
 
 The ground truth represents the expected answer against which the model prediction is evaluated.
-=======
 For a VQA sample, \(G\) is the reference answer associated with the image-question pair.
 
 Therefore,
@@ -174,21 +168,17 @@ G_i = \text{ground-truth answer for } (I_i,Q_i)
 $$
 
 The ground truth is treated as the reference against which the model prediction is evaluated.
->>>>>>> 8f950591cb73bebc751e1c8b18b7b6125d444796
 
 ---
 
 ## 6. Prediction Space and Model
 
-<<<<<<< HEAD
 Let $\mathbb{P}$ denote the model prediction space.
 
 An individual prediction is represented by
-=======
 Let \(\mathcal{P}\) denote the model prediction space.
 
 An individual prediction is represented as
->>>>>>> 8f950591cb73bebc751e1c8b18b7b6125d444796
 
 $$
 P \in \mathbb{P}
@@ -202,7 +192,6 @@ $$
 
 where:
 
-<<<<<<< HEAD
 - $f_{\theta}$ is the fine-tuned VQA model.
 - $\theta$ represents the learned model parameters.
 - $I$ is the input image.
@@ -249,7 +238,6 @@ The tuple $T$ contains the image, question, ground truth, and model prediction r
 Let $\mathbb{K}$ denote the semantic concept space.
 
 An individual concept is represented by
-=======
 - \(f_{\theta}\) is the trained VQA model.
 - \(\theta\) represents the learned model parameters.
 - \(I\) is the input image.
