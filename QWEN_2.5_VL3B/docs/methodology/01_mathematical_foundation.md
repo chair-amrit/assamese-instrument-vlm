@@ -58,52 +58,38 @@ $$
 N_I = 7 \times 32 = 224
 $$
 
-<<<<<<< HEAD
-Each image is associated with nine VQA concepts:
-=======
 Each image is associated with nine VQA concepts, producing:
->>>>>>> 8f950591cb73bebc751e1c8b18b7b6125d444796
 
 $$
 224 \times 9 = 2016
 $$
 
-<<<<<<< HEAD
 Thus, the dataset contains 224 unique images and 2016 VQA samples.
-=======
-VQA samples.
->>>>>>> 8f950591cb73bebc751e1c8b18b7b6125d444796
 
 ---
 
 ## 3. Image Space
 
-<<<<<<< HEAD
 Let $\mathbb{I}$ denote the image space.
 
 An individual image is represented by
-=======
 Let \(\mathcal{I}\) denote the image space.
 
 An individual image is represented as
->>>>>>> 8f950591cb73bebc751e1c8b18b7b6125d444796
 
 $$
 I \in \mathbb{I}
 $$
 
-<<<<<<< HEAD
 For the current dataset:
 
 $$
 \mathbb{I} = \{I_1, I_2, \ldots, I_{224}\}
-=======
 For the 224 unique images used in the project:
 
 $$
 \mathcal{I} =
 \{I_1, I_2, \ldots, I_{224}\}
->>>>>>> 8f950591cb73bebc751e1c8b18b7b6125d444796
 $$
 
 The image space represents the visual inputs provided to the VQA model.
@@ -113,21 +99,17 @@ The image space represents the visual inputs provided to the VQA model.
 
 ## 4. Question Space
 
-<<<<<<< HEAD
 Let $\mathbb{Q}$ denote the question space.
 
 An individual question is represented by
-=======
 Let \(\mathcal{Q}\) denote the space of questions used in the VQA dataset.
 
 An individual question is represented as
->>>>>>> 8f950591cb73bebc751e1c8b18b7b6125d444796
 
 $$
 Q \in \mathbb{Q}
 $$
 
-<<<<<<< HEAD
 If $N_Q$ denotes the number of question instances, then
 
 $$
@@ -137,7 +119,7 @@ $$
 Questions may have different linguistic formulations while representing the same underlying semantic concept.
 
 Therefore, the exact wording of a question is separated from the semantic concept being evaluated.
-=======
+
 If the dataset contains \(N_Q\) question instances, then
 
 $$
