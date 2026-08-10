@@ -2,23 +2,20 @@
 
 ## 1. Purpose
 
-<<<<<<< HEAD
 This document establishes the mathematical foundation of the VQA failure-taxonomy framework used in the Assamese Musical Instrument VLM project.
 
 The framework represents each VQA prediction as a structured mathematical object and defines the spaces and functions required to evaluate and classify model behavior.
 
 The formulation is designed to support the subsequent decision functions, quantitative formulation, taxonomy algorithm, and final paper formulation.
-=======
 This document establishes the mathematical representation of the VQA task used in the Assamese Musical Instrument VLM project. The definitions introduced here provide the formal foundation for the subsequent failure taxonomy, decision functions, quantitative formulation, and taxonomy algorithm.
 
 The objective is to represent each VQA prediction as a mathematical object that can later be mapped to a well-defined failure category.
->>>>>>> 8f950591cb73bebc751e1c8b18b7b6125d444796
 
 ---
 
 ## 2. VQA Dataset
 
-<<<<<<< HEAD
+
 Let the complete VQA dataset be
 
 $$
@@ -26,7 +23,6 @@ $$
 $$
 
 where each ground-truth sample is
-=======
 Let the complete VQA dataset be represented by
 
 $$
@@ -34,7 +30,6 @@ $$
 $$
 
 where each sample is
->>>>>>> 8f950591cb73bebc751e1c8b18b7b6125d444796
 
 $$
 x_i = (I_i, Q_i, G_i)
@@ -42,17 +37,14 @@ $$
 
 and:
 
-<<<<<<< HEAD
 - $I_i$ is the input image.
 - $Q_i$ is the associated question.
 - $G_i$ is the ground-truth answer.
 - $N$ is the total number of VQA samples.
-=======
 - \(I_i\) is the input image.
 - \(Q_i\) is the question associated with the image.
 - \(G_i\) is the ground-truth answer.
 - \(N\) is the total number of VQA samples.
->>>>>>> 8f950591cb73bebc751e1c8b18b7b6125d444796
 
 For the current dataset:
 
@@ -60,11 +52,7 @@ $$
 N = 2016
 $$
 
-<<<<<<< HEAD
 The dataset contains seven Assamese musical instruments with 32 images per instrument:
-=======
-The dataset contains seven Assamese musical instruments, with 32 images per instrument:
->>>>>>> 8f950591cb73bebc751e1c8b18b7b6125d444796
 
 $$
 N_I = 7 \times 32 = 224
