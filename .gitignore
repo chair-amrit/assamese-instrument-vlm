@@ -6,5 +6,8 @@
 /Paligemma/best_checkpoint.zip
 /Paligemma/kaggle_dataset.zip
 /QWEN_2.5_VL3B/dataset/kaggle_dataset32.zip
-/QWEN_2.5_VL3B/images
+/QWEN_2.5_VL3B/.images
 /QWEN_2.5_VL3B/.agents
+/QWEN_2.5_VL3B.zip
+/QWEN_2.5_VL3B/explainability/explainability_assets.zip
+/QWEN_2.5_VL3B/explainability/explainability_assets/test_images
