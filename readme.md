@@ -37,6 +37,16 @@ Standard Vision-Language Models (VLMs) fail to recognize and reason about cultur
 
 ### Dataset files
 
+```
+dataset/
+├── final_vqa.csv
+├── questions.csv
+├── answers.csv
+├── train.csv
+├── val.csv
+├── test.csv
+└── dataset_32images/
+```
 
 
 ---
@@ -69,8 +79,18 @@ Two complementary metrics assess model output quality:
 ## Failure Taxonomy
 
 A systematic taxonomy was developed to categorize model errors, built on a formal framework:
+```
+T = (I, Q, G, P) — Image, Question, Ground truth, Prediction
+Q → concept K → attribute A — semantic decomposition of each question
+```
 
 with mapping functions:
+```
+fθ : 𝕀 × ℚ → ℙ (model prediction function)
+h : ℚ → 𝕂 (question → concept)
+α : 𝕂 → 𝔸 (concept → attribute)
+τ : 𝕋 → ℂ (sample → failure category)
+```
 
 ### Seven failure categories (mutually exclusive, fixed priority order)
 
@@ -103,12 +123,103 @@ Guide-mandated cross-modal explainability analysis on 35 hand-selected samples (
 
 ### Architecture traced
 
+```
+Image
+↓
+Vision encoder (SigLIP-style, 2×2 patch merging)
+↓
+Image patch tokens (raw 52×28 → merged 26×14 = 364 tokens)
+↓
+Multimodal fusion (interleaved with text tokens, <|image_pad|> = 151655)
+↓
+Language decoder (Qwen2 LM backbone)
+↓
+Generated answer (teacher-forced for attention/attribution extraction)
+```
+
 ### Outputs
 Per-sample attention and attribution heatmaps overlaid on original images, aggregated per failure category to reveal category-specific grounding patterns (e.g. hallucinated answers show diffuse/background attention vs. correct answers showing instrument-focused attention).
 
 ---
 
 ## Repository Structure
+```
+assamese-instrument-vlm/
+├── README.md
+├── LICENSE
+├── .gitignore
+├── requirements.txt
+│
+├── configs/
+│ ├── model_config.py
+│ ├── lora_config.py
+│ └── training_config.py
+│
+├── dataset/
+│ ├── README.md
+│ ├── final_vqa.csv
+│ ├── questions.csv
+│ ├── answers.csv
+│ ├── train.csv / val.csv / test.csv
+│ └── dataset_32images/
+│
+├── notebooks/
+│ ├── 01_dataset_preparation.ipynb
+│ ├── 02_model_training.ipynb
+│ ├── 03_model_evaluation.ipynb
+│ ├── 04_failure_analysis.ipynb
+│ └── 05_explainability.ipynb
+│
+├── src/
+│ ├── data/
+│ │ ├── dataset_builder.py
+│ │ ├── split_dataset.py
+│ │ └── preprocessing.py
+│ ├── training/
+│ │ ├── train.py
+│ │ ├── inference.py
+│ │ ├── evaluate.py
+│ │ └── load_model.py
+│ ├── analysis/
+│ │ ├── failure_taxonomy.py
+│ │ ├── error_statistics.py
+│ │ └── metrics.py
+│ ├── explainability/
+│ │ ├── attention.py
+│ │ ├── attribution.py
+│ │ ├── visualization.py
+│ │ └── evaluation.py
+│ └── utils/
+│ ├── io.py
+│ ├── plotting.py
+│ └── seed.py
+│
+├── docs/
+│ ├── methodology/
+│ │ ├── 01_mathematical_foundation.md
+│ │ ├── 02_decision_functions.md
+│ │ ├── 03_quantitative_formulation.md
+│ │ ├── 04_taxonomy_algorithm.md
+│ │ └── 05_paper_formulation.md
+│ └── explainability/
+│ ├── protocol.md
+│ ├── qualitative_analysis.md
+│ └── quantitative_analysis.md
+│
+├── results/
+│ ├── evaluation/
+│ ├── failure_analysis/
+│ ├── explainability/
+│ └── tables/
+│
+├── assets/
+│ ├── architecture.png
+│ ├── pipeline.png
+│ └── sample_predictions/
+│
+└── models/
+└── README.md (checkpoint download / access info — weights not stored in repo)
+```
 
 ---
 
