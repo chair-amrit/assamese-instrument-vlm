@@ -1,0 +1,10 @@
+﻿concept,Correct,Hallucination,Mixed Attribute,Partial Answer / Incomplete Answer,Question Misunderstanding,Repetition,Truncation
+description,0,1,0,4,0,0,30
+festival,15,0,4,0,15,0,1
+instrument_type,22,1,4,0,8,0,0
+material,34,1,0,0,0,0,0
+origin,11,0,1,0,23,0,0
+parts,28,0,0,0,7,0,0
+playing_method,23,3,7,2,0,0,0
+sound,28,1,5,0,1,0,0
+traditional_player,16,0,1,13,2,3,0

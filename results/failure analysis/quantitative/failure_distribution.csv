@@ -1,0 +1,8 @@
+﻿failure_category,Count,Percentage (%)
+Correct,177,56.19
+Question Misunderstanding,56,17.78
+Truncation,31,9.84
+Mixed Attribute,22,6.98
+Partial Answer / Incomplete Answer,19,6.03
+Hallucination,7,2.22
+Repetition,3,0.95

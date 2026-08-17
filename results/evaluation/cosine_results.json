@@ -1,0 +1,2837 @@
+[
+    {
+        "instrument": "bahi",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This small, conical wind instrument is made from a single piece of bamboo. It is blown from both ends to produce a sharp, piercing sound.",
+        "cosine_similarity": 0.44024544954299927
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the rural communities of Assam.",
+        "prediction": "This instrument is made by splitting a bamboo stick lengthwise and inserting a small piece of bamboo at one end.",
+        "cosine_similarity": 0.23493622243404388
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bamboo.",
+        "prediction": "This instrument is made of bamboo.",
+        "cosine_similarity": 0.9999999403953552
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are bamboo tube body, blow hole and finger holes.",
+        "prediction": "The main parts of this instrument are bamboo tube body, blow hole and finger holes.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a soft, melodic, flute-like sound.",
+        "prediction": "This instrument produces a soft, melodic, flute-like sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by men.",
+        "prediction": "This instrument is traditionally played by men. It is traditionally played by men.",
+        "cosine_similarity": 0.8460373878479004
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by blowing air across the blow hole and covering finger holes.",
+        "prediction": "This instrument is played by blowing air across the blow hole and covering finger holes.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a transverse bamboo flute instrument.",
+        "prediction": "This is a transverse bamboo flute instrument. It is made from a single piece of bamboo and has two finger holes and one thumb hole. It is played by blowing air across the mouthpiece and covering finger holes to produce different pitches.",
+        "cosine_similarity": 0.8582820296287537
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Bahi is a traditional Assamese transverse flute made entirely from bamboo, played by blowing air across a side blow hole while controlling pitch through finger holes along the tube. It is one of the oldest melodic instruments in Assamese folk music and is prominently used during Rongali Bihu celebrations. Unlike the rhythm-keeping instruments of the Bihu ensemble, the Bahi carries the melodic layer with its soft, flute-like tone. It is traditionally played by men and is closely associated with pastoral and folk music traditions of Assam.",
+        "prediction": "The Bahi is a transverse flute made entirely from bamboo, played by blowing air across a side blow hole while controlling pitch through finger holes along the tube. It is one of the oldest melodic instruments in Assamese folk music and is prominently used during Rongali Bihu celebrations. Unlike the rhythm-keeping",
+        "cosine_similarity": 0.9885830879211426
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This small, conical wind instrument is made from a single piece of bamboo and is traditionally played by women.",
+        "cosine_similarity": 0.5055578947067261
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the rural communities of Assam.",
+        "prediction": "This instrument is made by splitting a bamboo cane lengthwise and inserting small pieces of bamboo inside.",
+        "cosine_similarity": 0.2637035548686981
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bamboo.",
+        "prediction": "This instrument is made of bamboo.",
+        "cosine_similarity": 0.9999999403953552
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are bamboo tube body, blow hole and finger holes.",
+        "prediction": "The main parts of this instrument are bamboo tube body, blow hole and finger holes.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a soft, melodic, flute-like sound.",
+        "prediction": "The thin end of this instrument is blown to produce sound. It is played by blowing air through the narrow end and covering the open end with the lips.",
+        "cosine_similarity": 0.6979259848594666
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by men.",
+        "prediction": "This instrument is traditionally played by men.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by blowing air across the blow hole and covering finger holes.",
+        "prediction": "This instrument is played by placing both mouthpieces in the airflow and covering finger holes with one hand while covering the other mouthpiece with the other hand.",
+        "cosine_similarity": 0.8405308723449707
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a transverse bamboo flute instrument.",
+        "prediction": "This is a transverse bamboo flute instrument. It is made from bamboo and played by blowing air across the mouthpiece.",
+        "cosine_similarity": 0.9404486417770386
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Bahi is a traditional Assamese transverse flute made entirely from bamboo, played by blowing air across a side blow hole while controlling pitch through finger holes along the tube. It is one of the oldest melodic instruments in Assamese folk music and is prominently used during Rongali Bihu celebrations. Unlike the rhythm-keeping instruments of the Bihu ensemble, the Bahi carries the melodic layer with its soft, flute-like tone. It is traditionally played by men and is closely associated with pastoral and folk music traditions of Assam.",
+        "prediction": "The Bahi is a transverse flute made entirely from bamboo, played by blowing air across a side blow hole while controlling pitch through finger holes along the tube. It is one of the oldest melodic instruments in Assamese folk music and is prominently used during Rongali Bihu celebrations. Unlike the rhythm-keeping",
+        "cosine_similarity": 0.9885830879211426
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is played during Rongali Bihu which is the spring festival of Assam. It is played by both men and women.",
+        "cosine_similarity": 0.8477961421012878
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the rural communities of Assam.",
+        "prediction": "This instrument is made from a single piece of bamboo and consists of two separate pieces connected by a joint.",
+        "cosine_similarity": 0.2225588858127594
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bamboo.",
+        "prediction": "This instrument is made of bamboo.",
+        "cosine_similarity": 0.9999999403953552
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are bamboo tube body, blow hole and finger holes.",
+        "prediction": "The main parts of this instrument are bamboo tube body, blow hole and finger holes.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a soft, melodic, flute-like sound.",
+        "prediction": "This instrument produces a soft, melodic, flute-like sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by men.",
+        "prediction": "This instrument is traditionally played by men.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by blowing air across the blow hole and covering finger holes.",
+        "prediction": "This instrument is played by blowing air across the blow hole and covering finger holes.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a transverse bamboo flute instrument.",
+        "prediction": "This is a transverse bamboo flute instrument. It is played by blowing air across the mouthpiece and covering finger holes.",
+        "cosine_similarity": 0.9080797433853149
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Bahi is a traditional Assamese transverse flute made entirely from bamboo, played by blowing air across a side blow hole while controlling pitch through finger holes along the tube. It is one of the oldest melodic instruments in Assamese folk music and is prominently used during Rongali Bihu celebrations. Unlike the rhythm-keeping instruments of the Bihu ensemble, the Bahi carries the melodic layer with its soft, flute-like tone. It is traditionally played by men and is closely associated with pastoral and folk music traditions of Assam.",
+        "prediction": "The Bahi is a transverse-assamese wind instrument made entirely from bamboo, played by blowing air across a side blow hole while controlling pitch through finger holes along the tube. It is one of the oldest melodic instruments in Assamese folk music and is prominently used during Rongali Bihu celebrations. Unlike",
+        "cosine_similarity": 0.9621407389640808
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is played during Rongali Bihu which is the spring festival of Assam. It is played by both men and women.",
+        "cosine_similarity": 0.8477961421012878
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the rural communities of Assam.",
+        "prediction": "This instrument is made from a single piece of bamboo and has two blow holes. It is played by blowing air through both ends.",
+        "cosine_similarity": 0.21210218966007233
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bamboo.",
+        "prediction": "This instrument is made of bamboo.",
+        "cosine_similarity": 0.9999999403953552
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are bamboo tube body, blow hole and finger holes.",
+        "prediction": "The main parts of this instrument are bamboo tube body, blow hole and finger holes.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a soft, melodic, flute-like sound.",
+        "prediction": "This instrument produces a soft, melodic, flute-like sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by men.",
+        "prediction": "This instrument is traditionally played by men.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by blowing air across the blow hole and covering finger holes.",
+        "prediction": "This instrument is played by blowing air across the blow hole and covering finger holes.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a transverse bamboo flute instrument.",
+        "prediction": "This is a transverse bamboo flute instrument. It is played by blowing air across the mouthpiece and covering finger holes.",
+        "cosine_similarity": 0.9080797433853149
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Bahi is a traditional Assamese transverse flute made entirely from bamboo, played by blowing air across a side blow hole while controlling pitch through finger holes along the tube. It is one of the oldest melodic instruments in Assamese folk music and is prominently used during Rongali Bihu celebrations. Unlike the rhythm-keeping instruments of the Bihu ensemble, the Bahi carries the melodic layer with its soft, flute-like tone. It is traditionally played by men and is closely associated with pastoral and folk music traditions of Assam.",
+        "prediction": "The Bahi is a transverse bamboo flute that is traditionally made from a single piece of bamboo. It is played by blowing air across a side blow hole while controlling pitch through finger holes along the tube. The Bahi is one of the oldest transverse flutes in Assamese folk music and is traditionally played by",
+        "cosine_similarity": 0.9630391001701355
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is blown to produce a high pitched wailing sound. It is played by both men and women.",
+        "cosine_similarity": 0.48192310333251953
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the rural communities of Assam.",
+        "prediction": "This instrument is made from a single piece of bamboo and is blown to produce a high-pitched, sharp tone.",
+        "cosine_similarity": 0.22836783528327942
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bamboo.",
+        "prediction": "This instrument is made of bamboo.",
+        "cosine_similarity": 0.9999999403953552
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are bamboo tube body, blow hole and finger holes.",
+        "prediction": "During which festival is this instrument played?",
+        "cosine_similarity": 0.4400078356266022
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a soft, melodic, flute-like sound.",
+        "prediction": "This instrument produces a soft, melodic, flute-like sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by men.",
+        "prediction": "This instrument is traditionally played by men.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by blowing air across the blow hole and covering finger holes.",
+        "prediction": "This instrument is played by blowing air across the blow hole and covering finger holes.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a transverse bamboo flute instrument.",
+        "prediction": "This is a transverse bamboo flute instrument. It is played by blowing air across the open end and covering finger holes.",
+        "cosine_similarity": 0.9121288061141968
+    },
+    {
+        "instrument": "bahi",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Bahi is a traditional Assamese transverse flute made entirely from bamboo, played by blowing air across a side blow hole while controlling pitch through finger holes along the tube. It is one of the oldest melodic instruments in Assamese folk music and is prominently used during Rongali Bihu celebrations. Unlike the rhythm-keeping instruments of the Bihu ensemble, the Bahi carries the melodic layer with its soft, flute-like tone. It is traditionally played by men and is closely associated with pastoral and folk music traditions of Assam.",
+        "prediction": "The Bahi is a transverse flute made entirely from bamboo, played by blowing air across a side blow hole while controlling pitch through finger holes along the tube. It is one of the oldest melodic instruments in Assamese folk music and is prominently used during Rongali Bihu celebrations. Unlike the rhythm-keeping",
+        "cosine_similarity": 0.9885830879211426
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This small bamboo flute is blown to produce a sharp, piercing sound. It is traditionally played during Rongali Bihu.",
+        "cosine_similarity": 0.6323789954185486
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the rural communities of Assam.",
+        "prediction": "This instrument is played by holding both ends and vibrating the vibrating bar by striking it against the other end or a hard surface.",
+        "cosine_similarity": 0.06553201377391815
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bamboo.",
+        "prediction": "This instrument is made of bamboo.",
+        "cosine_similarity": 0.9999999403953552
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are two bamboo pieces, hinged joint, and striking ends.",
+        "prediction": "This instrument is played by striking both ends with the fingers.",
+        "cosine_similarity": 0.6160337924957275
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a sharp, dry clicking sound.",
+        "prediction": "This instrument produces a sharp, dry clicking sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by both men and women.",
+        "prediction": "This instrument is traditionally played by women.",
+        "cosine_similarity": 0.8624454140663147
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by clapping the two bamboo pieces against each other.",
+        "prediction": "This instrument is played by striking both ends of the bamboo piece against each other.",
+        "cosine_similarity": 0.8532114028930664
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a bamboo clapper percussion instrument.",
+        "prediction": "During performances, this instrument is played by striking the two ends of the bamboo stick together.",
+        "cosine_similarity": 0.6488921046257019
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Toka is a traditional Assamese percussion instrument made entirely from bamboo, consisting of two pieces joined and clapped together rhythmically. Its sharp, dry clicking sound provides rhythmic accompaniment that complements heavier instruments like the Dhol. Toka is played by both men and women, making it an inclusive instrument in Assamese folk music.",
+        "prediction": "The Toka is a traditional Assamese percussion instrument made entirely from bamboo, consisting of two pieces joined and clapped together rhythmically. Its sharp, dry clicking sound provides rhythmic accompaniment that complements heavier instruments like the Dhol. Toka is played by both men and women, making it an inclusive",
+        "cosine_similarity": 0.9958246350288391
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This small, cone-shaped instrument is made of bamboo and a small piece of metal or stone. It is blown to make a sharp, clicking sound.",
+        "cosine_similarity": 0.3867076337337494
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the rural communities of Assam.",
+        "prediction": "This instrument is played by holding both ends and vibrating the vibrating bar while plucking the ring.",
+        "cosine_similarity": 0.11602841317653656
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bamboo.",
+        "prediction": "This instrument is made of bamboo.",
+        "cosine_similarity": 0.9999999403953552
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are two bamboo pieces, hinged joint, and striking ends.",
+        "prediction": "The main parts of this instrument are two bamboo pieces, hinged joint, and striking ends.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a sharp, dry clicking sound.",
+        "prediction": "This instrument produces a sharp, dry clicking sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by both men and women.",
+        "prediction": "This instrument is traditionally played by women.",
+        "cosine_similarity": 0.8624454736709595
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by clapping the two bamboo pieces against each other.",
+        "prediction": "This instrument is played by striking the two metal bars against each other.",
+        "cosine_similarity": 0.6090003252029419
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a bamboo clapper percussion instrument.",
+        "prediction": "This is a bamboo clapper percussion instrument. It consists of two bamboo pieces that are struck against each other to produce a sharp, dry sound.",
+        "cosine_similarity": 0.9233646392822266
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Toka is a traditional Assamese percussion instrument made entirely from bamboo, consisting of two pieces joined and clapped together rhythmically. Its sharp, dry clicking sound provides rhythmic accompaniment that complements heavier instruments like the Dhol. Toka is played by both men and women, making it an inclusive instrument in Assamese folk music.",
+        "prediction": "The Toka is a traditional Assamese percussion instrument made entirely from bamboo, consisting of two pieces joined and clapped together rhythmically. Its sharp, dry clicking sound provides rhythmic accompaniment that complements heavier instruments like the Dhol. Toka is played by both men and women, making it an inclusive",
+        "cosine_similarity": 0.9958246350288391
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This small conical wind instrument is blown to produce a sharp, piercing sound. It is played by both men and women.",
+        "cosine_similarity": 0.4596681594848633
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the rural communities of Assam.",
+        "prediction": "This instrument is made from a single piece of bamboo and consists of two vibrating pieces connected by a string.",
+        "cosine_similarity": 0.23712891340255737
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bamboo.",
+        "prediction": "This instrument is made of bamboo.",
+        "cosine_similarity": 0.9999999403953552
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are two bamboo pieces, hinged joint, and striking ends.",
+        "prediction": "The main parts of this instrument are two bamboo pieces, a hinged joint, and striking ends.",
+        "cosine_similarity": 0.9985269904136658
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a sharp, dry clicking sound.",
+        "prediction": "This instrument produces a sharp, dry clicking sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by both men and women.",
+        "prediction": "This instrument is traditionally played by women.",
+        "cosine_similarity": 0.8624454140663147
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by clapping the two bamboo pieces against each other.",
+        "prediction": "This instrument is played by clapping the two bamboo pieces together.",
+        "cosine_similarity": 0.9841722249984741
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a bamboo clapper percussion instrument.",
+        "prediction": "This is a bamboo clapper percussion instrument played by striking the two ends together. It is traditionally played during Rongali Bihu festivals.",
+        "cosine_similarity": 0.8603384494781494
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Toka is a traditional Assamese percussion instrument made entirely from bamboo, consisting of two pieces joined and clapped together rhythmically. Its sharp, dry clicking sound provides rhythmic accompaniment that complements heavier instruments like the Dhol. Toka is played by both men and women, making it an inclusive instrument in Assamese folk music.",
+        "prediction": "The Toka is a traditional Assamese percussion instrument made entirely from bamboo, consisting of two pieces joined and clapped together rhythmically. Its sharp, dry clicking sound provides rhythmic accompaniment that complements heavier instruments like the Dhol. Toka is played by both men and women, making it an inclusive",
+        "cosine_similarity": 0.9958246350288391
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is played during Rongali Bihu which is the spring festival of Assam.",
+        "cosine_similarity": 0.8784782886505127
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the rural communities of Assam.",
+        "prediction": "This instrument originated in the rural communities of Assam.",
+        "cosine_similarity": 0.7507209777832031
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bamboo.",
+        "prediction": "This instrument is made of bamboo.",
+        "cosine_similarity": 0.9999999403953552
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are two bamboo pieces, hinged joint, and striking ends.",
+        "prediction": "During which festival is this instrument played?",
+        "cosine_similarity": 0.4495198726654053
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a sharp, dry clicking sound.",
+        "prediction": "This instrument produces a sharp, dry clicking sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by both men and women.",
+        "prediction": "This instrument is traditionally played by women.",
+        "cosine_similarity": 0.8624454140663147
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by clapping the two bamboo pieces against each other.",
+        "prediction": "This instrument is played by striking the two bamboo pieces together near the mouthpiece.",
+        "cosine_similarity": 0.8171135187149048
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a bamboo clapper percussion instrument.",
+        "prediction": "This is a bamboo clapper percussion instrument. It consists of two bamboo pieces that are struck against each other to produce a sharp, dry sound.",
+        "cosine_similarity": 0.9233646392822266
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Toka is a traditional Assamese percussion instrument made entirely from bamboo, consisting of two pieces joined and clapped together rhythmically. Its sharp, dry clicking sound provides rhythmic accompaniment that complements heavier instruments like the Dhol. Toka is played by both men and women, making it an inclusive instrument in Assamese folk music.",
+        "prediction": "The Toka is a traditional Assamese percussion instrument made entirely from bamboo, consisting of two pieces joined and clapped together rhythmically. Its sharp, dry clicking sound provides rhythmic accompaniment that complements heavier instruments like the Dhol. Toka is played by both men and women, making it an inclusive",
+        "cosine_similarity": 0.9958246350288391
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is made by splitting a bamboo stick lengthwise and wrapping it with cloth.",
+        "cosine_similarity": 0.35652071237564087
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the rural communities of Assam.",
+        "prediction": "This instrument originated in the rural communities of Assam. It is played by plucking both ends of the bamboo tube.",
+        "cosine_similarity": 0.5646814107894897
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bamboo.",
+        "prediction": "This instrument is made of bamboo.",
+        "cosine_similarity": 0.9999999403953552
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are two bamboo pieces, hinged joint, and striking ends.",
+        "prediction": "The main parts of this instrument are two bamboo pieces, hinged joint, and striking ends.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a sharp, dry clicking sound.",
+        "prediction": "This instrument produces a sharp, dry clicking sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by both men and women.",
+        "prediction": "This instrument is traditionally played by women.",
+        "cosine_similarity": 0.8624454140663147
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by clapping the two bamboo pieces against each other.",
+        "prediction": "This instrument is played by striking the two bamboo pieces together.",
+        "cosine_similarity": 0.8605684638023376
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a bamboo clapper percussion instrument.",
+        "prediction": "This is a bamboo clapper percussion instrument. It consists of two bamboo pieces that are struck against each other to produce a sharp, dry sound.",
+        "cosine_similarity": 0.9233646392822266
+    },
+    {
+        "instrument": "toka",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Toka is a traditional Assamese percussion instrument made entirely from bamboo, consisting of two pieces joined and clapped together rhythmically. Its sharp, dry clicking sound provides rhythmic accompaniment that complements heavier instruments like the Dhol. Toka is played by both men and women, making it an inclusive instrument in Assamese folk music.",
+        "prediction": "The Toka is a traditional Assamese percussion instrument made entirely from bamboo, consisting of two pieces joined and clapped together rhythmically. Its sharp, dry clicking sound provides rhythmic accompaniment that complements heavier instruments like the Dhol. Toka is played by both men and women, making it an inclusive",
+        "cosine_similarity": 0.9958246350288391
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This small, round, flat percussion instrument is made from a split bamboo or wood cylinder. It is played by striking both ends of the instrument against each other.",
+        "cosine_similarity": 0.5064380764961243
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the Brahmaputra valley of Assam.",
+        "prediction": "This small, conical percussion instrument is made from the hollowed horn or bone of a cattle or buffalo. It is traditionally played during Rongali Bihu celebrations.",
+        "cosine_similarity": 0.36577218770980835
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bell metal. ",
+        "prediction": "This instrument is made of bell metal.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are two small cymbal discs and connecting cord.",
+        "prediction": "The main parts of this instrument are two small metal discs and connecting cord.",
+        "cosine_similarity": 0.8915523290634155
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a bright, high-pitched ringing sound.",
+        "prediction": "This instrument produces a sharp, ringing high-pitched sound.",
+        "cosine_similarity": 0.9663674831390381
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by both men and women.",
+        "prediction": "This small, round, conical percussion instrument is traditionally made from the hollowed stem of a grass plant or bamboo.",
+        "cosine_similarity": 0.4780525863170624
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by striking the two metal discs against each other.",
+        "prediction": "This instrument is played by striking the two metal discs against each other.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a small paired metal cymbal percussion instrument.",
+        "prediction": "This is a small paired metal cymbal percussion instrument. It consists of two small round metal plates that are struck against each other to produce a sharp, dry sound.",
+        "cosine_similarity": 0.8852541446685791
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Khuti-Taal is a small paired cymbal instrument made of bell metal, a brass alloy traditionally crafted in the Brahmaputra valley of Assam. It consists of two small metal discs connected by a cord and struck together to produce a bright, high-pitched ringing sound that provides rhythmic accompaniment during Bihu performances. The Khuti-Taal is traditionally played by both men and women and is commonly used alongside the Dhol and Pepa during Rongali Bihu performances. Its metallic timbre and compact size make it an important rhythm-keeping instrument in Assamese folk music.",
+        "prediction": "The Khuti-Taal is a small paired cymbal instrument made of bell metal, a brass alloy traditionally crafted in the Brahmaputra valley of Assam. It consists of two small metal discs connected by a cord and struck together to produce a bright, high-pitched ringing sound that provides rhythmic accompaniment",
+        "cosine_similarity": 0.964104413986206
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is played during Rongali Bihu which is the spring festival of Assam. It is played by both men and women.",
+        "cosine_similarity": 0.8477961421012878
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the Brahmaputra valley of Assam.",
+        "prediction": "This instrument originated in the Brahmaputra valley of Assam.",
+        "cosine_similarity": 0.7332445979118347
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bell metal. ",
+        "prediction": "This instrument is made of bell metal.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are two small cymbal discs and connecting cord.",
+        "prediction": "The main parts of this instrument are two small cymbal discs and connecting cord.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a bright, high-pitched ringing sound.",
+        "prediction": "This instrument produces a sharp, ringing high-pitched sound.",
+        "cosine_similarity": 0.9663674831390381
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by both men and women.",
+        "prediction": "This instrument is traditionally played by women.",
+        "cosine_similarity": 0.8624454736709595
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by striking the two metal discs against each other.",
+        "prediction": "This instrument is played by striking the two metal discs against each other.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a small paired metal cymbal percussion instrument.",
+        "prediction": "This is a small paired metal cymbal percussion instrument. It consists of two small round metal discs that are struck against each other to produce a sharp, dry clicking sound.",
+        "cosine_similarity": 0.8718106746673584
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Khuti-Taal is a small paired cymbal instrument made of bell metal, a brass alloy traditionally crafted in the Brahmaputra valley of Assam. It consists of two small metal discs connected by a cord and struck together to produce a bright, high-pitched ringing sound that provides rhythmic accompaniment during Bihu performances. The Khuti-Taal is traditionally played by both men and women and is commonly used alongside the Dhol and Pepa during Rongali Bihu performances. Its metallic timbre and compact size make it an important rhythm-keeping instrument in Assamese folk music.",
+        "prediction": "The Khuti-Taal is a small paired cymbal instrument made of bell metal, a brass alloy traditionally crafted in the Brahmaputra valley of Assam. It consists of two small metal discs connected by a cord and struck together to produce a bright, high-pitched ringing sound that provides rhythmic accompaniment",
+        "cosine_similarity": 0.964104413986206
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is played during Rongali Bihu which is the spring festival of Assam. It is played by clapping both cymbal halves together.",
+        "cosine_similarity": 0.7663077116012573
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the Brahmaputra valley of Assam.",
+        "prediction": "This instrument originated in the Brahmaputra valley of Assam. It is traditionally played during Rongali Bihu.",
+        "cosine_similarity": 0.6717302799224854
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bell metal. ",
+        "prediction": "This instrument is made of bell metal.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are two small cymbal discs and connecting cord.",
+        "prediction": "The major parts of this instrument are two small cymbal discs and connecting cord.",
+        "cosine_similarity": 0.9918646216392517
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a bright, high-pitched ringing sound.",
+        "prediction": "This instrument produces a sharp, metallic ringing sound.",
+        "cosine_similarity": 0.8882755637168884
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by both men and women.",
+        "prediction": "This instrument is traditionally played by men.",
+        "cosine_similarity": 0.8809924125671387
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by striking the two metal discs against each other.",
+        "prediction": "This instrument is played by striking the two metal discs against each other.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a small paired metal cymbal percussion instrument.",
+        "prediction": "During performances, this instrument is used in pairs and is played by striking both cymbals against each other.",
+        "cosine_similarity": 0.6551340222358704
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Khuti-Taal is a small paired cymbal instrument made of bell metal, a brass alloy traditionally crafted in the Brahmaputra valley of Assam. It consists of two small metal discs connected by a cord and struck together to produce a bright, high-pitched ringing sound that provides rhythmic accompaniment during Bihu performances. The Khuti-Taal is traditionally played by both men and women and is commonly used alongside the Dhol and Pepa during Rongali Bihu performances. Its metallic timbre and compact size make it an important rhythm-keeping instrument in Assamese folk music.",
+        "prediction": "The Khuti-Taal is a small paired cymbal instrument made of bell metal, a brass alloy traditionally crafted in the Brahmaputra valley of Assam. It consists of two small metal discs connected by a cord and struck together to produce a bright, high-pitched ringing sound that provides rhythmic accompaniment",
+        "cosine_similarity": 0.964104413986206
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is played during Rongali Bihu which is the spring festival of Assam.",
+        "cosine_similarity": 0.8784782886505127
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the Brahmaputra valley of Assam.",
+        "prediction": "This instrument originated in the Brahmaputra valley of Assam.",
+        "cosine_similarity": 0.7332445979118347
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bell metal. ",
+        "prediction": "This instrument is made of bell metal.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are two small cymbal discs and connecting cord.",
+        "prediction": "During which season is this instrument played traditionally?",
+        "cosine_similarity": 0.44064614176750183
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a bright, high-pitched ringing sound.",
+        "prediction": "This instrument produces a bright, high-pitched ringing sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by both men and women.",
+        "prediction": "During festivals, this instrument is traditionally played by young men.",
+        "cosine_similarity": 0.6283978223800659
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by striking the two metal discs against each other.",
+        "prediction": "This instrument is played by striking the two metal discs against each other.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a small paired metal cymbal percussion instrument.",
+        "prediction": "During performances, this instrument is played by striking both cymbal heads together or hitting one head against a hard surface.",
+        "cosine_similarity": 0.6548804044723511
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Khuti-Taal is a small paired cymbal instrument made of bell metal, a brass alloy traditionally crafted in the Brahmaputra valley of Assam. It consists of two small metal discs connected by a cord and struck together to produce a bright, high-pitched ringing sound that provides rhythmic accompaniment during Bihu performances. The Khuti-Taal is traditionally played by both men and women and is commonly used alongside the Dhol and Pepa during Rongali Bihu performances. Its metallic timbre and compact size make it an important rhythm-keeping instrument in Assamese folk music.",
+        "prediction": "The Khuti-Taal is a small paired cymbal instrument made of bell metal, a brass alloy traditionally crafted in the Brahmaputra valley of Assam. It consists of two small metal discs connected by a cord and struck together to produce a bright, high-pitched ringing sound that provides rhythmic accompaniment",
+        "cosine_similarity": 0.964104413986206
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This small flat percussion instrument is traditionally made from the hollowed horn or bone of a cattle or buffalo. It is played by striking two pieces of the instrument together or against a hard surface.",
+        "cosine_similarity": 0.49975717067718506
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the Brahmaputra valley of Assam.",
+        "prediction": "This small, thumb-sized percussion instrument is traditionally played by women during Rongali Bihu. It is made by splitting a small piece of bamboo lengthwise and striking the two ends together.",
+        "cosine_similarity": 0.2965998649597168
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bell metal. ",
+        "prediction": "This instrument is made of bell metal.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are two small cymbal discs and connecting cord.",
+        "prediction": "The main parts of this instrument are two small metal discs and connecting cord.",
+        "cosine_similarity": 0.8915523290634155
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a bright, high-pitched ringing sound.",
+        "prediction": "This instrument produces a sharp, dry clicking sound.",
+        "cosine_similarity": 0.6676052808761597
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by both men and women.",
+        "prediction": "This instrument is traditionally played by women.",
+        "cosine_similarity": 0.8624454736709595
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by striking the two metal discs against each other.",
+        "prediction": "This instrument is played by striking the two metal discs against each other.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a small paired metal cymbal percussion instrument.",
+        "prediction": "This is a small paired metal cymbal percussion instrument. It consists of two small metal discs that are struck against each other to produce a sharp, dry sound.",
+        "cosine_similarity": 0.8822339773178101
+    },
+    {
+        "instrument": "khutitaal",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Khuti-Taal is a small paired cymbal instrument made of bell metal, a brass alloy traditionally crafted in the Brahmaputra valley of Assam. It consists of two small metal discs connected by a cord and struck together to produce a bright, high-pitched ringing sound that provides rhythmic accompaniment during Bihu performances. The Khuti-Taal is traditionally played by both men and women and is commonly used alongside the Dhol and Pepa during Rongali Bihu performances. Its metallic timbre and compact size make it an important rhythm-keeping instrument in Assamese folk music.",
+        "prediction": "The Khuti-Taal is a small paired cymbal instrument made of bell metal, a brass alloy traditionally crafted in the Brahmaputra valley of Assam. It consists of two small metal discs connected by a cord and struck together to produce a bright, high-pitched ringing sound that provides rhythmic accompaniment",
+        "cosine_similarity": 0.964104413986206
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is played during Rongali Bihu which is the spring festival of Assam.",
+        "cosine_similarity": 0.8784782886505127
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the rural communities of Assam.",
+        "prediction": "This instrument is played by blowing air through the blow hole and covering finger holes.",
+        "cosine_similarity": 0.16292816400527954
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of clay or bamboo.",
+        "prediction": "This instrument is made of clay or bamboo.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are hollow body, blow end, and finger holes.",
+        "prediction": "During which festival is this instrument played?",
+        "cosine_similarity": 0.43027371168136597
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a high-pitched, sharp whistling sound.",
+        "prediction": "This instrument produces a high-pitched, sharp whistling sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by both men and women.",
+        "prediction": "This instrument is traditionally played by women.",
+        "cosine_similarity": 0.8624454140663147
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by blowing air into the blow end and covering finger holes.",
+        "prediction": "This instrument is played by blowing air into the blow end and covering finger holes.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a small conical end-blown wind instrument.",
+        "prediction": "This is a small conical end-blown wind instrument made from bamboo or wood. It is played by blowing air into the larger end and covering finger holes.",
+        "cosine_similarity": 0.8264162540435791
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Xutuli is a small conical end-blown wind instrument traditionally made from clay or bamboo in the rural communities of Assam. It is played by blowing air directly into one end, producing a distinctly high-pitched, sharp whistling tone. It is an important traditional wind instrument in Assamese folk music. Its compact size and traditional use make it popular during Bihu celebrations.",
+        "prediction": "The Xutuli is a small conical end-blown wind instrument traditionally made from clay or bamboo in the rural communities of Assam. It is played by blowing air directly into one end, producing a distinctly high-pitched, sharp whistling tone. It is an important traditional wind instrument in Assamese folk",
+        "cosine_similarity": 0.9953415989875793
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This small, conical instrument is made from a single piece of stone or bamboo and is traditionally played by women. It is played by blowing air through the narrow end while clapping the two larger ends together.",
+        "cosine_similarity": 0.5594545006752014
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the rural communities of Assam.",
+        "prediction": "This instrument is played by blowing air into the blow end and covering the finger holes.",
+        "cosine_similarity": 0.15945041179656982
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of clay or bamboo.",
+        "prediction": "This instrument is made of clay or bamboo.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are hollow body, blow end, and finger holes.",
+        "prediction": "The main parts of this instrument are hollow body, blow end, and finger holes.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a high-pitched, sharp whistling sound.",
+        "prediction": "This instrument produces a high-pitched, sharp whistling sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by both men and women.",
+        "prediction": "This instrument is traditionally played by women.",
+        "cosine_similarity": 0.8624454140663147
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by blowing air into the blow end and covering finger holes.",
+        "prediction": "This instrument is played by blowing air into the blow end and covering finger holes.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a small conical end-blown wind instrument.",
+        "prediction": "This is a small conical end-blown wind instrument made from the horn of a buffalo or deer. The player blows air into the mouthpiece and blows it out through the blow hole at the opposite end.",
+        "cosine_similarity": 0.8408340215682983
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Xutuli is a small conical end-blown wind instrument traditionally made from clay or bamboo in the rural communities of Assam. It is played by blowing air directly into one end, producing a distinctly high-pitched, sharp whistling tone. It is an important traditional wind instrument in Assamese folk music. Its compact size and traditional use make it popular during Bihu celebrations.",
+        "prediction": "The Xutuli is a small conical end-blown wind instrument traditionally made from clay or bamboo in the rural communities of Assam. It is played by blowing air directly into one end, producing a distinctly high-pitched, sharp whistling tone. It is an important traditional wind instrument in Assamese folk",
+        "cosine_similarity": 0.9953415989875793
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This small mouthpiece wind instrument is made of bamboo and a piece of cloth or leather. It is blown from the bottom end.",
+        "cosine_similarity": 0.34069663286209106
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the rural communities of Assam.",
+        "prediction": "This instrument is played by placing both mouthpieces against the cheeks and blowing air through them.",
+        "cosine_similarity": 0.1628376841545105
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of clay or bamboo.",
+        "prediction": "This instrument is made of clay or bamboo.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are hollow body, blow end, and finger holes.",
+        "prediction": "The main parts of this instrument are hollow body, blow end, and finger holes.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a high-pitched, sharp whistling sound.",
+        "prediction": "This instrument produces a high-pitched, sharp whistling sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by both men and women.",
+        "prediction": "This instrument is traditionally played by women.",
+        "cosine_similarity": 0.8624454736709595
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by blowing air into the blow end and covering finger holes.",
+        "prediction": "This instrument is played by blowing air into the blow end and covering finger holes.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a small conical end-blown wind instrument.",
+        "prediction": "This is a small conical end-blown wind instrument made from bamboo or wood. It is played by blowing air into the blow end and covering finger holes.",
+        "cosine_similarity": 0.8242818117141724
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Xutuli is a small conical end-blown wind instrument traditionally made from clay or bamboo in the rural communities of Assam. It is played by blowing air directly into one end, producing a distinctly high-pitched, sharp whistling tone. It is an important traditional wind instrument in Assamese folk music. Its compact size and traditional use make it popular during Bihu celebrations.",
+        "prediction": "The Xutuli is a small conical end-blown wind instrument traditionally made from clay or bamboo in the rural communities of Assam. It is played by blowing air directly into one end, producing a distinctly high-pitched, sharp whistling tone. It is an important traditional wind instrument in Assamese folk",
+        "cosine_similarity": 0.9953415989875793
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is played during Rongali Bihu which is the spring festival of Assam.",
+        "cosine_similarity": 0.8784782886505127
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the rural communities of Assam.",
+        "prediction": "This instrument is played by holding both ends and hitting it with the fingers or a stick.",
+        "cosine_similarity": 0.12883317470550537
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of clay or bamboo.",
+        "prediction": "This instrument is made of clay or bamboo.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are hollow body, blow end, and finger holes.",
+        "prediction": "The main parts of this instrument are hollow body, blow end, and finger holes.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a high-pitched, sharp whistling sound.",
+        "prediction": "This instrument produces a high-pitched, sharp, whistling sound.",
+        "cosine_similarity": 0.9962719678878784
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by both men and women.",
+        "prediction": "This instrument is traditionally played by women.",
+        "cosine_similarity": 0.8624454736709595
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by blowing air into the blow end and covering finger holes.",
+        "prediction": "This instrument is played by blowing air into the blow end and covering finger holes.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a small conical end-blown wind instrument.",
+        "prediction": "This is a small conical end-blown wind instrument made from bamboo or wood. It is played by blowing air into the blow end and covering finger holes.",
+        "cosine_similarity": 0.8242818117141724
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Xutuli is a small conical end-blown wind instrument traditionally made from clay or bamboo in the rural communities of Assam. It is played by blowing air directly into one end, producing a distinctly high-pitched, sharp whistling tone. It is an important traditional wind instrument in Assamese folk music. Its compact size and traditional use make it popular during Bihu celebrations.",
+        "prediction": "The Xutuli is a small conical end-blown wind instrument traditionally made from clay or bamboo in the rural communities of Assam. It is played by blowing air directly into one end, producing a distinctly high-pitched, sharp whistling tone. It is an important traditional wind instrument in Assamese folk",
+        "cosine_similarity": 0.9953415989875793
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is made from the horn of a male buffalo and is traditionally played by men. It is played by blowing air through the blow hole and covering the finger holes.",
+        "cosine_similarity": 0.48675990104675293
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the rural communities of Assam.",
+        "prediction": "This instrument is made from a single piece of hollowed-out bamboo.",
+        "cosine_similarity": 0.2152801752090454
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of clay or bamboo.",
+        "prediction": "This instrument is made of clay or bamboo.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are hollow body, blow end, and finger holes.",
+        "prediction": "During which festival is this instrument played?",
+        "cosine_similarity": 0.43027371168136597
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a high-pitched, sharp whistling sound.",
+        "prediction": "This instrument produces a high-pitched, sharp whistling sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by both men and women.",
+        "prediction": "This instrument is traditionally played by women.",
+        "cosine_similarity": 0.8624454736709595
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by blowing air into the blow end and covering finger holes.",
+        "prediction": "This instrument is played by blowing air into the blow end and covering finger holes.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a small conical end-blown wind instrument.",
+        "prediction": "This is a small conical end-blown wind instrument made from the horn of a buffalo or deer. It is played by blowing air into one end and covering the other to change the pitch.",
+        "cosine_similarity": 0.8332600593566895
+    },
+    {
+        "instrument": "xutuli",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Xutuli is a small conical end-blown wind instrument traditionally made from clay or bamboo in the rural communities of Assam. It is played by blowing air directly into one end, producing a distinctly high-pitched, sharp whistling tone. It is an important traditional wind instrument in Assamese folk music. Its compact size and traditional use make it popular during Bihu celebrations.",
+        "prediction": "The Xutuli is a small conical end-blown wind instrument traditionally made from clay or bamboo in the rural communities of Assam. It is played by blowing air directly into one end, producing a distinctly high-pitched, sharp whistling tone. It is an important traditional wind instrument in Assamese folk",
+        "cosine_similarity": 0.9953415989875793
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This small drum is played by both men and women during Rongali Bihu. It is played by striking the two heads of the drum against each other.",
+        "cosine_similarity": 0.6757998466491699
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the Brahmaputra valley of Assam.",
+        "prediction": "This small drum is played by beating both ends simultaneously. It is played during Rongali Bihu and other folk festivals in Assam.",
+        "cosine_similarity": 0.36040735244750977
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of wood and animal skin.",
+        "prediction": "This instrument is made of wood and animal skin.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are wooden barrel body, two leather drum heads, and carrying strap.",
+        "prediction": "The main parts of this instrument are the hollow cylindrical body made from bamboo or wood, two skin drumheads, and a carrying strap.",
+        "cosine_similarity": 0.8710722923278809
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a deep, resonant booming sound.",
+        "prediction": "This instrument produces a deep, resonant booming sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by men.",
+        "prediction": "This instrument is traditionally played by men. It is traditionally played by men.",
+        "cosine_similarity": 0.8460373878479004
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by striking both drumheads with the hands and a stick.",
+        "prediction": "This instrument is played by striking both drumheads with the hands.",
+        "cosine_similarity": 0.9557717442512512
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a double-headed barrel-shaped percussion instrument.",
+        "prediction": "This is a double-headed barrel-shaped percussion instrument made from bamboo or wood.",
+        "cosine_similarity": 0.9012672901153564
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Dhol is a double-headed barrel drum and the primary rhythm instrument of Assamese folk music. It holds central significance in Rongali Bihu celebrations. Its deep, booming beats accompany Bihu dance performances and are considered the heartbeat of Assamese cultural gatherings.",
+        "prediction": "The Dhol consists of two conical drums made from bamboo or wood, covered with animal skin. The larger, lower-frequency drum is struck with bare hands while the smaller, higher-frequency drum is struck with drumsticks. Its rhythmic beats provide the foundation for Assamese folk music.",
+        "cosine_similarity": 0.855341911315918
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is played during Rongali Bihu which is the spring festival of Assam.",
+        "cosine_similarity": 0.8784782886505127
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the Brahmaputra valley of Assam.",
+        "prediction": "This instrument originated in the Brahmaputra valley of Assam.",
+        "cosine_similarity": 0.7332445979118347
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of wood and animal skin.",
+        "prediction": "This instrument is made of bamboo and animal skin.",
+        "cosine_similarity": 0.9051384925842285
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are wooden barrel body, two leather drum heads, and carrying strap.",
+        "prediction": "The main parts of this instrument are the wooden barrel body, two leather drum heads, and carrying strap.",
+        "cosine_similarity": 0.9950873851776123
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a deep, resonant booming sound.",
+        "prediction": "This instrument produces a deep, resonant booming sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by men.",
+        "prediction": "This instrument is traditionally played by men.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by striking both drumheads with the hands and a stick.",
+        "prediction": "This instrument is played by striking both drumheads with the hands and a stick.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a double-headed barrel-shaped percussion instrument.",
+        "prediction": "This is a double-headed barrel-shaped percussion instrument made from bamboo and cloth. It is played by striking both ends simultaneously.",
+        "cosine_similarity": 0.8504419326782227
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Dhol is a double-headed barrel drum and the primary rhythm instrument of Assamese folk music. It holds central significance in Rongali Bihu celebrations. Its deep, booming beats accompany Bihu dance performances and are considered the heartbeat of Assamese cultural gatherings.",
+        "prediction": "The Dhol consists of two cylindrical drums made from bamboo or wood, covered with animal skin or cloth. The larger, lower pitch drum is struck with bare hands while the smaller, higher pitch drum is struck with drumsticks. Both drums are played simultaneously to create a rich, rhythmic foundation for Assamese folk music",
+        "cosine_similarity": 0.8697468042373657
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This small drum is played by both men and women during Bihu festivals. It is played by striking the two heads of the drum against each other.",
+        "cosine_similarity": 0.6395389437675476
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the Brahmaputra valley of Assam.",
+        "prediction": "This small drum is played by holding both ends and hitting them together. It is played during Rongali Bihu.",
+        "cosine_similarity": 0.24628964066505432
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of wood and animal skin.",
+        "prediction": "This instrument is made of wood and animal skin.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are wooden barrel body, two leather drum heads, and carrying strap.",
+        "prediction": "The main parts of this instrument are the barrel-shaped body, two drumheads, and the carrying strap.",
+        "cosine_similarity": 0.9384302496910095
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a deep, resonant booming sound.",
+        "prediction": "This instrument produces a deep, resonant booming sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by men.",
+        "prediction": "This small drum is traditionally played by men during festive occasions. It is played by striking the two heads of the drum against each other.",
+        "cosine_similarity": 0.6669156551361084
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by striking both drumheads with the hands and a stick.",
+        "prediction": "This instrument is played by striking both drumheads with the palms of the hands.",
+        "cosine_similarity": 0.9361457824707031
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a double-headed barrel-shaped percussion instrument.",
+        "prediction": "This is a double-headed barrel-shaped percussion instrument. It consists of two drumheads made from animal skin, one larger than the other, and struck rhythmically.",
+        "cosine_similarity": 0.8757296204566956
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Dhol is a double-headed barrel drum and the primary rhythm instrument of Assamese folk music. It holds central significance in Rongali Bihu celebrations. Its deep, booming beats accompany Bihu dance performances and are considered the heartbeat of Assamese cultural gatherings.",
+        "prediction": "The Dhol consists of two barrel-shaped drums made from bamboo or wood, covered with animal skin. The larger side is struck with bare hands while the smaller side is hit with a mallet. It is played by both men and women and is traditionally played during Bihu festivities.",
+        "cosine_similarity": 0.8197851181030273
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is played during Rongali Bihu which is the spring festival of Assam. It is played by both men and women. The small end is struck rhythmically while the large end is hit with a stick to produce a sharp crash sound. It is made from a hollowed out tenon root covered with",
+        "cosine_similarity": 0.7542933821678162
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the Brahmaputra valley of Assam.",
+        "prediction": "This instrument originated in the Brahmaputra valley of Assam. It is made from a single piece of wood and has two vibrating surfaces.",
+        "cosine_similarity": 0.5237094163894653
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of wood and animal skin.",
+        "prediction": "This instrument is made of wood and animal skin.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are wooden barrel body, two leather drum heads, and carrying strap.",
+        "prediction": "The main parts of this instrument are the wooden barrel body, two leather drum heads, and the carrying strap.",
+        "cosine_similarity": 0.9912288188934326
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a deep, resonant booming sound.",
+        "prediction": "This instrument produces a deep, resonant booming sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by men.",
+        "prediction": "This instrument is traditionally played by men.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by striking both drumheads with the hands and a stick.",
+        "prediction": "This instrument is played by striking both drumheads with the hands and a stick.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a double-headed barrel-shaped percussion instrument.",
+        "prediction": "This is a double-headed barrel-shaped percussion instrument made from bamboo and leather. It is played by striking both ends simultaneously.",
+        "cosine_similarity": 0.8565938472747803
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Dhol is a double-headed barrel drum and the primary rhythm instrument of Assamese folk music. It holds central significance in Rongali Bihu celebrations. Its deep, booming beats accompany Bihu dance performances and are considered the heartbeat of Assamese cultural gatherings.",
+        "prediction": "The Dhol is made from two hollowed-out bamboo drums of different sizes, connected by a string mechanism that vibrates when struck. It is played by striking both ends simultaneously or hitting one end while holding the other steady. The Dhol's rhythmic beats provide the foundation for Bihu dances and are an essential component",
+        "cosine_similarity": 0.8407823443412781
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This small drum is played by both men and women and is traditionally played during Rongali Bihu. It is played by striking the two heads of the drum against each other.",
+        "cosine_similarity": 0.6682369112968445
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the Brahmaputra valley of Assam.",
+        "prediction": "This small drum is played by striking both heads together. It is played during Rongali Bihu and other folk festivals.",
+        "cosine_similarity": 0.27968114614486694
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of wood and animal skin.",
+        "prediction": "This instrument is made of wood and animal skin.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are wooden barrel body, two leather drum heads, and carrying strap.",
+        "prediction": "This instrument is played by striking both drum heads with wooden sticks.",
+        "cosine_similarity": 0.6773380041122437
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a deep, resonant booming sound.",
+        "prediction": "This instrument produces a deep, resonant booming sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by men.",
+        "prediction": "This instrument is traditionally played by men. It is traditionally played by men.",
+        "cosine_similarity": 0.8460373878479004
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by striking both drumheads with the hands and a stick.",
+        "prediction": "This instrument is played by striking both drumheads with the hands and a stick.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a double-headed barrel-shaped percussion instrument.",
+        "prediction": "This is a double-headed barrel-shaped percussion instrument made from bamboo or wood. It is played by striking both ends of the instrument with wooden or metal beaters.",
+        "cosine_similarity": 0.8455253839492798
+    },
+    {
+        "instrument": "bihu_dhol",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Dhol is a double-headed barrel drum and the primary rhythm instrument of Assamese folk music. It holds central significance in Rongali Bihu celebrations. Its deep, booming beats accompany Bihu dance performances and are considered the heartbeat of Assamese cultural gatherings.",
+        "prediction": "The Dhol is made from two hollowed bamboo or wood barrels, covered with animal skin and drumheads made from animal skin or cloth. The smaller head is struck with a small wooden beater, while the larger head is hit with a larger stick. It is played by striking both heads simultaneously or hitting one head harder",
+        "cosine_similarity": 0.7899025082588196
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This small conical wind instrument is blown to produce a sharp, piercing sound. It is played by both men and women.",
+        "cosine_similarity": 0.4596681594848633
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the plains of Assam.",
+        "prediction": "This instrument originated in the plains of Assam. It is played by blowing air through the blow hole and plucking the vibrating tongue.",
+        "cosine_similarity": 0.5552424192428589
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of buffalo horn and bamboo.",
+        "prediction": "This instrument is made of buffalo horn and bamboo.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are buffalo horn body, reed and mouthpiece opening.",
+        "prediction": "The main parts of this instrument are buffalo horn body, reed and mouthpiece opening.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a sharp, nasal, piercing sound.",
+        "prediction": "This instrument produces a sharp, nasal, piercing sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by men.",
+        "prediction": "This instrument is traditionally played by men.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by blowing air through the mouthpiece.",
+        "prediction": "This instrument is played by blowing air through the blow hole and covering finger holes.",
+        "cosine_similarity": 0.8548353314399719
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a free-reed wind instrument made from buffalo horn and bamboo.",
+        "prediction": "During performances, the player blows air through the mouthpiece and vibrates the reed to produce sound. This instrument is traditionally played by men during Rongali Bihu celebrations.",
+        "cosine_similarity": 0.6469087600708008
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Pepa is a traditional Assamese wind instrument crafted from the horn of a male buffalo fitted with a small reed made from bamboo, cane, or wood. It is inseparable from Rongali Bihu celebrations and is recognized as one of the most iconic symbols of Assamese folk culture. Its sharp, nasal tone accompanies Bihu dance performances. It is traditionally played by young men during Bihu festivities.",
+        "prediction": "The Pepa is a traditional Assamese wind instrument crafted from the horn of a male buffalo fitted with a small reed made from bamboo, cane, or wood. It is inseparable from Rongali Bihu celebrations and is recognized as one of the most iconic symbols of Assamese folk culture. Its sharp",
+        "cosine_similarity": 0.9924410581588745
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is played during Rongali Bihu which is the spring festival of Assam. It is played by both men and women.",
+        "cosine_similarity": 0.8477962017059326
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the plains of Assam.",
+        "prediction": "This instrument originated in the plains of Assam.",
+        "cosine_similarity": 0.7337296009063721
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of buffalo horn and bamboo.",
+        "prediction": "This instrument is made of buffalo horn and bamboo.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are buffalo horn body, reed and mouthpiece opening.",
+        "prediction": "The main parts of this instrument are buffalo horn body, reed and mouthpiece opening.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a sharp, nasal, piercing sound.",
+        "prediction": "This instrument produces a sharp, nasal, piercing sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by men.",
+        "prediction": "This instrument is traditionally played by men.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by blowing air through the mouthpiece.",
+        "prediction": "This instrument is played by blowing air through the blow hole and covering the finger holes.",
+        "cosine_similarity": 0.8535645604133606
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a free-reed wind instrument made from buffalo horn and bamboo.",
+        "prediction": "During festivals, this instrument is played by both men and women. It is played by blowing air through the mouthpiece and plucking the reed to produce a sharp, piercing sound.",
+        "cosine_similarity": 0.6279860734939575
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Pepa is a traditional Assamese wind instrument crafted from the horn of a male buffalo fitted with a small reed made from bamboo, cane, or wood. It is inseparable from Rongali Bihu celebrations and is recognized as one of the most iconic symbols of Assamese folk culture. Its sharp, nasal tone accompanies Bihu dance performances. It is traditionally played by young men during Bihu festivities.",
+        "prediction": "The Pepa is a traditional Assamese wind instrument crafted from the horn of a male buffalo fitted with a small reed made from bamboo, cane, or wood. It is inseparable from Rongali Bihu celebrations and is recognized as one of the most iconic symbols of Assamese folk culture. Its sharp",
+        "cosine_similarity": 0.9924410581588745
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is played during Rongali Bihu which is the spring festival of Assam. It is played by both men and women.",
+        "cosine_similarity": 0.8477962017059326
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the plains of Assam.",
+        "prediction": "This instrument originated in the plains of Assam. It is played by blowing air through the blow hole and covering finger holes.",
+        "cosine_similarity": 0.57261723279953
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of buffalo horn and bamboo.",
+        "prediction": "This instrument is made of buffalo horn and bamboo.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are buffalo horn body, reed and mouthpiece opening.",
+        "prediction": "The main parts of this instrument are buffalo horn body, reed and mouthpiece opening.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a sharp, nasal, piercing sound.",
+        "prediction": "This instrument produces a sharp, nasal, piercing high-pitched sound.",
+        "cosine_similarity": 0.9503470659255981
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by men.",
+        "prediction": "This instrument is traditionally played by men.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by blowing air through the mouthpiece.",
+        "prediction": "This instrument is played by blowing air through the blow hole and covering the finger holes.",
+        "cosine_similarity": 0.8535645604133606
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a free-reed wind instrument made from buffalo horn and bamboo.",
+        "prediction": "During performances, the player blows air through the mouthpiece and vibrates the reed to produce sound. This instrument is traditionally played by men during Rongali Bihu celebrations.",
+        "cosine_similarity": 0.6469087600708008
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Pepa is a traditional Assamese wind instrument crafted from the horn of a male buffalo fitted with a small reed made from bamboo, cane, or wood. It is inseparable from Rongali Bihu celebrations and is recognized as one of the most iconic symbols of Assamese folk culture. Its sharp, nasal tone accompanies Bihu dance performances. It is traditionally played by young men during Bihu festivities.",
+        "prediction": "The Pepa is a traditional Assamese wind instrument crafted from the horn of a male buffalo fitted with a small reed made from bamboo, cane, or wood. It is inseparable from Rongali Bihu celebrations and is recognized as one of the most iconic symbols of Assamese folk culture. Its sharp",
+        "cosine_similarity": 0.9924410581588745
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This small conical wind instrument is blown from the bottom end and produces a sharp, piercing sound. It is played by both men and women.",
+        "cosine_similarity": 0.4574032723903656
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the plains of Assam.",
+        "prediction": "This instrument is played by blowing air through the blow hole and covering finger holes.",
+        "cosine_similarity": 0.1646525114774704
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of buffalo horn and bamboo.",
+        "prediction": "This instrument is made of buffalo horn and bamboo.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are buffalo horn body, reed and mouthpiece opening.",
+        "prediction": "The main parts of this instrument are buffalo horn body, reed and mouthpiece opening.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a sharp, nasal, piercing sound.",
+        "prediction": "This instrument produces a sharp, nasal, piercing sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by men.",
+        "prediction": "This instrument is traditionally played by men.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by blowing air through the mouthpiece.",
+        "prediction": "This instrument is played by blowing air through the blow hole and covering finger holes.",
+        "cosine_similarity": 0.8548353314399719
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a free-reed wind instrument made from buffalo horn and bamboo.",
+        "prediction": "This is a free-reed wind instrument made from buffalo horn and bamboo. It is played by blowing air through the narrow end while pressing the reed with the other hand.",
+        "cosine_similarity": 0.9392910003662109
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Pepa is a traditional Assamese wind instrument crafted from the horn of a male buffalo fitted with a small reed made from bamboo, cane, or wood. It is inseparable from Rongali Bihu celebrations and is recognized as one of the most iconic symbols of Assamese folk culture. Its sharp, nasal tone accompanies Bihu dance performances. It is traditionally played by young men during Bihu festivities.",
+        "prediction": "The Pepa is a traditional Assamese wind instrument crafted from the horn of a male buffalo fitted with a small reed made from bamboo, cane, or wood. It is inseparable from Rongali Bihu celebrations and is recognized as one of the most iconic symbols of Assamese folk culture. Its sharp",
+        "cosine_similarity": 0.9924410581588745
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is played during Rongali Bihu which is the spring festival of Assam. It is played by both men and women.",
+        "cosine_similarity": 0.8477961421012878
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the plains of Assam.",
+        "prediction": "This instrument is traditionally played during Rongali Bihu in the plains of Assam. It is played by both men and women.",
+        "cosine_similarity": 0.5516034364700317
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of buffalo horn and bamboo.",
+        "prediction": "This instrument is made of buffalo horn and bamboo.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are buffalo horn body, reed and mouthpiece opening.",
+        "prediction": "The main parts of this instrument are buffalo horn body, reed and mouthpiece opening.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a sharp, nasal, piercing sound.",
+        "prediction": "This instrument produces a sharp, nasal, piercing sound.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by men.",
+        "prediction": "This instrument is traditionally played by men.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by blowing air through the mouthpiece.",
+        "prediction": "This instrument is played by blowing air through the blow hole and covering the finger holes.",
+        "cosine_similarity": 0.8535645604133606
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a free-reed wind instrument made from buffalo horn and bamboo.",
+        "prediction": "This is a free-reed wind instrument made from buffalo horn and bamboo. It has two reeds that vibrate when blown into, producing a sharp, piercing sound.",
+        "cosine_similarity": 0.9425660371780396
+    },
+    {
+        "instrument": "pepa",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Pepa is a traditional Assamese wind instrument crafted from the horn of a male buffalo fitted with a small reed made from bamboo, cane, or wood. It is inseparable from Rongali Bihu celebrations and is recognized as one of the most iconic symbols of Assamese folk culture. Its sharp, nasal tone accompanies Bihu dance performances. It is traditionally played by young men during Bihu festivities.",
+        "prediction": "The Pepa is a traditional Assamese wind instrument crafted from the horn of a male buffalo fitted with a small reed made from bamboo, cane, or wood. It is inseparable from Rongali Bihu celebrations and is recognized as one of the most iconic symbols of Assamese folk culture. Its sharp",
+        "cosine_similarity": 0.9924410581588745
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is played during Rongali Bihu which is the spring festival of Assam.",
+        "cosine_similarity": 0.8784782886505127
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the tribal communities of Assam.",
+        "prediction": "This instrument is played by holding both ends and vibrating it while hitting one end with the other hand or a stick.",
+        "cosine_similarity": 0.1486707627773285
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bamboo.",
+        "prediction": "This instrument is made of bamboo.",
+        "cosine_similarity": 0.9999999403953552
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are frame, vibrating tongue, and plucking end.",
+        "prediction": "The main parts of this instrument are the frame, vibrating tongue, and plucking end.",
+        "cosine_similarity": 0.9958043098449707
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a soft, twangy, vibrating sound.",
+        "prediction": "This instrument produces a soft, vibrating, high-pitched sound.",
+        "cosine_similarity": 0.90482097864151
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by women.",
+        "prediction": "This instrument is traditionally played by women.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by plucking the vibrating tongue near the mouth.",
+        "prediction": "This instrument is played by striking both ends of the vibrating tongue near the mouth.",
+        "cosine_similarity": 0.9089847207069397
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a mouth-resonated plucked idiophone instrument.",
+        "prediction": "This is a mouth-resonated plucked idiophone instrument made from bamboo. It is played by blowing air into the mouthpiece and plucking the vibrating tongue.",
+        "cosine_similarity": 0.8516932725906372
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Gogona is a small mouth-resonated plucked idiophone traditionally made from bamboo and associated with the tribal communities of Assam. It is played by holding the frame near the mouth and plucking the vibrating tongue, using the oral cavity as a resonance chamber to amplify and shape its soft, twangy sound. The Gogona is one of the few Assamese instruments traditionally played by young women during Rongali Bihu. Its unique playing technique makes it one of the most culturally distinctive instruments of Assam.",
+        "prediction": "The Gogona is a small mouth-resonated plucked idiophone traditionally made from bamboo and associated with the tribal communities of Assam. It is played by holding the frame near the mouth and plucking the vibrating tongue, using the oral cavity as a resonance chamber to amplify and shape its soft, twangy",
+        "cosine_similarity": 0.9753868579864502
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is played during Rongali Bihu which is the spring festival of Assam. It is played by both men and women.",
+        "cosine_similarity": 0.8477961421012878
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the tribal communities of Assam.",
+        "prediction": "This instrument originated in the tribal communities of Assam. It is played by blowing air through the blow hole and plucking the vibrating tongue.",
+        "cosine_similarity": 0.5825034976005554
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bamboo.",
+        "prediction": "This instrument is made of bamboo.",
+        "cosine_similarity": 0.9999999403953552
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are frame, vibrating tongue, and plucking end.",
+        "prediction": "The main parts of this instrument are the frame, vibrating tongue, and plucking end.",
+        "cosine_similarity": 0.9958043098449707
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a soft, twangy, vibrating sound.",
+        "prediction": "This instrument produces a soft, vibrating, high-pitched sound.",
+        "cosine_similarity": 0.90482097864151
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by women.",
+        "prediction": "This instrument is traditionally played by women.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by plucking the vibrating tongue near the mouth.",
+        "prediction": "This instrument is played by plucking the vibrating tongue near the mouth.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a mouth-resonated plucked idiophone instrument.",
+        "prediction": "During performances, this instrument is played by clapping the two bamboo pieces together.",
+        "cosine_similarity": 0.4341414272785187
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Gogona is a small mouth-resonated plucked idiophone traditionally made from bamboo and associated with the tribal communities of Assam. It is played by holding the frame near the mouth and plucking the vibrating tongue, using the oral cavity as a resonance chamber to amplify and shape its soft, twangy sound. The Gogona is one of the few Assamese instruments traditionally played by young women during Rongali Bihu. Its unique playing technique makes it one of the most culturally distinctive instruments of Assam.",
+        "prediction": "The Gogona is a small mouth-resonated plucked idiophone traditionally made from bamboo and associated with the tribal communities of Assam. It is played by holding the frame near the mouth and plucking the vibrating tongue, using the oral cavity as a resonance chamber to amplify and shape its soft, twangy",
+        "cosine_similarity": 0.9753868579864502
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This small mouthpiece percussion instrument is made from a thin strip of bamboo or wood. It is played by blowing air through the narrow end.",
+        "cosine_similarity": 0.48182839155197144
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the tribal communities of Assam.",
+        "prediction": "This instrument is played by holding both ends near the mouth and vibrating it to produce a buzzing sound.",
+        "cosine_similarity": 0.181220144033432
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bamboo.",
+        "prediction": "This instrument is made of bamboo.",
+        "cosine_similarity": 0.9999999403953552
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are frame, vibrating tongue, and plucking end.",
+        "prediction": "The main parts of this instrument are the frame, vibrating tongue, and plucking end.",
+        "cosine_similarity": 0.9958043098449707
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a soft, twangy, vibrating sound.",
+        "prediction": "This instrument produces a soft, vibrating, clicking sound.",
+        "cosine_similarity": 0.8445379734039307
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by women.",
+        "prediction": "This instrument is traditionally played by women.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by plucking the vibrating tongue near the mouth.",
+        "prediction": "This instrument is played by plucking the vibrating tongue near the mouth.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a mouth-resonated plucked idiophone instrument.",
+        "prediction": "This is a mouth-resonated plucked idiophone instrument made from bamboo or wood. It is played by blowing air through the mouthpiece and plucking the vibrating tongue with the right hand.",
+        "cosine_similarity": 0.8473961353302002
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Gogona is a small mouth-resonated plucked idiophone traditionally made from bamboo and associated with the tribal communities of Assam. It is played by holding the frame near the mouth and plucking the vibrating tongue, using the oral cavity as a resonance chamber to amplify and shape its soft, twangy sound. The Gogona is one of the few Assamese instruments traditionally played by young women during Rongali Bihu. Its unique playing technique makes it one of the most culturally distinctive instruments of Assam.",
+        "prediction": "The Gogona is a small mouth-resonated plucked idiophone traditionally made from bamboo and associated with the tribal communities of Assam. It is played by holding the frame near the mouth and plucking the vibrating tongue, using the oral cavity as a resonance chamber to amplify and shape its soft, twangy",
+        "cosine_similarity": 0.9753868579864502
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is played during Rongali Bihu which is the spring festival of Assam. It is played by blowing air through the blow hole and plucking the vibrating tongue.",
+        "cosine_similarity": 0.7666105031967163
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the tribal communities of Assam.",
+        "prediction": "This instrument is played by holding both ends near the mouth and beating it with one hand while pulling the other end away from the mouth.",
+        "cosine_similarity": 0.23018206655979156
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bamboo.",
+        "prediction": "This instrument is made of bamboo.",
+        "cosine_similarity": 0.9999999403953552
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are frame, vibrating tongue, and plucking end.",
+        "prediction": "The main parts of this instrument are the frame, vibrating tongue, and plucking end.",
+        "cosine_similarity": 0.9958043098449707
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a soft, twangy, vibrating sound.",
+        "prediction": "This instrument produces a soft, vibrating, clicking sound.",
+        "cosine_similarity": 0.8445379734039307
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by women.",
+        "prediction": "This instrument is traditionally played by women.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by plucking the vibrating tongue near the mouth.",
+        "prediction": "This instrument is played by plucking the vibrating tongue near the mouth.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a mouth-resonated plucked idiophone instrument.",
+        "prediction": "During performances, this instrument is played by clapping the two bamboo pieces together near the mouth.",
+        "cosine_similarity": 0.5306128859519958
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Gogona is a small mouth-resonated plucked idiophone traditionally made from bamboo and associated with the tribal communities of Assam. It is played by holding the frame near the mouth and plucking the vibrating tongue, using the oral cavity as a resonance chamber to amplify and shape its soft, twangy sound. The Gogona is one of the few Assamese instruments traditionally played by young women during Rongali Bihu. Its unique playing technique makes it one of the most culturally distinctive instruments of Assam.",
+        "prediction": "The Gogona is a small mouth-resonated plucked idiophone traditionally made from bamboo and associated with the tribal communities of Assam. It is played by holding the frame near the mouth and plucking the vibrating tongue, using the oral cavity as a resonance chamber to amplify and shape its soft, twangy",
+        "cosine_similarity": 0.9753868579864502
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q1",
+        "concept": "festival",
+        "question": "In which festival is this instrument played?",
+        "ground_truth": "It is played during Rongali Bihu which is the spring festival of Assam.",
+        "prediction": "This instrument is played during Rongali Bihu which is the spring festival of Assam. It is played by both men and women.",
+        "cosine_similarity": 0.8477961421012878
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q2",
+        "concept": "origin",
+        "question": "Where did this instrument originate?",
+        "ground_truth": "It originated in the tribal communities of Assam.",
+        "prediction": "This instrument originated in the tribal communities of Assam. It is made from bamboo and has two bamboo reed blowers attached to either end.",
+        "cosine_similarity": 0.5524545907974243
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q3",
+        "concept": "material",
+        "question": "What material is this instrument made of?",
+        "ground_truth": "This instrument is made of bamboo.",
+        "prediction": "This instrument is made of bamboo.",
+        "cosine_similarity": 0.9999999403953552
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q4",
+        "concept": "parts",
+        "question": "Name the major parts of this instrument.",
+        "ground_truth": "The main parts of this instrument are frame, vibrating tongue, and plucking end.",
+        "prediction": "The main parts of this instrument are the frame, vibrating tongue, and plucking end.",
+        "cosine_similarity": 0.9958043098449707
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q5",
+        "concept": "sound",
+        "question": "What sound does this instrument produce?",
+        "ground_truth": "This instrument produces a soft, twangy, vibrating sound.",
+        "prediction": "This instrument produces a soft, vibrating, high-pitched sound.",
+        "cosine_similarity": 0.90482097864151
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q6",
+        "concept": "traditional_player",
+        "question": "Which gender traditionally plays this instrument?",
+        "ground_truth": "This instrument is traditionally played by women.",
+        "prediction": "This instrument is traditionally played by women.",
+        "cosine_similarity": 1.0
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q7",
+        "concept": "playing_method",
+        "question": "How is this instrument played?",
+        "ground_truth": "This instrument is played by plucking the vibrating tongue near the mouth.",
+        "prediction": "This instrument is played by striking both ends of the vibrating tongue against each other.",
+        "cosine_similarity": 0.8925682306289673
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q8",
+        "concept": "instrument_type",
+        "question": "What type of musical instrument is this?",
+        "ground_truth": "This is a mouth-resonated plucked idiophone instrument.",
+        "prediction": "This is a mouth-resonated plucked idiophone instrument. It is made from bamboo and has two bamboo tongue pieces that are struck against each other to produce sound.",
+        "cosine_similarity": 0.847581684589386
+    },
+    {
+        "instrument": "gogona",
+        "question_id": "q9",
+        "concept": "description",
+        "question": "Give a description of this instrument including its cultural significance, and role in Assamese music.",
+        "ground_truth": "The Gogona is a small mouth-resonated plucked idiophone traditionally made from bamboo and associated with the tribal communities of Assam. It is played by holding the frame near the mouth and plucking the vibrating tongue, using the oral cavity as a resonance chamber to amplify and shape its soft, twangy sound. The Gogona is one of the few Assamese instruments traditionally played by young women during Rongali Bihu. Its unique playing technique makes it one of the most culturally distinctive instruments of Assam.",
+        "prediction": "The Gogona is a small mouth-resonated plucked idiophone traditionally made from bamboo and associated with the tribal communities of Assam. It is played by holding the frame near the mouth and plucking the vibrating tongue, using the oral cavity as a resonance chamber to amplify and shape its soft, twangy",
+        "cosine_similarity": 0.9753868579864502
+    }
+]
