@@ -1,8 +1,0 @@
-category,n_samples,avg_attention_coverage,avg_attribution_coverage
-Correct,7,0.0099,0.0025
-Question Misunderstanding,7,0.0048,0.0027
-Hallucination,5,0.0122,0.002
-Partial Answer / Incomplete Answer,4,0.0068,0.002
-Truncation,6,0.0062,0.0025
-Repetition,2,0.0097,0.0019
-Mixed Attribute,4,0.0147,0.0021

@@ -1,8 +1,0 @@
-instrument,n_samples,avg_attention_coverage,failure_distribution
-bahi,5,0.0063,"{'Correct': 1, 'Question Misunderstanding': 1, 'Truncation': 1, 'Hallucination': 1, 'Repetition': 1}"
-bihu_dhol,5,0.0154,"{'Correct': 1, 'Mixed Attribute': 1, 'Partial Answer / Incomplete Answer': 1, 'Repetition': 1, 'Hallucination': 1}"
-gogona,5,0.0057,"{'Correct': 1, 'Mixed Attribute': 1, 'Question Misunderstanding': 1, 'Hallucination': 1, 'Truncation': 1}"
-khutitaal,5,0.0039,"{'Correct': 1, 'Question Misunderstanding': 1, 'Partial Answer / Incomplete Answer': 1, 'Truncation': 1, 'Hallucination': 1}"
-pepa,5,0.0107,"{'Correct': 1, 'Mixed Attribute': 1, 'Question Misunderstanding': 2, 'Truncation': 1}"
-toka,5,0.0086,"{'Correct': 1, 'Question Misunderstanding': 1, 'Partial Answer / Incomplete Answer': 1, 'Truncation': 1, 'Mixed Attribute': 1}"
-xutuli,5,0.0106,"{'Correct': 1, 'Question Misunderstanding': 1, 'Partial Answer / Incomplete Answer': 1, 'Truncation': 1, 'Hallucination': 1}"
