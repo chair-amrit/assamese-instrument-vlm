@@ -83,7 +83,23 @@ where $\mathbb{A}$ is the semantic attribute space (e.g., material, sound, festi
 
 q1–q8 are single-attribute templates: $|A_{set}| = 1$. q9 is a composite template testing two attributes that have no dedicated single-attribute template of their own; it is not intended to require the union of q1–q8's attributes, and its two required attributes are fixed regardless of additional contextual content that may appear in any given $G$.
 
-**Documented dataset limitation:** For the instrument *toka*, the authored $G$ for q9 does not contain an independently identifiable realization of `cultural_significance`, separate from its `role_in_assamese_music` content. $A_{set}(q9)$ remains $\{\text{cultural\_significance}, \text{role\_in\_assamese\_music}\}$ for all seven instruments, including toka, without exception. This is recorded as a reference-data authoring gap, not a taxonomy design branch. Any completeness result for toka's q9 instances must be reported alongside this documented limitation (see `04_taxonomy_algorithm.md`, Scope).
+**Documented dataset limitation:** For the instrument *Toka*, the authored $G$
+for q9 does not contain an independently identifiable realization of the
+`cultural_significance` attribute, separate from its `role_in_assamese_music`
+content.
+
+The required attribute set remains fixed as:
+
+$$
+A_{\text{set}}(q9) = \{ \text{cultural significance}, \text{role in Assamese music} \}
+$$
+
+
+for all seven instruments, including Toka, without exception.
+This is recorded as a reference-data authoring gap, not a taxonomy design
+branch. Any completeness result for Toka q9 instances must be reported
+alongside this documented limitation (see `04_taxonomy_algorithm.md`,
+Scope).
 
 ---
 
@@ -104,7 +120,7 @@ with
 $$
 P_K\cap P_{\bar K}=\varnothing,
 \qquad
-P_K\cup P_{\bar K}=\operatorname{Claims}(P).
+P_K\cup P_{\bar K}=\mathrm{Claims}(P).
 $$
 
 - $P_K = \{c \in \mathbb{S} : c \text{ is extracted from } P \text{ and bears on some } A \in A_{set}(K)\}$ — claims directly relevant to the required attribute(s).
@@ -213,7 +229,7 @@ Truncation (Axis 5 = truncated), Repetition (Axis 6 = present), and Unsupported 
 ## 11. Taxonomy Function
 
 $$
-\tau(T)=\left(C_r,\operatorname{Ax}_5(T),\operatorname{Ax}_6(T),\operatorname{Ax}_7(T)\right)
+\tau(T)=\left(C_r,\mathrm{Ax}_5(T),\mathrm{Ax}_6(T),\mathrm{Ax}_7(T)\right)
 $$
 
 where
@@ -223,17 +239,17 @@ C_r \in \mathbb{C},
 $$
 
 $$
-\operatorname{Ax}_5(T)\in\{\text{intact},\text{truncated}\},
+\mathrm{Ax}_5(T)\in\{\text{intact},\text{truncated}\},
 $$
 
 $$
-\operatorname{Ax}_6(T)\in\{\text{absent},\text{present}\},
+\mathrm{Ax}_6(T)\in\{\text{absent},\text{present}\},
 $$
 
 and
 
 $$
-\operatorname{Ax}_7(T)\in\{\text{none},\text{present}\}.
+\mathrm{Ax}_7(T)\in\{\text{none},\text{present}\}.
 $$
 
 $$
@@ -298,7 +314,9 @@ $$
 K = h(Q), \qquad A_{set}(K) \text{ fixed per template}
 $$
 $$
-P \rightarrow \{P_K, P_{\bar K}\} \subseteq \mathbb{S}
+P\rightarrow(P_K,P_{\bar K}),
+\qquad
+P_K,P_{\bar K}\subseteq\mathbb{S},
 $$
 $$
 G_A = g_G(G, A_{set}(K)), \qquad P_A = g_P(P_K, A_{set}(K))
