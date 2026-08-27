@@ -1194,6 +1194,7 @@ B.Tech in Artificial Intelligence and Machine Learning
 - GitHub: https://github.com/chair-amrit
 - Repository: https://github.com/chair-amrit/assamese-instrument-vlm
 - Email: amritrajkumar6421@gmail.com
+- LinkedIn: www.linkedin.com/in/amrit-rajkumar-18257a37a
 
 For research questions, reproducibility issues, or repository-related
 discussions, please use the GitHub repository or the contact address above.
