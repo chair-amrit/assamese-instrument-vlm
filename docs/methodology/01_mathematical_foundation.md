@@ -1,563 +1,310 @@
-# Mathematical Foundation
+# 01 — Mathematical Foundation
 
 ## 1. Purpose
 
-This document establishes the mathematical foundation of the VQA failure-taxonomy framework used in the Assamese Musical Instrument VLM project.
+This document establishes the mathematical foundation of the revised VQA failure-taxonomy framework for the Assamese Musical Instrument VLM project. It supersedes the prior version of this document. The framework represents each VQA prediction as a structured mathematical object, defines the axis-based measurement system used to characterize model behavior, and establishes the objects required by the subsequent decision-function, quantitative-formulation, and taxonomy-algorithm documents.
 
-The framework represents each VQA prediction as a structured mathematical object and defines the spaces and functions required to evaluate and classify model behavior.
-
-The formulation is designed to support the subsequent decision functions, quantitative formulation, taxonomy algorithm, and final paper formulation.
-
-The objective is to represent each VQA prediction as a mathematical object that can later be mapped to a well-defined failure category.
+This revision replaces the previous category-first design (Question Misunderstanding, Hallucination, Partial Answer, Truncation, Repetition, Mixed Attribute, Correct) with an axis-first design. Category-specific variables in the prior version were found to conflate distinct behavioral properties — most notably, the prior attribute-consistency function was designed around Question Misunderstanding and consequently absorbed non-answer/refusal cases that do not reflect question misunderstanding. The revised framework measures independent behavioral axes first and derives categories from axis combinations afterward.
 
 ---
 
 ## 2. VQA Dataset
 
-Let the complete VQA dataset be
-
 $$
-\mathbb{D} = \{x_i\}_{i=1}^{N}
+\mathbb{D} = \{x_i\}_{i=1}^{N}, \qquad x_i = (I_i, Q_i, G_i)
 $$
 
-where each ground-truth sample is
-
-$$
-x_i = (I_i, Q_i, G_i)
-$$
-
-and:
-
-- $I_i$ is the input image.
-- $Q_i$ is the question associated with the image.
-- $G_i$ is the ground-truth answer.
-- $N$ is the total number of VQA samples.
-
-For the current dataset:
-
-$$
-N = 2016
-$$
-
-The dataset contains seven Assamese musical instruments with 32 images per instrument:
-
-$$
-N_I = 7 \times 32 = 224
-$$
-
-Each image is associated with nine VQA concepts, producing:
-
-$$
-224 \times 9 = 2016
-$$
-
-Thus, the dataset contains 224 unique images and 2016 VQA samples.
+- $I_i$: input image
+- $Q_i$: question
+- $G_i$: ground-truth reference answer
+- $N = 2016$ total VQA samples, from $N_I = 7 \times 32 = 224$ unique images across 7 instruments, each with 9 question concepts ($224 \times 9 = 2016$).
 
 ---
 
-## 3. Image Space
-
-Let $\mathbb{I}$ denote the image space.
-
-An individual image is represented by
+## 3. Image, Question, and Ground-Truth Spaces
 
 $$
-I \in \mathbb{I}
+I \in \mathbb{I}, \qquad Q \in \mathbb{Q}, \qquad G \in \mathbb{G}
 $$
 
-For the current dataset:
-
-$$
-\mathbb{I} = \{I_1, I_2, \ldots, I_{224}\}
-$$
-
-The image space represents the visual inputs provided to the VQA model.
+$\mathbb{I}$, $\mathbb{Q}$, $\mathbb{G}$ denote the image, question, and ground-truth answer spaces respectively. Multiple linguistic phrasings of a question may express the same underlying semantic concept; the concept, not the wording, is the object of evaluation (Section 6).
 
 ---
 
-## 4. Question Space
-
-Let $\mathbb{Q}$ denote the question space.
-
-An individual question is represented by
+## 4. Prediction Space and Model
 
 $$
-Q \in \mathbb{Q}
+P = f_\theta(I,Q), \qquad f_\theta : \mathbb{I} \times \mathbb{Q} \rightarrow \mathbb{P}
 $$
 
-If $N_Q$ denotes the number of question instances, then
-
-$$
-\mathbb{Q} = \{Q_1, Q_2, \ldots, Q_{N_Q}\}
-$$
-
-Questions may have different linguistic formulations while representing the same underlying semantic concept.
-
-Therefore, the exact wording of a question is separated from the semantic concept being evaluated.
-
-Questions are associated with semantic concepts such as instrument identity, material, origin, festival, sound, playing method, and other instrument-related attributes.
+$f_\theta$ is the fine-tuned Qwen2.5-VL-3B-Instruct model (QLoRA fine-tuning), $\theta$ its learned parameters, $P \in \mathbb{P}$ the generated answer.
 
 ---
 
-## 5. Ground-Truth Answer Space
-
-Let $\mathbb{G}$ denote the ground-truth answer space.
-
-An individual ground-truth answer is represented by
+## 5. Prediction Tuple
 
 $$
-G \in \mathbb{G}
+T = (I, Q, G, P) = \left(I, Q, G, f_\theta(I,Q)\right), \qquad T \in \mathbb{T}
 $$
 
-For a VQA sample, $G_i$ is the reference answer associated with $(I_i, Q_i)$:
-
-$$
-G_i = \text{ground-truth answer for } (I_i,Q_i)
-$$
-
-The ground truth represents the expected answer against which the model prediction is evaluated.
+$T$ is the complete evidentiary unit for classification.
 
 ---
 
-## 6. Prediction Space and Model
-
-Let $\mathbb{P}$ denote the model prediction space.
-
-An individual prediction is represented by
+## 6. Semantic Concept and Required Attribute Set
 
 $$
-P \in \mathbb{P}
+K = h(Q), \qquad h : \mathbb{Q} \rightarrow \mathbb{K}
 $$
 
-The fine-tuned Qwen2.5-VL-3B model produces a prediction from an image-question pair:
+$K$ is the semantic concept targeted by $Q$ (e.g. material, origin, festival, traditional player, playing method, instrument type, sound, description).
+
+Each concept has an associated **required attribute set**:
 
 $$
-P = f_{\theta}(I,Q)
+A_{set}(K) \subseteq \mathbb{A}
+$$
+
+where $\mathbb{A}$ is the semantic attribute space (e.g., material, sound, festival, or playing method), while $\mathcal{V}$ denotes the corresponding space of attribute values (e.g., bamboo, soft/twangy, Rongali Bihu, or striking).
+
+**Fixed specification for the current dataset (9 templates):**
+
+| Template | Concept $K$ | $A_{set}(K)$ |
+|---|---|---|
+| q1 | festival | {festival} |
+| q2 | origin | {origin} |
+| q3 | material | {material} |
+| q4 | parts | {parts} |
+| q5 | sound | {sound} |
+| q6 | traditional_player | {traditional_player} |
+| q7 | playing_method | {playing_method} |
+| q8 | instrument_type | {instrument_type} |
+| q9 | description | {cultural_significance, role_in_assamese_music} |
+
+q1–q8 are single-attribute templates: $|A_{set}| = 1$. q9 is a composite template testing two attributes that have no dedicated single-attribute template of their own; it is not intended to require the union of q1–q8's attributes, and its two required attributes are fixed regardless of additional contextual content that may appear in any given $G$.
+
+**Documented dataset limitation:** For the instrument *toka*, the authored $G$ for q9 does not contain an independently identifiable realization of `cultural_significance`, separate from its `role_in_assamese_music` content. $A_{set}(q9)$ remains $\{\text{cultural\_significance}, \text{role\_in\_assamese\_music}\}$ for all seven instruments, including toka, without exception. This is recorded as a reference-data authoring gap, not a taxonomy design branch. Any completeness result for toka's q9 instances must be reported alongside this documented limitation (see `04_taxonomy_algorithm.md`, Scope).
+
+---
+
+## 7. Claim Space, Decomposition, and Routing
+
+Let $\mathbb{S}$ denote the **claim space** — the space of minimal, checkable propositions extractable from a natural-language response. An individual claim is $c \in \mathbb{S}$.
+
+A prediction $P$ is decomposed into its constituent claims and routed according to whether each claim addresses an attribute in $A_{set}(K)$:
+
+$$
+P\rightarrow\left(P_K,P_{\bar K}\right),
+\qquad
+P_K,P_{\bar K}\subseteq\mathbb S,
+$$
+
+with
+
+$$
+P_K\cap P_{\bar K}=\varnothing,
+\qquad
+P_K\cup P_{\bar K}=\operatorname{Claims}(P).
+$$
+
+- $P_K = \{c \in \mathbb{S} : c \text{ is extracted from } P \text{ and bears on some } A \in A_{set}(K)\}$ — claims directly relevant to the required attribute(s).
+- $P_{\bar K} = \{c \in \mathbb{S} : c \text{ is extracted from } P \text{ and } c \notin P_K\}$ — claims about concepts outside $A_{set}(K)$.
+
+$P_K$ and $P_{\bar K}$ are sets of claims (elements of $\mathbb{S}$), not elements of the prediction space $\mathbb{P}$; $P$ itself remains the single generated-text object in $\mathbb{P}$ from which these claim sets are extracted.
+
+This partition is a precondition for the decision functions defined in `02_decision_functions.md`:
+
+$$
+P_K \rightarrow \text{Axis 3 and Axis 7}, \qquad P_{\bar K} \rightarrow \text{Axis 7 only}
+$$
+
+Axis 3 (Semantic Correctness) evaluates only $P_K$, so that content addressing concepts outside the asked attribute cannot be scored as correct or incorrect relative to a $G$ that does not cover it. Axis 7 (Unsupported Content) evaluates the full response ($P_K \cup P_{\bar K}$), so that fabricated or unsupported detail is caught regardless of whether it appears inside or outside the requested attribute.
+
+---
+
+## 8. Attribute Extraction Functions
+
+Because $A_{set}(K)$ may contain more than one required attribute (e.g. q9), extraction from $G$ and from $P_K$ must return a realization for **each** attribute in $A_{set}(K)$, not a single scalar value.
+
+Define:
+
+$$
+G_A=g_G(G,A_{set}(K)),\qquad
+P_A=g_P(P_K,A_{set}(K))
 $$
 
 where:
 
-- $f_{\theta}$ is the fine-tuned VQA model.
-- $\theta$ represents the learned model parameters.
-- $I$ is the input image.
-- $Q$ is the input question.
-- $P$ is the generated answer.
-
-The model is therefore represented as
-
 $$
-f_{\theta} : \mathbb{I} \times \mathbb{Q} \rightarrow \mathbb{P}
+g_G:\mathbb G\times2^{\mathbb A}\rightarrow
+\left(A_{set}(K)\rightarrow\mathcal V\right),
 $$
 
----
-
-## 7. VQA Sample and Prediction Tuple
-
-A single ground-truth VQA sample is represented as
-
 $$
-x = (I,Q,G)
+g_P:2^{\mathbb S}\times2^{\mathbb A}\rightarrow
+\left(A_{set}(K)\rightarrow\mathcal V\right).
 $$
 
-This contains the complete input and reference information required before model inference.
-
-After inference, the corresponding prediction is
-
-$$
-P = f_{\theta}(I,Q)
-$$
-
-Let $\mathbb{T}$ denote the space of complete prediction tuples. The complete prediction instance is therefore represented by
+$G_A$ and $P_A$ are indexed mappings from each required attribute to its
+corresponding ground-truth or predicted value:
 
 $$
-T = (I,Q,G,P)
+G_A:A_{set}(K)\rightarrow\mathcal V,
+\qquad
+P_A:A_{set}(K)\rightarrow\mathcal V.
 $$
 
-or equivalently,
+For single-attribute templates (q1–q8), $|A_{set}(K)| = 1$ and $G_A$, $P_A$ reduce to a single-element mapping, equivalent in effect to the scalar case. For q9, $G_A$ and $P_A$ each contain two entries, one per required attribute, enabling per-attribute correctness (Axis 3) and per-attribute coverage (Axis 4) to be evaluated independently before being combined.
 
-$$
-T = \left(I, Q, G, f_{\theta}(I,Q)\right)
-$$
-
-The tuple $T$ contains all information required for subsequent error and failure analysis.
+Here, $\mathcal{V}$ denotes the space of possible values associated with
+semantic attributes in $\mathbb{A}$ (e.g., `bamboo` for `material`).
 
 ---
 
-## 8. Semantic Concept Space
+## 9. Behavioral Axes and Measurable Signals
 
-Let $\mathbb{K}$ denote the semantic concept space.
+The framework measures eight signals organized into seven conceptual axes. Axis 2 is a single conceptual axis comprising two independent sub-signals (2a, 2b); all eight are referred to as **signals** to avoid ambiguity between the seven-axis conceptual grouping and the eight-signal measurement set.
 
-An individual concept is represented by
+| Axis | Signal | Domain |
+|---|---|---|
+| 1 | Question/Semantic Alignment | {aligned, misaligned, indeterminate} |
+| 2a | Substantive Content Present | {yes, no} |
+| 2b | Uncertainty/Refusal Marker | {yes, no} |
+| 3 | Semantic Correctness | {correct, incorrect, mixed, not_applicable, indeterminate} |
+| 4 | Completeness | {complete, partial, not_applicable, indeterminate} |
+| 5 | Termination Integrity | {intact, truncated} |
+| 6 | Repetition | {absent, present} |
+| 7 | Unsupported Content | {none, present} |
 
-$$
-K \in \mathbb{K}
-$$
-
-For the current VQA task, concepts correspond to the semantic properties being evaluated, including:
-
-- instrument identity
-- material
-- origin
-- festival
-- sound
-- traditional player
-- playing method
-- instrument type
-- detailed description
-
-A concept function maps a question to its underlying semantic concept:
+Each signal is a function of $T$ (and, where applicable, of $G_A$, $P_A$, or the $P_K/P_{\bar K}$ partition):
 
 $$
-h : \mathbb{Q} \rightarrow \mathbb{K}
+\mathrm{Ax}_1, \mathrm{Ax}_{2a}, \mathrm{Ax}_{2b}, \mathrm{Ax}_3, \mathrm{Ax}_4, \mathrm{Ax}_5, \mathrm{Ax}_6, \mathrm{Ax}_7 : \mathbb{T} \rightarrow (\text{respective domain})
 $$
 
-Therefore,
-
-$$
-K = h(Q)
-$$
-
-Different linguistic formulations can map to the same concept:
-
-$$
-Q_1,\ Q_2,\ Q_3 \rightarrow K_{\mathrm{material}}
-$$
-
-This allows the taxonomy to analyze the semantic task rather than treating different question phrasings as different tasks.
+Full measurement definitions, preconditions, and dependency order are given in `02_decision_functions.md`. This document fixes only the domains and their role in the overall structure.
 
 ---
 
-## 9. Attribute Space
-
-Let $\mathbb{A}$ denote the semantic attribute space.
-
-An individual attribute is represented by
+## 10. Failure-Category Space
 
 $$
-A \in \mathbb{A}
+\mathbb{C} = \{C_{NA}, C_{QM}, C_{IC}, C_{HA}, C_{correct}, C_{PA}, C_{MA}\}
 $$
 
-An attribute represents the semantic value relevant to the concept being evaluated. Examples include:
+- $C_{NA}$ — Non-Answer / Abstention
+- $C_{QM}$ — Question Misunderstanding
+- $C_{IC}$ — Incoherent Response
+- $C_{HA}$ — Hallucination (redefined; see Section 12)
+- $C_{correct}$ — Correct
+- $C_{PA}$ — Partial Answer
+- $C_{MA}$ — Mixed Attribute
+
+$\mathbb{C}$ contains exactly seven **core categories**. Under Design A, final classification output is not a bare core category but a core category paired with independent structural/content flags:
 
 $$
-A_{\mathrm{material}} = \mathrm{bamboo}
+\text{Final classification} = \left(C_r,\ \mathrm{Ax}_5,\ \mathrm{Ax}_6,\ \mathrm{Ax}_7\right), \quad C_r \in \mathbb{C}
 $$
 
-$$
-A_{\mathrm{instrument}} = \mathrm{pepa}
-$$
-
-The attribute function is defined as
-
-$$
-\alpha : \mathbb{K} \rightarrow \mathbb{A}
-$$
-
-Therefore,
-
-$$
-A = \alpha(K)
-$$
-
-Combining the concept and attribute mappings gives:
-
-$$
-Q \rightarrow h \rightarrow K \rightarrow \alpha \rightarrow A
-$$
-
-This provides a structured representation of what semantic attribute the question evaluates. The attribute representation allows the failure taxonomy to compare the semantic content of $G$ and $P$, rather than relying only on exact string matching.
+Truncation (Axis 5 = truncated), Repetition (Axis 6 = present), and Unsupported Content (Axis 7 = present) are **not** standalone final categories; they are cross-cutting flags attached to whichever core category is assigned. This is a deliberate structural departure from the prior flat taxonomy, in which Truncation and Repetition were themselves top-priority categories (see `04_taxonomy_algorithm.md` for the retired priority order and its replacement).
 
 ---
 
-## 10. Prediction Evaluation
-
-Given a prediction tuple
+## 11. Taxonomy Function
 
 $$
-T = (I, Q, G, P)
+\tau(T)=\left(C_r,\operatorname{Ax}_5(T),\operatorname{Ax}_6(T),\operatorname{Ax}_7(T)\right)
 $$
 
-the prediction must be evaluated with respect to its ground truth.
-
-Define the evaluation function
+where
 
 $$
-E : \mathbb{G} \times \mathbb{P} \rightarrow \mathbb{R}
-$$
-
-where $\mathbb{R}$ represents the space of evaluation outcomes.
-
-At the simplest level:
-
-$$
-E(G,P) =
-\begin{cases}
-1, & \text{if } P \text{ is correct with respect to } G \\
-0, & \text{otherwise}
-\end{cases}
-$$
-
-However, binary correctness is not sufficient for the proposed failure taxonomy. For example, two incorrect predictions may differ semantically even though both receive
-
-$$
-E(G,P) = 0
-$$
-
-Therefore, additional semantic and decision functions are required to determine the nature of an incorrect prediction.
-
----
-
-## 11. Failure-Category Space
-
-Let $\mathbb{C}$ denote the failure-category space.
-
-An individual category is represented by
-
-$$
-C \in \mathbb{C}
-$$
-
-The taxonomy contains a finite set of categories:
-
-$$
-\mathbb{C} = \{C_1, C_2, \ldots, C_R\}
-$$
-
-where $R$ is the number of categories defined by the final failure taxonomy.
-
-The categories represent distinct model-error mechanisms identified by the proposed framework.
-
----
-
-## 12. Taxonomy Function
-
-The failure taxonomy is represented as a mapping from the complete prediction-tuple space to the category space:
-
-$$
-\tau : \mathbb{T} \rightarrow \mathbb{C}
-$$
-
-For a prediction tuple $T$:
-
-$$
-C = \tau(T)
-$$
-
-or equivalently, when a prediction instance $T$ is assigned to failure category $C_r$:
-
-$$
-\tau(T) = C_r
-$$
-
-The important distinction is:
-
-$$
-T = (I,Q,G,P)
-$$
-
-represents the prediction instance, while
-
-$$
-\tau(T) = C
-$$
-
-represents the classification of that instance.
-
-The internal decision rules used by $\tau$ are defined in the subsequent decision-function formulation.
-
----
-
-## 13. Formal Pipeline
-
-The complete mathematical process can therefore be expressed as
-
-$$
-(I,Q,G)
-\xrightarrow{f_{\theta}}
-(I,Q,G,P)
-\xrightarrow{\tau}
-C
-$$
-
-or equivalently,
-
-$$
-T=(I,Q,G,f_{\theta}(I,Q))
-$$
-
-followed by
-
-$$
-\tau(T)=C
-$$
-
-- $T$ contains the evidence associated with the prediction.
-- $\tau$ is the taxonomy decision function.
-- $C$ is the assigned failure category.
-
-This establishes the foundation for the subsequent modules.
-
----
-
-## 14. Mathematical Structure of the Framework
-
-The complete mathematical structure can be expressed as:
-
-### Dataset representation
-
-$$
-x = (I, Q, G)
-$$
-
-### Model inference
-
-$$
-P = f_{\theta}(I,Q)
-$$
-
-### Complete prediction instance
-
-$$
-T = (I, Q, G, P)
-$$
-
-### Semantic interpretation
-
-$$
-K = h(Q)
-$$
-
-### Attribute extraction
-
-$$
-A = \alpha(K)
-$$
-
-### Prediction evaluation
-
-$$
-E(G,P)
-$$
-
-### Failure classification
-
-$$
-C = \tau(T)
-$$
-
-Thus, the framework can be viewed as the following pipeline:
-
-$$
-(I,Q,G) \;\rightarrow\; P = f_{\theta}(I,Q) \;\rightarrow\; T = (I,Q,G,P) \;\rightarrow\; K = h(Q) \;\rightarrow\; A = \alpha(K) \;\rightarrow\; E(G,P) \;\rightarrow\; C = \tau(T)
-$$
-
-The individual functions provide the mathematical interfaces required for the subsequent failure-decision rules.
-
----
-
-## 15. Why the Formulation Requires Multiple Functions
-
-A single correctness function cannot adequately describe the behavior of a VQA model.
-
-The framework separates the problem into distinct operations:
-
-1. **Model inference**: $f_{\theta}(I,Q) \rightarrow P$
-2. **Concept identification**: $h(Q) \rightarrow K$
-3. **Attribute extraction**: $\alpha(K) \rightarrow A$
-4. **Prediction evaluation**: $E(G,P) \rightarrow \text{evaluation outcome}$
-5. **Failure classification**: $\tau(T) \rightarrow C$
-
-This separation ensures that semantic interpretation, prediction evaluation, and failure classification are not conflated.
-
-It also allows each component to be independently defined and evaluated.
-
----
-
-## 16. Core Mathematical Objects
-
-| Object | Symbol | Space | Role |
-|---|---|---|---|
-| Dataset | $\mathbb{D}$ | — | Complete VQA dataset |
-| Image | $I$ | $\mathbb{I}$ | Individual visual input |
-| Question | $Q$ | $\mathbb{Q}$ | Individual question |
-| Ground truth | $G$ | $\mathbb{G}$ | Reference answer |
-| Prediction | $P$ | $\mathbb{P}$ | Model-generated answer |
-| Prediction tuple | $T$ | $\mathbb{T}$ | Complete prediction instance |
-| Concept | $K$ | $\mathbb{K}$ | Semantic concept evaluated by $Q$ |
-| Attribute | $A$ | $\mathbb{A}$ | Relevant semantic attribute |
-| Category | $C$ | $\mathbb{C}$ | Assigned failure category |
-| VQA model | $f_{\theta}$ | $\mathbb{I} \times \mathbb{Q} \rightarrow \mathbb{P}$ | Fine-tuned Qwen2.5-VL-3B |
-| Concept function | $h$ | $\mathbb{Q} \rightarrow \mathbb{K}$ | Question → concept |
-| Attribute function | $\alpha$ | $\mathbb{K} \rightarrow \mathbb{A}$ | Concept → attribute |
-| Evaluation function | $E$ | $\mathbb{G} \times \mathbb{P} \rightarrow \mathbb{R}$ | Ground-truth/prediction evaluation |
-| Taxonomy function | $\tau$ | $\mathbb{T} \rightarrow \mathbb{C}$ | Prediction → category |
-
----
-
-## 17. Central Formulation
-
-The mathematical foundation of the proposed framework is summarized by:
-
-$$
-T = \left(I, Q, G, f_{\theta}(I,Q)\right)
+C_r \in \mathbb{C},
 $$
 
 $$
-K = h(Q)
+\operatorname{Ax}_5(T)\in\{\text{intact},\text{truncated}\},
 $$
 
 $$
-A = \alpha(K)
-$$
-
-$$
-E(G,P)
-$$
-
-$$
-C = \tau(T)
-$$
-
-These definitions establish a consistent mathematical vocabulary for the complete failure-taxonomy framework.
-
-The later formulation will define the internal decision functions used by $\tau$, determine how ground truth and predictions are compared, and formally distinguish the different failure categories.
-
----
-
-## 18. Summary of Core Definitions
-
-| Symbol | Definition |
-|---|---|
-| $\mathbb{D}$ | Complete VQA dataset |
-| $\mathbb{I}$ | Image space |
-| $I$ | Individual image |
-| $\mathbb{Q}$ | Question space |
-| $Q$ | Individual question |
-| $\mathbb{G}$ | Ground-truth answer space |
-| $G$ | Ground-truth answer |
-| $\mathbb{P}$ | Prediction space |
-| $P$ | Model prediction |
-| $f_{\theta}$ | Fine-tuned VQA model |
-| $x = (I, Q, G)$ | Ground-truth VQA sample |
-| $T = (I, Q, G, P)$ | Complete prediction tuple |
-| $\mathbb{K}$ | Semantic concept space |
-| $K$ | Semantic concept |
-| $\mathbb{A}$ | Attribute space |
-| $A$ | Relevant semantic attribute |
-| $\mathbb{C}$ | Failure-category space |
-| $\tau$ | Failure-taxonomy mapping |
-| $C$ | Assigned failure category |
-
-The central formulation established in this module is:
-
-$$
-T = (I, Q, G, f_{\theta}(I, Q))
+\operatorname{Ax}_6(T)\in\{\text{absent},\text{present}\},
 $$
 
 and
 
 $$
-\tau(T) = C
+\operatorname{Ax}_7(T)\in\{\text{none},\text{present}\}.
 $$
 
-These two expressions form the mathematical starting point for formalizing the proposed VQA failure taxonomy.
+$$
+\tau(T) = (C_r,\ \mathrm{Ax}_5(T),\ \mathrm{Ax}_6(T),\ \mathrm{Ax}_7(T))
+$$
+
+The core-category component $C_r$ is determined by Axes 1–4 (and the 2a/2b sub-signals); the flag components are determined independently by Axes 5–7. The full decision procedure, including precondition branches, is defined in `02_decision_functions.md` and `04_taxonomy_algorithm.md`.
+
+---
+
+## 12. Retirement of the Prior Hallucination Indicator
+
+The prior formulation defined a hallucination indicator $H(G,P) \in \{0,1\}$ denoting the presence of unsupported factual content, independent of topical alignment. **This indicator is retired.** Its function is fully subsumed by Axis 7 (Unsupported Content), which uses a strict $G$-only support standard (Section 13) and applies across the whole response, not only to claims relevant to $K$.
+
+In the revised taxonomy, the term **Hallucination** ($C_{HA}$) denotes a distinct, narrower concept: a response that is topically aligned ($\mathrm{Ax}_1 = \text{aligned}$) but whose $P_K$ claims are semantically incorrect relative to $G$ ($\mathrm{Ax}_3 = \text{incorrect}$) — i.e., wrong facts on the right topic. This is a deliberate terminological redefinition relative to the prior document set and must not be conflated with the retired $H$ indicator or with the Axis 7 flag.
+
+---
+
+## 13. Unsupported Content — G-Only Support Standard
+
+Axis 7 evaluates every claim in $P$ (both $P_K$ and $P_{\bar K}$) against $G$ under a strict support rule:
+
+- A claim $c \in \mathbb{S}$ is **supported** iff $c$ is explicitly stated in $G$, or directly logically entailed by $G$.
+- A claim $c$ is **unsupported** iff neither condition holds.
+
+Axis 7 measures traceability to $G$, not general-world truth: a claim may be factually true and still classified as unsupported if it is not stated or directly entailed by $G$. "Reasonable extension" or external world knowledge is explicitly excluded as a basis for support. This standard is unchanged from the originally locked Axis 7 definition and applies uniformly regardless of core category.
+
+---
+
+## 14. Core Mathematical Objects
+
+| Object | Symbol | Space | Role |
+|---|---|---|---|
+| Dataset | $\mathbb{D}$ | — | Complete VQA dataset |
+| Image | $I$ | $\mathbb{I}$ | Visual input |
+| Question | $Q$ | $\mathbb{Q}$ | Question instance |
+| Ground truth | $G$ | $\mathbb{G}$ | Reference answer |
+| Prediction | $P$ | $\mathbb{P}$ | Model-generated answer |
+| Claim space | $\mathbb{S}$ | — | Space of minimal checkable claims |
+| On-topic claims | $P_K$ | $\subseteq \mathbb{S}$ | Claims relevant to $A_{set}(K)$ |
+| Off-topic claims | $P_{\bar K}$ | $\subseteq \mathbb{S}$ | Claims outside $A_{set}(K)$ |
+| Prediction tuple | $T$ | $\mathbb{T}$ | $(I,Q,G,P)$ |
+| Concept | $K$ | $\mathbb{K}$ | Semantic concept targeted by $Q$ |
+| Required attribute set | $A_{set}(K)$ | $\subseteq \mathbb{A}$ | Fixed set of required attributes for the template |
+| Attribute | $A$ | $\mathbb{A}$ | Semantic attribute |
+| Attribute value | $V$ | $\mathcal{V}$ | Value associated with an attribute |
+| Ground-truth attribute mapping | $G_A$ | $A_{set}(K)\rightarrow\mathcal{V}$ | Maps each required attribute to its ground-truth value |
+| Predicted attribute mapping | $P_A$ | $A_{set}(K)\rightarrow\mathcal{V}$ | Maps each required attribute to its predicted value |
+| Category | $C_r$ | $\mathbb{C}$ | One of seven core categories |
+| VQA model | $f_\theta$ | $\mathbb{I}\times\mathbb{Q}\rightarrow\mathbb{P}$ | Fine-tuned Qwen2.5-VL-3B-Instruct |
+| Concept function | $h$ | $\mathbb{Q}\rightarrow\mathbb{K}$ | Maps a question to its semantic concept |
+| Taxonomy function | $\tau$ | $\mathbb{T}\rightarrow\mathbb{C}\times\{\text{intact},\text{truncated}\}\times\{\text{absent},\text{present}\}\times\{\text{none},\text{present}\}$ | Maps a prediction tuple to a core category and three independent flags |
+
+---
+
+## 15. Central Formulation
+
+$$
+T = (I,Q,G,f_\theta(I,Q))
+$$
+$$
+K = h(Q), \qquad A_{set}(K) \text{ fixed per template}
+$$
+$$
+P \rightarrow \{P_K, P_{\bar K}\} \subseteq \mathbb{S}
+$$
+$$
+G_A = g_G(G, A_{set}(K)), \qquad P_A = g_P(P_K, A_{set}(K))
+$$
+$$
+\tau(T) = (C_r,\ \mathrm{Ax}_5,\ \mathrm{Ax}_6,\ \mathrm{Ax}_7)
+$$
+
+These definitions establish the mathematical vocabulary carried forward into `02_decision_functions.md`, which defines the precise measurement procedure and precondition structure for each signal.
