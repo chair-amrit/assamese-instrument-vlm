@@ -101,6 +101,18 @@ branch. Any completeness result for Toka q9 instances must be reported
 alongside this documented limitation (see `04_taxonomy_algorithm.md`,
 Scope).
 
+Formally, this limitation is expressed as:
+
+$$
+G_A(\text{cultural significance}) = \bot
+\quad
+\text{for Toka, q9}
+$$
+
+using the $\bot$ value introduced in Section 8. $\bot$ is a member of
+$\mathcal{V}^{\bot}$, not a special-cased exception to $A_{\mathrm{set}}(q9)$;
+the required attribute set itself remains unchanged for all instruments.
+
 ---
 
 ## 7. Claim Space, Decomposition, and Routing
@@ -152,23 +164,33 @@ $$
 where:
 
 $$
+\mathcal{V}^\bot = \mathcal{V} \cup \{\bot\}
+$$
+
+where $\bot$ denotes that no identifiable value is represented for the
+corresponding attribute in the relevant source: $G$ for $G_A$, or $P_K$
+for $P_A$.
+
+$$
 g_G:\mathbb G\times2^{\mathbb A}\rightarrow
-\left(A_{set}(K)\rightarrow\mathcal V\right),
+\left(A_{set}(K)\rightarrow\mathcal V^\bot\right),
 $$
 
 $$
 g_P:2^{\mathbb S}\times2^{\mathbb A}\rightarrow
-\left(A_{set}(K)\rightarrow\mathcal V\right).
+\left(A_{set}(K)\rightarrow\mathcal V^\bot\right).
 $$
 
 $G_A$ and $P_A$ are indexed mappings from each required attribute to its
-corresponding ground-truth or predicted value:
+corresponding ground-truth or predicted value, or to $\bot$ if that
+attribute is not independently realized:
 
 $$
-G_A:A_{set}(K)\rightarrow\mathcal V,
+G_A:A_{set}(K)\rightarrow\mathcal V^\bot,
 \qquad
-P_A:A_{set}(K)\rightarrow\mathcal V.
+P_A:A_{set}(K)\rightarrow\mathcal V^\bot.
 $$
+
 
 For single-attribute templates (q1–q8), $|A_{set}(K)| = 1$ and $G_A$, $P_A$ reduce to a single-element mapping, equivalent in effect to the scalar case. For q9, $G_A$ and $P_A$ each contain two entries, one per required attribute, enabling per-attribute correctness (Axis 3) and per-attribute coverage (Axis 4) to be evaluated independently before being combined.
 
@@ -296,8 +318,9 @@ Axis 7 measures traceability to $G$, not general-world truth: a claim may be fac
 | Required attribute set | $A_{set}(K)$ | $\subseteq \mathbb{A}$ | Fixed set of required attributes for the template |
 | Attribute | $A$ | $\mathbb{A}$ | Semantic attribute |
 | Attribute value | $V$ | $\mathcal{V}$ | Value associated with an attribute |
-| Ground-truth attribute mapping | $G_A$ | $A_{set}(K)\rightarrow\mathcal{V}$ | Maps each required attribute to its ground-truth value |
-| Predicted attribute mapping | $P_A$ | $A_{set}(K)\rightarrow\mathcal{V}$ | Maps each required attribute to its predicted value |
+| Extended value space | — | $\mathcal{V}^\bot = \mathcal{V}\cup\{\bot\}$ | Adds $\bot$ for attributes with no independent realization in source text |
+| Ground-truth attribute mapping | $G_A$ | $A_{set}(K)\rightarrow\mathcal{V}^\bot$ | Maps each required attribute to its ground-truth value, or $\bot$ |
+| Predicted attribute mapping | $P_A$ | $A_{set}(K)\rightarrow\mathcal{V}^\bot$ | Maps each required attribute to its predicted value, or $\bot$ |
 | Category | $C_r$ | $\mathbb{C}$ | One of seven core categories |
 | VQA model | $f_\theta$ | $\mathbb{I}\times\mathbb{Q}\rightarrow\mathbb{P}$ | Fine-tuned Qwen2.5-VL-3B-Instruct |
 | Concept function | $h$ | $\mathbb{Q}\rightarrow\mathbb{K}$ | Maps a question to its semantic concept |
