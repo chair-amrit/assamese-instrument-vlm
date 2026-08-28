@@ -182,7 +182,19 @@ These may be reported overall or cross-tabulated against $C_r$ (e.g. proportion 
 
 ## 10. Toka Q9 Reporting Requirement
 
-Per `02` Section 7, any $T$ with instrument = Toka and $K = $ description (q9) has $G_A(\text{cultural significance}) = \bot$, structurally capping $\mathrm{Ax}_4$ at `partial`. For Toka q9, the documented reference-data limitation means that $C_{correct}$ cannot be reached through the `complete` branch under the current reference annotation. This is a consequence of the reference data, not an instrument-specific taxonomy rule. Aggregate or per-instrument completeness statistics (Section 9) must disclose this limitation when Toka q9 instances are included, per `01` Section 6.
+Per `02` Section 7, this limitation applies to any prediction tuple where the instrument is Toka and the concept is description (q9).
+
+For that case:
+
+$$
+G_A(\text{cultural significance}) = \bot
+$$
+
+This structurally caps Axis 4 at `partial`.
+
+For Toka q9, the documented reference-data limitation means that $C_{correct}$ cannot be reached through the `complete` branch under the current reference annotation. This is a consequence of the reference data, not an instrument-specific taxonomy rule.
+
+Aggregate or per-instrument completeness statistics (Section 9) must disclose this limitation when Toka q9 instances are included, per `01` Section 6.
 
 ---
 
