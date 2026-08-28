@@ -60,11 +60,13 @@ Alignment requires only $P_K \neq \emptyset$; a response may be `aligned` while 
 ## 6. Axis 3 — Semantic Correctness
 
 **Preconditions:**
+
 $$
-\mathrm{Ax}_1(T) \neq \text{aligned} \implies \mathrm{Ax}_3(T) = \text{not\_applicable}
+\mathrm{Ax}_1(T) \neq \text{aligned} \implies \mathrm{Ax}_3(T) = \text{not applicable}
 $$
+
 $$
-\mathrm{Ax}_{2a}(T) = \text{no} \implies \mathrm{Ax}_3(T) = \text{not\_applicable}
+\mathrm{Ax}_{2a}(T) = \text{no} \implies \mathrm{Ax}_3(T) = \text{not applicable}
 $$
 
 **When applicable**, evaluated over $P_A$ against $G_A$ per attribute $A_j \in A_{\text{set}}(K)$. An attribute is **comparable** iff $G_A(A_j) \neq \bot$ and $P_A(A_j) \neq \bot$; only comparable attributes contribute evidence. The no-comparable-evidence case is checked first to avoid a vacuous-truth condition.
@@ -81,13 +83,15 @@ $$
 $$
 
 $P_A(A_j) = \bot$ (missing prediction value) makes that attribute non-comparable — it is not treated as correct or incorrect, and is evaluated only by Axis 4, as missing coverage. For q1–q8, $|A_{\text{set}}(K)|=1$ and this collapses to a single comparison. Correctness measures consistency with $G$; it is independent of Axis 7.
+
 ---
 
 ## 7. Axis 4 — Completeness
 
-**Preconditions:**
+**Precondition:**
+
 $$
-\mathrm{Ax}_3(T) \in \{\text{not\_applicable}, \text{incorrect}\} \implies \mathrm{Ax}_4(T) = \text{not\_applicable}
+\mathrm{Ax}_3(T) \in \{\text{not applicable}, \text{incorrect}\} \implies \mathrm{Ax}_4(T) = \text{not applicable}
 $$
 
 **When $\mathrm{Ax}_3(T) \in \{\text{correct}, \text{mixed}\}$:** let $n = |A_{\text{set}}(K)|$, and let $m$ be the number of $A_j \in A_{\text{set}}(K)$ with $G_A(A_j) \neq \bot$ for which $P_A(A_j)$ correctly covers $G_A(A_j)$. The indeterminate case is checked first, since $m$ is only well-defined once coverage is reliably determined for every required attribute.
