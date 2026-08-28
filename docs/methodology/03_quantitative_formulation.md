@@ -1,314 +1,197 @@
-# Quantitative Formulation
+# 03 — Quantitative Formulation
 
 ## 1. Purpose
 
-This document formalizes the evaluation variables and decision conditions used to assign each VQA prediction to one of the seven defined categories in the proposed failure taxonomy.
+This document derives the seven core categories in $\mathbb{C}$ from the branch structure and signal values defined in `02_decision_functions.md`. It also specifies how the three cross-cutting flags (Axis 5, Axis 6, Axis 7) attach to a core-category assignment under Design A.
 
-The formulation operates on the complete prediction tuple:
-
-$$
-T = (I, Q, G, P)
-$$
-
-where:
-
-- $I$ is the input image.
-- $Q$ is the question.
-- $G$ is the ground-truth answer.
-- $P$ is the model prediction.
-
-The taxonomy categories are:
-
-$$
-\mathbb{C} = \{C_{\text{correct}}, C_{\text{QM}}, C_{\text{HA}}, C_{\text{PA}}, C_{\text{TR}}, C_{\text{REP}}, C_{\text{MA}}\}
-$$
-
-where:
-
-- $C_{\text{correct}}$: Correct
-- $C_{\text{QM}}$: Question Misunderstanding
-- $C_{\text{HA}}$: Hallucination
-- $C_{\text{PA}}$: Partial Answer / Incomplete Answer
-- $C_{\text{TR}}$: Truncation
-- $C_{\text{REP}}$: Repetition
-- $C_{\text{MA}}$: Mixed Attribute
+This document does not define the ordered execution procedure used to process a dataset — that is `04_taxonomy_algorithm.md`. Here, category derivation is expressed as direct mappings from precondition branches (Section 11 of `02`) and Axis 3/4 values to a unique $C_r \in \mathbb{C}$.
 
 ---
 
-## 2. Semantic Evaluation Variables
-
-Using the concept and attribute functions from `02_decision_functions.md`:
+## 2. Category Space (recap)
 
 $$
-K = h(Q), \qquad A = \alpha(K)
+\mathbb{C} = \{C_{NA}, C_{QM}, C_{IC}, C_{HA}, C_{correct}, C_{PA}, C_{MA}\}
 $$
 
-Define the ground-truth and predicted attribute-match indicator as the semantic agreement function $\sigma$:
-
-$$
-m_G(G,P) := \sigma(T) \in \{0,1\}
-$$
-
-where $m_G = 1$ indicates the prediction is semantically consistent with the ground-truth answer (i.e. $A_G = A_P$).
-
-Define the question-relevance indicator as the attribute-consistency function $\gamma$:
-
-$$
-m_Q(Q,P) := \gamma(T) \in \{0,1\}
-$$
-
-where $m_Q = 1$ indicates the prediction addresses the attribute $A$ required by $K$.
-
-These variables provide the basis for distinguishing different types of incorrect predictions.
+Definitions are unchanged from `01` Section 10 and Section 12. $C_{HA}$ (Hallucination) denotes topically-aligned, semantically-incorrect content (Branch D), not the retired unsupported-content indicator.
 
 ---
 
-## 3. Completeness
+## 3. Category Derivation from Branches
 
-Let
+Each of the six branches defined in `02` Section 11 maps to exactly one core category. The mapping is direct — no branch maps to more than one category, and no branch is left unmapped.
 
-$$
-\kappa(G, P) \in [0,1]
-$$
+| Branch | Defining condition | Core category | Rationale |
+|---|---|---|---|
+| A | Axis 2a = no | $C_{NA}$ — Non-Answer / Abstention | No substantive content; response is a refusal or empty answer regardless of hedging language |
+| B | Axis 1 = misaligned | $C_{QM}$ — Question Misunderstanding | Response addresses an identifiable concept other than the one asked |
+| G | Axis 1 = indeterminate, Axis 2a = yes | $C_{IC}$ — Incoherent Response | Substantive content present, but no identifiable concept can be assigned to it |
+| D | Axis 1 = aligned, Axis 3 = incorrect | $C_{HA}$ — Hallucination | Right topic, comparable claims all contradict $G$ |
+| E, Axis 4 = complete | Axis 1 = aligned, Axis 3 = correct, Axis 4 = complete | $C_{correct}$ — Correct | All comparable claims consistent with $G$; full required coverage |
+| E, Axis 4 = partial | Axis 1 = aligned, Axis 3 = correct, Axis 4 = partial | $C_{PA}$ — Partial Answer | All comparable claims consistent with $G$; incomplete coverage |
+| F | Axis 1 = aligned, Axis 3 = mixed | $C_{MA}$ — Mixed Attribute | Right topic, some comparable claims consistent and some contradict $G$ |
 
-represent the degree to which the required information in the ground truth is covered by the prediction.
-
-A prediction with sufficiently complete semantic coverage satisfies:
-
-$$
-\kappa(G, P) \geq \theta_{\text{complete}}
-$$
-
-while an incomplete prediction satisfies:
-
-$$
-0 < \kappa(G, P) < \theta_{\text{complete}}
-$$
-
-This variable supports the distinction between a fully correct answer and a partial or incomplete answer.
-
-The threshold $\theta_{\text{complete}}$ must be fixed before applying the taxonomy and documented in the experimental implementation.
+Branch E splits into two categories depending on Axis 4; this is the only branch that does not map 1:1 to a single category, since completeness is the distinguishing factor between Correct and Partial Answer.
 
 ---
 
-## 4. Hallucination
+# 03 — Quantitative Formulation
 
-Define a hallucination indicator:
+## 1. Purpose
 
-$$
-H(G, P) \in \{0,1\}
-$$
+This document derives the seven core categories in $\mathbb{C}$ from the branch structure and signal values defined in `02_decision_functions.md`. It also specifies how the three cross-cutting flags (Axis 5, Axis 6, Axis 7) attach to a core-category assignment under Design A.
 
-where:
-
-- $H(G, P) = 1$ if $P$ introduces unsupported factual content.
-- $H(G, P) = 0$ otherwise.
-
-The hallucination category therefore concerns factual content that is not supported by the available ground-truth information.
-
-A prediction may contain both supported and unsupported information. Such cases require comparison with the Mixed Attribute condition defined below.
+This document does not define the ordered execution procedure used to process a dataset — that is `04_taxonomy_algorithm.md`. Here, category derivation is expressed as direct mappings from precondition branches (Section 11 of `02`) and Axis 3/4 values to a unique $C_r \in \mathbb{C}$.
 
 ---
 
-## 5. Truncation
-
-Define the truncation indicator:
+## 2. Category Space (recap)
 
 $$
-R_{\text{tr}}(P) \in \{0,1\}
+\mathbb{C} = \{C_{NA}, C_{QM}, C_{IC}, C_{HA}, C_{correct}, C_{PA}, C_{MA}\}
 $$
 
-where:
-
-- $R_{\text{tr}}(P) = 1$ if the response is visibly cut off before completion.
-- $R_{\text{tr}}(P) = 0$ otherwise.
-
-Truncation is therefore determined from the structural completeness of the generated response rather than from semantic disagreement with the ground truth.
+Definitions are unchanged from `01` Section 10 and Section 12. $C_{HA}$ (Hallucination) denotes topically-aligned, semantically-incorrect content (Branch D), not the retired unsupported-content indicator.
 
 ---
 
-## 6. Repetition
+## 3. Category Derivation from Branches
 
-Define the repetition indicator:
+Each of the six branches defined in `02` Section 11 maps to exactly one core category. The mapping is direct — no branch maps to more than one category, and no branch is left unmapped.
 
-$$
-R_{\text{rep}}(P) \in \{0,1\}
-$$
+| Branch | Defining condition | Core category | Rationale |
+|---|---|---|---|
+| A | Axis 2a = no | $C_{NA}$ — Non-Answer / Abstention | No substantive content; response is a refusal or empty answer regardless of hedging language |
+| B | Axis 1 = misaligned | $C_{QM}$ — Question Misunderstanding | Response addresses an identifiable concept other than the one asked |
+| G | Axis 1 = indeterminate, Axis 2a = yes | $C_{IC}$ — Incoherent Response | Substantive content present, but no identifiable concept can be assigned to it |
+| D | Axis 1 = aligned, Axis 3 = incorrect | $C_{HA}$ — Hallucination | Right topic, comparable claims all contradict $G$ |
+| E, Axis 4 = complete | Axis 1 = aligned, Axis 3 = correct, Axis 4 = complete | $C_{correct}$ — Correct | All comparable claims consistent with $G$; full required coverage |
+| E, Axis 4 = partial | Axis 1 = aligned, Axis 3 = correct, Axis 4 = partial | $C_{PA}$ — Partial Answer | All comparable claims consistent with $G$; incomplete coverage |
+| F | Axis 1 = aligned, Axis 3 = mixed | $C_{MA}$ — Mixed Attribute | Right topic, some comparable claims consistent and some contradict $G$ |
 
-where:
-
-- $R_{\text{rep}}(P) = 1$ if information is unnecessarily repeated.
-- $R_{\text{rep}}(P) = 0$ otherwise.
-
-This captures cases where the model repeatedly generates the same information without contributing additional relevant content.
-
----
-
-## 7. Mixed Attribute
-
-Define the Mixed Attribute indicator:
-
-$$
-MA(G, P) \in \{0,1\}
-$$
-
-where:
-
-- $MA(G, P) = 1$ if $P$ contains both correct and incorrect attribute-level information.
-- $MA(G, P) = 0$ otherwise.
-
-This category is used when the prediction combines correct and incorrect information and none of the other defined categories alone sufficiently describes the error.
+Branch E splits into two categories depending on Axis 4; this is the only branch that does not map 1:1 to a single category, since completeness is the distinguishing factor between Correct and Partial Answer.
 
 ---
 
-## 8. Correctness
+## 4. Cases Excluded from Direct Mapping
 
-A prediction is assigned to the Correct category when it answers the question appropriately, is semantically consistent with the ground truth, provides sufficiently complete information, and exhibits none of the other failure conditions.
+Two signal states are not covered by Section 3 and require explicit disposition:
 
-$$
-C_{\text{correct}}(T) = 1 \iff
-\delta(T)=1 \ \wedge\ m_Q(Q,P)=1 \ \wedge\ m_G(G,P)=1 \ \wedge\ \kappa(G,P) \geq \theta_{\text{complete}}
-$$
-$$
-\wedge\ \ R_{\text{tr}}(P)=0 \ \wedge\ R_{\text{rep}}(P)=0 \ \wedge\ H(G,P)=0 \ \wedge\ MA(G,P)=0
-$$
+**Axis 3 = indeterminate:** when Axis 1 = `aligned` and Axis 3 cannot be resolved to `correct`, `incorrect`, or `mixed`, no core category in $\mathbb{C}$ is assigned. This case is routed to the internal review outcome $C_{review}$ defined in `04_taxonomy_algorithm.md`.
 
-Minor wording differences are therefore permitted when the semantic content of the prediction remains correct.
+**Axis 4 = indeterminate** (within Branch E/F, i.e. Axis 3 is correct or mixed but per-attribute coverage cannot be reliably determined): not covered by Section 3's Branch E/F mapping, since that mapping requires Axis 4 $\in \{\text{complete}, \text{partial}\}$. This case is also routed to the internal review outcome.
+
+Both cases preserve determinism: rather than forcing an uncertain signal state into one of the seven categories, the taxonomy defers to manual review, consistent with the "review is resolved before final statistics" principle carried over from the retired prior taxonomy.
 
 ---
 
-## 9. Hallucination and Mixed Attribute Distinction
+## 5. Formal Category-Derivation Function
 
-Hallucination and Mixed Attribute must be explicitly distinguished during taxonomy assignment.
-
-Hallucination applies when the prediction introduces unsupported factual content without sufficient correct content to constitute a mixed response.
-
-Mixed Attribute applies when the prediction contains both correct and incorrect attribute-level information and this mixed content is the most appropriate explanation of the failure.
-
-Therefore, when both conditions are potentially satisfied, Mixed Attribute takes priority over the general Hallucination category.
-
-Therefore, when both conditions are potentially satisfied, Mixed Attribute takes priority over the general Hallucination category.
-
-The operational priority order is:
+Let $\delta : \mathbb{T} \rightarrow \mathbb{C} \cup \{C_{review}\}$ denote the core-category derivation function.
 
 $$
-C_{\text{MA}} \ \succ\ C_{\text{HA}}
+\delta(T) =
+\begin{cases}
+C_{NA}, & \text{Branch A} \\
+C_{QM}, & \text{Branch B} \\
+C_{IC}, & \text{Branch G} \\
+C_{HA}, & \text{Branch D} \\
+C_{correct}, & \text{Branch E and } \mathrm{Ax}_4(T) = \text{complete} \\
+C_{PA}, & \text{Branch E and } \mathrm{Ax}_4(T) = \text{partial} \\
+C_{MA}, & \text{Branch F} \\
+C_{review}, & \text{Axis 3 or Axis 4 indeterminate within Branch D, E, or F's applicable region}
+\end{cases}
 $$
 
-(read: $C_{\text{MA}}$ is checked before, and takes precedence over, $C_{\text{HA}}$ — this is a priority ordering, not a functional mapping.)
-
-This priority is implemented in the taxonomy decision algorithm rather than by redefining the categories themselves.
+$C_{review}$ is not a member of $\mathbb{C}$; it is an internal outcome requiring manual resolution before category statistics are computed, consistent with `04`.
 
 ---
 
-## 10. Taxonomy Decision Function
+## 6. Flag Attachment (Design A)
 
-The final taxonomy is represented by the decision function:
-
-$$
-\tau : \mathbb{T} \rightarrow \mathbb{C}
-$$
-
-where:
-
-- $\mathbb{T}$ is the space of complete prediction tuples.
-- $\mathbb{C}$ is the category space.
-
-Thus:
+Under Design A, final classification pairs $\delta(T)$ with the three cross-cutting flags:
 
 $$
-\tau(T) = C_r
+\tau(T) = \left(\delta(T),\ \mathrm{Ax}_5(T),\ \mathrm{Ax}_6(T),\ \mathrm{Ax}_7(T)\right)
 $$
 
-assigns prediction instance $T$ to one category $C_r$.
+This matches the taxonomy function stated in `01` Section 11. Flags are computed independently of $\delta(T)$ (per `02` Sections 8–10). Flags are never used to select or override the core category. During internal review, the flags may be retained alongside the provisional $C_{review}$ outcome. After manual resolution, the final classification contains one of the seven core categories together with the three independent flags.
+**Example final labels** (for illustration only, not new categories):
 
-The decision process can be represented conceptually as:
-
-$$
-T \rightarrow \text{semantic evaluation}
-\rightarrow \text{failure conditions}
-\rightarrow \tau(T)
-\rightarrow C_r
-$$
-
-The exact priority and mutually exclusive decision rules are defined in the subsequent taxonomy algorithm.
+| Core category | Axis 5 | Axis 6 | Axis 7 | Reported as |
+|---|---|---|---|---|
+| $C_{correct}$ | truncated | absent | none | Correct + truncated |
+| $C_{PA}$ | truncated | absent | present | Partial Answer + truncated + unsupported |
+| $C_{correct}$ | intact | present | none | Correct + repetitive |
+| $C_{NA}$ | intact | absent | none | Non-Answer / Abstention |
 
 ---
 
-## 11. Category Interpretation
+## 7. Mutual Exclusivity
 
-| Category | Mathematical evidence |
-|---|---|
-| Correct | $\delta=1$, $m_Q=1$, $m_G=1$, $\kappa \geq \theta_{\text{complete}}$, $R_{\text{tr}}=0$, $R_{\text{rep}}=0$, $H=0$, $MA=0$ |
-| Question Misunderstanding | $m_Q = 0$ |
-| Hallucination | $H = 1$ when Mixed Attribute does not apply |
-| Partial Answer / Incomplete Answer | Correct semantic content with $0 < \kappa < \theta_{\text{complete}}$ |
-| Truncation | $R_{\text{tr}} = 1$ |
-| Repetition | $R_{\text{rep}} = 1$ |
-| Mixed Attribute | $MA = 1$ |
+For every $T \in \mathbb{T}$, the branch conditions in `02` Section 11 (Branches A, B, G, D, E, F) are pairwise disjoint and jointly determined by the ordered preconditions on Axis 2a, Axis 1, and Axis 3 — no prediction tuple satisfies more than one branch's defining condition. Within Branch E, the further split by Axis 4 (complete vs. partial) is also disjoint, since Axis 4 takes exactly one value per $T$.
 
-These conditions describe the evidence used by the taxonomy rather than treating the category names themselves as numerical labels.
+Consequently:
 
-The final category assignment is determined by the operational decision order defined in the taxonomy algorithm.
+$$
+\forall T \in \mathbb{T}: \left|\{C_r \in \mathbb{C} \cup \{C_{review}\} : \delta(T) = C_r\}\right| = 1
+$$
+
+Each prediction receives exactly one core-category outcome. This holds independently of the flag values (Axis 5, 6, 7), which are computed separately and do not affect $\delta(T)$.
 
 ---
 
-## 12. Quantitative Category Statistics
+## 8. Coverage
 
-For a dataset containing $N$ evaluated prediction instances, define the category indicator:
+Every prediction satisfies exactly one of the following semantic outcomes: Branch A, Branch B, Branch G, Branch D, Branch E, Branch F, or an explicit $C_{review}$ outcome for an unresolved indeterminate state. Branch A covers all cases with no substantive content. Branches B and G cover the two non-aligned substantive-content cases. Branches D, E, and F cover aligned responses with `incorrect`, `correct`, and `mixed` semantic correctness, respectively. Any remaining indeterminate semantic or completeness state is routed to $C_{review}$ rather than silently assigned to a core category.
+
+Together, Sections 3–5 assign a defined outcome — one of seven categories, or review — to every $T \in \mathbb{T}$; no prediction tuple is left unclassified.
+
+---
+
+## 9. Quantitative Category Statistics
+
+For a dataset of $N$ evaluated prediction tuples, after all $C_{review}$ instances have been manually resolved into one of the seven categories:
 
 $$
 \mathbf{1}_r(T_i) =
 \begin{cases}
-1, & \text{if } \tau(T_i) = C_r \\
+1, & \delta(T_i) = C_r \\
 0, & \text{otherwise}
 \end{cases}
 $$
 
-The number of predictions assigned to category $C_r$ is:
-
 $$
-N_r = \sum_{i=1}^{N} \mathbf{1}_r(T_i)
+N_r = \sum_{i=1}^{N} \mathbf{1}_r(T_i), \qquad \rho_r = \frac{N_r}{N}
 $$
 
-The category proportion is:
-
 $$
-\rho_r = \frac{N_r}{N}
+\sum_r N_r = N, \qquad \sum_r \rho_r = 1
 $$
 
-and the percentage representation is:
+Flag prevalence is reported separately and independently of category counts, since flags are not mutually exclusive with each other or with category membership:
 
 $$
-100\rho_r
+N_5^{truncated} = \sum_{i=1}^N \mathbf{1}[\mathrm{Ax}_5(T_i) = \text{truncated}], \quad \text{similarly for } N_6^{present}, N_7^{present}
 $$
 
-Because each prediction receives one final taxonomy category, the category counts satisfy:
-
-$$
-\sum_r N_r = N
-$$
-
-and:
-
-$$
-\sum_r \rho_r = 1
-$$
-
-These quantities provide the basis for reporting the distribution of failure types in the test set.
+These may be reported overall or cross-tabulated against $C_r$ (e.g. proportion of $C_{correct}$ instances that are also truncated).
 
 ---
 
-## 13. Scope
+## 10. Toka Q9 Reporting Requirement
 
-This formulation defines the measurable variables and category-level conditions required by the proposed taxonomy.
+Per `02` Section 7, any $T$ with instrument = Toka and $K = $ description (q9) has $G_A(\text{cultural significance}) = \bot$, structurally capping $\mathrm{Ax}_4$ at `partial`. For Toka q9, the documented reference-data limitation means that $C_{correct}$ cannot be reached through the `complete` branch under the current reference annotation. This is a consequence of the reference data, not an instrument-specific taxonomy rule. Aggregate or per-instrument completeness statistics (Section 9) must disclose this limitation when Toka q9 instances are included, per `01` Section 6.
 
-It does not assume that every category must occur in the current test set. A category may be formally defined but have:
+---
 
-$$
-N_r = 0
-$$
+## 11. Scope
 
-in the evaluated data.
+This document defines category derivation and flag attachment. It does not define:
 
-The subsequent taxonomy algorithm specifies the operational decision order used to assign each prediction to exactly one category.
+- the ordered execution sequence for processing raw predictions (`04_taxonomy_algorithm.md`),
+- the manual-review resolution procedure for $C_{review}$ cases (`04_taxonomy_algorithm.md`),
+- claim-extraction or entailment-checking implementation details (out of scope for this document set; an implementation/annotation guide).
+
+A category may have $N_r = 0$ in a given evaluated dataset without invalidating the taxonomy's completeness or exclusivity properties, consistent with `01` Section 10.S
