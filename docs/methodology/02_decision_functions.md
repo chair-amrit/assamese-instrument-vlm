@@ -157,19 +157,20 @@ Evaluated over the **entire response**, per the routing in `01` Section 7 ($P_K 
 
 ## 11. Precondition Branches
 
-**Branch A** ($\mathrm{Ax}_{2a}=\text{no}$): $\mathrm{Ax}_1=\text{indeterminate}$, $\mathrm{Ax}_3=\mathrm{Ax}_4=\text{not applicable}$, $\mathrm{Ax}_6=\text{absent}$, $\mathrm{Ax}_7=\text{none}$. $\mathrm{Ax}_{2b}, \mathrm{Ax}_5$ free.
+| Branch | Condition | Axis 3 | Axis 4 | Axis 6 | Axis 7 | Other free signals |
+|---|---|---|---|---|---|---|
+| A | Axis 2a = no | not applicable | not applicable | absent (forced) | none (forced) | Axis 2b, Axis 5 |
+| B | Axis 1 = misaligned | not applicable | not applicable | free | evaluated | Axis 2b, Axis 5, Axis 6 |
+| G | Axis 1 = indeterminate, Axis 2a = yes | indeterminate | indeterminate | evaluated | evaluated | — |
+| D | Axis 1 = aligned, Axis 3 = incorrect | (incorrect) | not applicable | free | evaluated | — |
+| E | Axis 1 = aligned, Axis 3 = correct | (correct) | complete or partial | free | evaluated | — |
+| F | Axis 1 = aligned, Axis 3 = mixed | (mixed) | complete or partial | free | evaluated | — |
 
-**Branch B** ($\mathrm{Ax}_1=\text{misaligned}$): $\mathrm{Ax}_3=\mathrm{Ax}_4=\text{not applicable}$. $\mathrm{Ax}_7$ still evaluated. $\mathrm{Ax}_{2b},\mathrm{Ax}_5,\mathrm{Ax}_6$ free.
+Additional notes:
 
-**Branch G** ($\mathrm{Ax}_1=\text{indeterminate}$, $\mathrm{Ax}_{2a}=\text{yes}$): $\mathrm{Ax}_3=\mathrm{Ax}_4=\text{indeterminate}$. $\mathrm{Ax}_6,\mathrm{Ax}_7$ still evaluated.
-
-**Branch D** ($\mathrm{Ax}_1=\text{aligned}$, $\mathrm{Ax}_3=\text{incorrect}$): $\mathrm{Ax}_4=\text{not applicable}$. $\mathrm{Ax}_7$ evaluated.
-
-**Branch E** ($\mathrm{Ax}_1=\text{aligned}$, $\mathrm{Ax}_3=\text{correct}$): $\mathrm{Ax}_4\in\{\text{complete},\text{partial}\}$. $\mathrm{Ax}_7$ evaluated.
-
-**Branch F** ($\mathrm{Ax}_1=\text{aligned}$, $\mathrm{Ax}_3=\text{mixed}$): $\mathrm{Ax}_4\in\{\text{complete},\text{partial}\}$. $\mathrm{Ax}_7$ evaluated.
-
-$\mathrm{Ax}_5$, and $\mathrm{Ax}_6/\mathrm{Ax}_7$ except where forced, cut across all branches and are not branch-defining.
+- Branch A: Axis 1 is forced to `indeterminate` (per Axis 1's own precondition in Section 5).
+- Axis 5 (Termination Integrity) is free in every branch — it is never forced or excluded, per Section 8.
+- Axis 6 and Axis 7, except where explicitly forced in Branch A, cut across all branches and are not branch-defining.
 
 ---
 
