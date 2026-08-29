@@ -1,227 +1,109 @@
-# Methodology
+# Taxonomy Methodology — Overview
 
-This directory documents the mathematical framework used to analyze and classify prediction failures for the Assamese Musical Instrument Visual Question Answering (VQA) model. It defines the formal objects, evaluation functions, quantitative criteria, and decision algorithm that together convert raw model predictions into a structured, reproducible failure taxonomy.
+This directory contains the revised VQA failure-taxonomy methodology for the Assamese Musical Instrument VLM project. This README is a compact orientation guide; the four linked documents are the authoritative source for all definitions, equations, and decision rules.
 
-## 1. Overview
+---
 
-Manually reviewing model predictions and labeling failures by eye does not scale and is not reproducible across reviewers or across runs. This methodology replaces that manual process with an explicit, ordered evaluation pipeline: every prediction is evaluated against a fixed set of mathematical criteria and assigned either to one of the seven final failure categories or, when the available evidence is insufficient for automatic classification, to an internal Review outcome. All Review cases must be resolved before final category statistics are reported.
+## 1. Purpose and Motivation
 
-The pipeline proceeds as follows:
+The prior taxonomy defined seven categories directly, with category-specific decision variables (e.g. an attribute-consistency function designed around Question Misunderstanding). This caused conflation: a non-answer or refusal could be misclassified as Question Misunderstanding merely because it failed to address the requested attribute, even though the model may have understood the question and simply declined to answer.
 
-```text
-VQA Sample → Model Prediction → Evaluation Functions → Quantitative Conditions → Taxonomy Algorithm → Category Statistics
+The revised methodology replaces this category-first design with an **axis-first design**: independent behavioral properties of a prediction are measured first, and the seven final categories are derived afterward from combinations of those measurements. This removes the specific conflation identified above and is intended to produce a taxonomy that is precise, deterministic, semantically grounded, mutually exclusive, collectively covering, and reproducible.
+
+---
+
+## 2. Axis-First Methodology
+
+Every prediction is represented as a tuple $T = (I, Q, G, P)$ (image, question, ground truth, prediction). Rather than asking "which of seven categories does this belong to," the methodology first measures a fixed set of independent behavioral signals, then derives the category from the resulting signal combination.
+
+The framework measures **eight signals organized into seven conceptual axes**:
+
+| Axis | Signal | Domain |
+|---|---|---|
+| 1 | Question/Semantic Alignment | aligned, misaligned, indeterminate |
+| 2a | Substantive Content Present | yes, no |
+| 2b | Uncertainty/Refusal Marker | yes, no |
+| 3 | Semantic Correctness | correct, incorrect, mixed, not applicable, indeterminate |
+| 4 | Completeness | complete, partial, not applicable, indeterminate |
+| 5 | Termination Integrity | intact, truncated |
+| 6 | Repetition | absent, present |
+| 7 | Unsupported Content | none, present |
+
+Axis 2 comprises two independent sub-signals (2a, 2b); all eight are measurable signals within the seven conceptual axes. Full domains, preconditions, and measurement order are defined in `02_decision_functions.md`.
+
+---
+
+## 3. Claim Routing and Required Attributes
+
+A prediction is decomposed into minimal, checkable claims and partitioned according to whether each claim addresses the attribute the question actually requires:
+
+$$
+P \rightarrow (P_K, P_{\bar K})
+$$
+
+$P_K$ (on-topic claims) feeds both Axis 3 (Semantic Correctness) and Axis 7 (Unsupported Content). $P_{\bar K}$ (off-topic claims) feeds Axis 7 only. This ensures off-topic digressions cannot be scored as correct or incorrect against a ground truth that doesn't cover them, while still catching fabricated content anywhere in the response.
+
+The required attribute set for each question template, $A_{\text{set}}(K)$, is fixed by the predefined question-template specification — not inferred from the ground truth or the model's prediction. Templates q1–q8 each require a single attribute; q9 (description) is a composite template requiring two attributes: cultural significance and role in Assamese music. Full definitions are in `01_mathematical_foundation.md`.
+
+---
+
+## 4. Core Categories and Cross-Cutting Flags
+
+The taxonomy defines seven core categories:
+
+- Non-Answer / Abstention
+- Question Misunderstanding
+- Incoherent Response
+- Hallucination (redefined: topically-aligned but semantically incorrect content — not the retired unsupported-content indicator)
+- Correct
+- Partial Answer
+- Mixed Attribute
+
+Under **Design A**, final classification is a core category paired with three independent flags, rather than a single flat label:
+
+$$
+\tau(T) = \left(C_r,\ \mathrm{Ax}_5,\ \mathrm{Ax}_6,\ \mathrm{Ax}_7\right)
+$$
+
+Truncation, Repetition, and Unsupported Content are cross-cutting flags, not standalone categories — a response can be, for example, "Correct + truncated" or "Partial Answer + truncated + unsupported." This preserves the semantic state of a response even when a structural issue (truncation, repetition) or content issue (unsupported detail) also occurs. Category and flag definitions are in `01_mathematical_foundation.md` and `03_quantitative_formulation.md`.
+
+---
+
+## 5. Classification Pipeline
+
+The four documents form a linear derivation:
+
+
+```
+01 → Mathematical foundation
+02 → Decision functions
+03 → Quantitative formulation
+04 → Taxonomy algorithm
 ```
 
-Each stage is defined precisely in one of the four methodology documents listed below. The fixed evaluation definitions, thresholds, decision priority, and documented Review procedure are intended to ensure consistent categorization across runs and reviewers.
+`04` is the implementation-facing document: it specifies the exact sequence of measurement and derivation steps applied to a single prediction, culminating in a final $\tau(T)$.
 
 ---
 
-## 2. Methodology Documents
+## 6. Manual Review ($C_{\text{review}}$)
 
-The framework is developed incrementally across four documents. Each document defines the inputs required by the next.
+Two signal states cannot be automatically resolved to one of the seven categories: Axis 3 = indeterminate (no comparable evidence, or comparable evidence that cannot be reliably verified), and Axis 4 = indeterminate (coverage cannot be reliably determined). Rather than forcing these into an arbitrary category, they are routed to an internal outcome, $C_{\text{review}}$, which is **not** a member of the final category space.
 
-| Document | Defines | Feeds into |
-|---|---|---|
-| [`01_mathematical_foundation.md`](./01_mathematical_foundation.md) | The core object spaces — images, questions, ground truth, predictions — and the formal representation of a VQA sample and its prediction. | The objects that all later evaluation functions operate on. |
-| [`02_decision_functions.md`](./02_decision_functions.md) | The evaluation functions that compare a ground truth and a prediction — question alignment, hallucination, truncation, repetition, and mixed-attribute checks. | The raw signals used to quantify prediction quality. |
-| [`03_quantitative_formulation.md`](./03_quantitative_formulation.md) | The measurable indicators and thresholds derived from the decision functions, including the completeness score κ. | The concrete values the taxonomy algorithm branches on. |
-| [`04_taxonomy_algorithm.md`](./04_taxonomy_algorithm.md) | The deterministic, priority-ordered algorithm that maps each prediction to one of the seven final failure categories or, when necessary, to the internal Review outcome. | The final per-prediction category used for dataset-level statistics after Review resolution. |
+$C_{\text{review}}$ instances require manual resolution: a reviewer re-examines the prediction, resolves the indeterminate signal, and recomputes any downstream dependent signal. Every $C_{\text{review}}$ instance must be resolved to one of the seven core categories before final dataset statistics are computed. Full resolution procedure is in `04_taxonomy_algorithm.md`.
 
 ---
 
-## 3. Mathematical Framework
+## 7. Documented Reference-Data Limitation (Toka, q9)
 
-All later documents build on a small set of core mathematical objects, formally defined in [`01_mathematical_foundation.md`](./01_mathematical_foundation.md). This section summarizes them at a high level, without reproducing the full definitions.
-
-**Object spaces**
-
-| Symbol | Space |
-|---|---|
-| 𝕀 | Image space |
-| ℚ | Question space |
-| 𝔾 | Ground-truth answer space |
-| ℙ | Prediction space |
-| 𝕋 | Prediction-tuple space |
-| ℂ | Failure-category space |
-
-Two further spaces support semantic evaluation: a **semantic concept space**, representing the underlying concept a question targets (e.g. material, origin, sound), and an **attribute space**, representing the specific value expected in a correct answer (e.g. a particular material or instrument name).
-
-**Core functions**
-
-- **fθ** — the fine-tuned VQA model, mapping an image and question to a predicted answer.
-- **Concept function** — maps a question to the semantic concept being evaluated.
-- **Attribute interpretation functions** — identify the relevant semantic attribute values in the ground-truth and predicted answers.
-- **Evaluation and taxonomy functions** — evaluate the relationship between the ground truth and prediction and ultimately assign an operational taxonomy outcome.
-
-This is consistent with the notation fixed in the foundation document: a sample is x = (I, Q, G), a prediction is P = f_θ(I, Q), and a complete prediction instance is T = (I, Q, G, P).
-
-
-
-## 4. Decision-Function Layer
-
-A single binary correctness check — whether a prediction exactly matches the ground truth — is not sufficient to characterize *how* a prediction fails. Two incorrect predictions can fail for entirely different reasons: one might introduce unsupported content, another might be truncated or repetitive, and a third might simply misinterpret the question. Treating all of these as a single "incorrect" bucket would discard information needed for meaningful failure analysis.
-
-To address this, the methodology defines a set of evaluation mechanisms in [`02_decision_functions.md`](./02_decision_functions.md). Each evaluation mechanism inspects a specific aspect of the relationship between the ground truth G and the prediction P and produces evidence that is used by the quantitative formulation and taxonomy algorithm.
-
-| Function | Symbol | Checks for |
-|---|---|---|
-| Correctness | δ | Base binary correctness of the prediction relative to the ground truth. |
-| Question alignment | m_Q (:= γ) | Whether the prediction addresses the attribute the question requires. |
-| Ground-truth/prediction match | m_G (:= σ) | Whether the prediction's content semantically matches the ground truth. |
-| Completeness | κ | Measures the degree to which the prediction covers the required information in the ground truth. |
-| Hallucination | H | Whether the prediction introduces unsupported factual content relative to the available ground-truth evidence. |
-| Truncation | R_tr | Whether the prediction is cut off or incomplete due to generation length. |
-| Repetition | R_rep | Whether the prediction contains unnecessary or degenerate repeated content. |
-| Mixed attribute | MA | Whether the prediction contains both correct and incorrect attribute-level information for the evaluated concept. |
-
-Together, these mechanisms provide the evidentiary signals — not the final decision — that the taxonomy algorithm uses to classify each prediction.
+The authored ground truth for the instrument Toka's q9 (description) response does not independently realize the `cultural significance` attribute, separate from `role_in_assamese_music` content. The required attribute set for q9 remains fixed at two attributes for every instrument, including Toka — this is treated as a **reference-data authoring gap**, not a taxonomy exception. As a direct consequence, Toka's q9 completeness is structurally capped at `partial`, and $C_{\text{correct}}$ cannot be reached through the `complete` branch for this instrument–template pair under the current reference annotation. Any reported completeness statistic involving Toka q9 must explicitly disclose this limitation. Full details are in `01_mathematical_foundation.md` (Section 6) and `03_quantitative_formulation.md` (Section 10).
 
 ---
 
-## 5. Quantitative Formulation
+## 8. Methodology Documents
 
-The evaluation mechanisms above are qualitative checks; the quantitative formulation in [`03_quantitative_formulation.md`](./03_quantitative_formulation.md) converts them into concrete, measurable values and fixed thresholds so that classification is reproducible rather than subjective.
+- [`01_mathematical_foundation.md`](./01_mathematical_foundation.md) — objects, spaces, axes, categories, notation
+- [`02_decision_functions.md`](./02_decision_functions.md) — signal measurement rules, preconditions, branches
+- [`03_quantitative_formulation.md`](./03_quantitative_formulation.md) — category derivation, flag attachment, coverage and exclusivity
+- [`04_taxonomy_algorithm.md`](./04_taxonomy_algorithm.md) — ordered classification procedure, review resolution, scope
 
-| Indicator | Description |
-|---|---|
-| Semantic consistency | Measures whether the prediction's meaning aligns with the ground truth's meaning, beyond exact string matching. |
-| Question alignment score | Quantifies whether the prediction addresses the concept the question is asking about. |
-| Completeness κ | A continuous score representing how much of the expected ground-truth content is present in the prediction. |
-| Hallucination indicator | A binary flag derived from the hallucination check, indicating unsupported content in the prediction. |
-| Truncation / repetition indicators | Binary structural flags identifying truncation or unnecessary repeated content; these conditions are evaluated before the semantic failure categories. |
-| Mixed-attribute indicator | A binary flag identifying predictions that contain both correct and incorrect attribute-level information for the evaluated concept. |
-| Completeness threshold θ_complete | The fixed cutoff value of κ above which a prediction is considered complete rather than partial. |
-
-These indicators and the predefined completeness threshold provide the quantitative evidence used by the priority-ordered decision rules in the taxonomy algorithm.
-
----
-
-## 6. Taxonomy Decision Algorithm
-
-The taxonomy algorithm operates over the extended outcome space consisting of the seven final taxonomy categories and the internal Review outcome. Conditions are evaluated top to bottom, and the first condition that holds determines the operational outcome:
-
-1. Truncation
-2. Repetition
-3. Question Misunderstanding
-4. Mixed Attribute
-5. Hallucination
-6. Partial Answer / Incomplete Answer
-7. Correct
-8. Review (fallback)
-
-The ordering matters: for example, Mixed Attribute is evaluated before Hallucination ($C_{\mathrm{MA}} \succ C_{\mathrm{HA}}$) because it represents a distinct attribute-level failure mode. Hallucination is then used for unsupported factual content that does not satisfy the higher-priority Mixed Attribute condition. Correct additionally requires that neither Hallucination nor Mixed Attribute applies. The **Review** outcome is an internal operational fallback only — it is not one of the seven final taxonomy categories, and every Review case must be resolved into one of the seven before final statistics are reported.
-
-
-## 7. Final Taxonomy Categories
-
-Once all Review cases have been resolved, every prediction falls into exactly one of the following seven categories:
-
-| Symbol | Category | Description |
-|---|---|---|
-| C_correct | Correct | The prediction is semantically correct and complete relative to the ground truth, with no hallucination and no mixed-attribute content. |
-| C_QM | Question Misunderstanding | The prediction does not address the semantic concept the question is asking about. |
-| C_HA | Hallucination | The prediction introduces unsupported factual content relative to the available ground-truth evidence. |
-| C_PA | Partial Answer / Incomplete Answer | The prediction is on-topic and supported, but does not fully cover the expected content. |
-| C_TR | Truncation | The prediction is cut off before completion. |
-| C_REP | Repetition | The prediction contains degenerate or repeated tokens or phrases. |
-| C_MA | Mixed Attribute | The prediction contains both correct and incorrect attribute-level information for the evaluated concept. |
-
-These seven categories are mutually exclusive and are the only labels used in final reporting; the internal Review outcome described in Section 6 never appears in final statistics.
-
----
-
-## 8. Dataset-Level Statistics
-
-Beyond classifying individual predictions, the methodology defines how per-instance categories are aggregated into dataset-level statistics:
-
-- **Per-instance classification** — each prediction tuple T is assigned one operational outcome via τ(T); any Review outcomes are resolved into one of the seven final categories before aggregation.
-- **Category counts (N_r)** — the number of predictions assigned to each category C_r.
-- **Category proportions (ρ_r)** — the fraction of the dataset assigned to each category, computed as N_r divided by the total number of predictions.
-- **Percentage representation** — proportions expressed as percentages for reporting and comparison.
-- **Partition property** — after all Review cases have been resolved, the seven final categories are mutually exclusive and exhaustive; therefore, their counts sum to the total number of evaluated predictions and their proportions sum to 1.
-- **Zero-count categories** — a category with zero observed instances is a valid and expected outcome, not an error in the methodology; it simply indicates that failure mode did not occur in the evaluated dataset.
----
-
-## 9. Evaluation Workflow
-
-Applying the methodology to a set of predictions follows a fixed operational sequence:
-
-1. Draw a sample from the dataset.
-2. Generate the model prediction P.
-3. Construct the complete prediction tuple T = (I, Q, G, P).
-4. Evaluate all decision-function variables (Section 4) and quantitative indicators (Section 5) for T.
-5. Apply the priority-ordered decision rules (Section 6) to obtain a category, resolving to Review if unresolved.
-6. Manually resolve any Review outcomes into one of the seven final categories.
-7. Record the final category for the instance.
-8. Aggregate recorded categories into dataset-level statistics (Section 8).
-
-This sequence is applied identically to every prediction in the dataset, ensuring that category assignment does not depend on the order in which predictions are processed.
-
-
-
-## 10. Reproducibility and Operational Requirements
-
-For the taxonomy to produce consistent, comparable results across runs and reviewers, the methodology enforces the following operational requirements:
-
-- **Fixed evaluation definitions** — the decision functions (Section 4) are defined once and applied identically to every prediction; they are not adjusted case by case.
-- **Fixed thresholds** — quantitative thresholds such as θ_complete (Section 5) are set in advance and held constant across the full dataset.
-- **Fixed decision priority** — the ordering of conditions in the taxonomy algorithm (Section 6) does not change between evaluation runs.
-- **Consistent application** — every prediction in the dataset is passed through the same pipeline, with no exceptions or manual shortcuts outside the defined Review process.
-- **Review procedure for unresolved cases** — predictions that do not resolve cleanly under the fixed rules are routed to Review and resolved through a documented process, rather than being classified ad hoc.
-- **Separation between model inference and taxonomy evaluation** — the model that generates predictions and the methodology that evaluates them are independent; the taxonomy is applied strictly after inference and does not influence how predictions are generated.
-
-Together, these requirements ensure that re-running the methodology on the same predictions produces the same automated outcomes and, after applying the documented Review procedure consistently, the same final category assignments and dataset-level statistics.
-
----
-
-## 11. Relationship to the Paper
-
-Each methodology document corresponds to a stage of the eventual research paper's presentation:
-
-| Methodology Document | Paper Section |
-|---|---|
-| Mathematical foundation | Formal notation and problem setup |
-| Decision functions | Evaluation mechanisms |
-| Quantitative formulation | Measurable criteria and thresholds |
-| Taxonomy algorithm | Deterministic classification procedure |
-| *(planned)* Final paper formulation | Condensed, paper-ready presentation of the above |
-
-The methodology documents in this directory are intentionally more detailed and exploratory than the final paper will be; the planned final paper formulation will distill them into a compact, self-contained presentation suitable for publication.
-
----
-
-## 12. Methodology Scope and Limitations
-
-This framework is a **VQA failure-analysis taxonomy**: its purpose is to classify the *observed behavior* of model predictions against ground-truth answers, using fixed, reproducible criteria.
-
-It is important to be explicit about what it does not claim:
-
-- It does not assert that every failure category must occur in every dataset or model — zero-count categories are valid (Section 8).
-- It does not evaluate *why* a model produces a given failure mode at a mechanistic level; it classifies observed output behavior, not internal model causes.
-- Its results are only as reliable as the operational definitions and thresholds established in Sections 4–6; changing those definitions changes the resulting statistics.
-- Review cases (Section 6) must be fully resolved before any final category statistics are considered valid — unresolved Review counts should never be reported as final results.
-
-
-## 13. Directory Structure
-
-```text
-docs/
-└── methodology/
-    ├── README.md
-    ├── 01_mathematical_foundation.md
-    ├── 02_decision_functions.md
-    ├── 03_quantitative_formulation.md
-    └── 04_taxonomy_algorithm.md
 ```
-
----
-
-## 14. Document Development Status
-
-| Document | Status |
-|---|---|
-| Mathematical Foundation | ✅ Methodology version complete |
-| Decision Functions | ✅ Methodology version complete |
-| Quantitative Formulation | ✅ Methodology version complete |
-| Taxonomy Algorithm | ✅ Methodology version complete |
-| Paper Formulation | 🔲 Planned / Next |
