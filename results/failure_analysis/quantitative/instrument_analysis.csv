@@ -1,0 +1,8 @@
+﻿Instrument,Total Questions,Correct,Accuracy (%),Most Common Failure
+bahi,45,28,62.22,Question Misunderstanding
+pepa,45,28,62.22,Question Misunderstanding
+khutitaal,45,27,60.0,Question Misunderstanding
+bihu_dhol,45,25,55.56,Partial Answer / Incomplete Answer
+toka,45,24,53.33,Question Misunderstanding
+xutuli,45,24,53.33,Question Misunderstanding
+gogona,45,21,46.67,Mixed Attribute
