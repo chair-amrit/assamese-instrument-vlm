@@ -1,424 +1,155 @@
-# Taxonomy Algorithm
+# 04 — Taxonomy Algorithm
 
 ## 1. Purpose
 
-This document defines the ordered decision procedure used to assign each VQA prediction to one of the seven final categories defined in the quantitative formulation.
+This document defines the ordered, operational procedure for classifying a single prediction tuple $T = (I,Q,G,P)$ using the signals defined in `02_decision_functions.md` and the category derivation defined in `03_quantitative_formulation.md`. It also defines the manual-review resolution procedure for the internal $C_{review}$ outcome, and the scope and reporting requirements for the resulting dataset-level statistics.
 
-The algorithm operates on the complete prediction tuple:
-
-$$
-T = (I, Q, G, P)
-$$
-
-and produces an operational outcome:
-
-$$
-\tau(T) \in \mathbb{O}
-$$
-
-where the extended outcome space is:
-
-$$
-\mathbb{O} = \mathbb{C} \cup \{C_{\mathrm{review}}\}
-$$
-
-The seven final taxonomy categories are:
-
-$$
-\mathbb{C} =
-\{C_{\mathrm{correct}}, C_{\mathrm{QM}}, C_{\mathrm{HA}},
-C_{\mathrm{PA}}, C_{\mathrm{TR}}, C_{\mathrm{REP}}, C_{\mathrm{MA}}\}
-$$
-
-where:
-
-- $C_{\mathrm{correct}}$: Correct
-- $C_{\mathrm{QM}}$: Question Misunderstanding
-- $C_{\mathrm{HA}}$: Hallucination
-- $C_{\mathrm{PA}}$: Partial Answer / Incomplete Answer
-- $C_{\mathrm{TR}}$: Truncation
-- $C_{\mathrm{REP}}$: Repetition
-- $C_{\mathrm{MA}}$: Mixed Attribute
-
-The additional outcome $C_{\mathrm{review}}$ is an internal fallback used when the available evaluation evidence is insufficient for automatic assignment. It is not a final taxonomy category and is resolved before final category statistics are computed.
-
-
-## 2. Decision Variables
-
-The algorithm uses the evaluation variables defined in the quantitative formulation:
-
-- $m_G(G,P) := \sigma(T)$ — semantic agreement between the ground-truth and predicted attributes (doc 02's $\sigma$).
-- $m_Q(Q,P) := \gamma(T)$ — attribute-consistency of the prediction with the question (doc 02's $\gamma$).
-- $\kappa(G,P)$ — completeness of the prediction.
-- $H(G,P)$ — hallucination indicator.
-- $R_{\mathrm{tr}}(P)$ — truncation indicator.
-- $R_{\mathrm{rep}}(P)$ — repetition indicator.
-- $MA(G,P)$ — Mixed Attribute indicator.
-- $\theta_{\mathrm{complete}}$ — predefined completeness threshold.
-
-These variables provide the evidence used by the ordered decision procedure.
-
-The semantic concept associated with the question is represented by:
-
-$$
-K = h(Q)
-$$
-
-where $h$ maps a question to its evaluated semantic concept.
-
-The decision procedure evaluates these variables in a fixed order so that overlapping failure conditions are resolved consistently.
-
-
-## 3. Deterministic Decision Order
-
-To ensure that overlapping conditions are resolved consistently, the decision procedure evaluates the categories in the following fixed priority order:
-
-1. Truncation
-2. Repetition
-3. Question Misunderstanding
-4. Mixed Attribute
-5. Hallucination
-6. Partial Answer / Incomplete Answer
-7. Correct
-8. Review
-
-The priority order determines which category is assigned when more than one evaluation condition appears to apply.
-
-The first satisfied condition determines the operational outcome $\tau(T)$.
-
-The Review outcome is used only when none of the defined conditions provides sufficient evidence for automatic classification. It is an internal fallback and is not included among the seven final taxonomy categories.
-
-
-## 4. Decision Rules
-
-For a prediction tuple
-
-$$
-T = (I,Q,G,P)
-$$
-
-the taxonomy function $\tau(T)$ is evaluated according to the following ordered rules.
-
-### Rule 1 — Truncation
-
-If
-
-$$
-R_{\mathrm{tr}}(P)=1
-$$
-
-then
-
-$$
-\tau(T)=C_{\mathrm{TR}}
-$$
-
-The prediction is classified as Truncation because the response is structurally incomplete.
+This document assumes `01`, `02`, and `03` as settled. No new axes, categories, or notation are introduced here.
 
 ---
 
-### Rule 2 — Repetition
+## 2. Inputs
 
-If Rule 1 does not apply and
+For a given prediction tuple $T = (I,Q,G,P)$:
 
-$$
-R_{\mathrm{rep}}(P)=1
-$$
+- $K = h(Q)$ and $A_{\text{set}}(K)$ are looked up from the fixed template table (`01` Section 6).
+- $P$ is decomposed into $(P_K, P_{\bar K})$ (`01` Section 7).
+- $G_A = g_G(G, A_{\text{set}}(K))$ and $P_A = g_P(P_K, A_{\text{set}}(K))$ are computed (`01` Section 8).
+- stop_reason is retrieved for Axis 5.
 
-then
-
-$$
-\tau(T)=C_{\mathrm{REP}}
-$$
-
-The prediction is classified as Repetition when unnecessary repeated information is the primary failure.
+These four inputs are prerequisites for every subsequent step and must be computed before any signal is measured.
 
 ---
 
-### Rule 3 — Question Misunderstanding
+## 3. Step 1 — Measure Axis 2a and Axis 2b
 
-If Rules 1–2 do not apply and
+Compute $`\mathrm{Ax}_{2a}(T)`$ and $`\mathrm{Ax}_{2b}(T)`$ per 02 Sections 3–4.
 
-$$
-m_Q(Q,P)=0
-$$
-
-then
-
-$$
-\tau(T)=C_{\mathrm{QM}}
-$$
-
-The prediction is classified as Question Misunderstanding when it does not answer the question that was asked.
+$`\mathrm{Ax}_{2a}`$ gates Step 2; $`\mathrm{Ax}_{2b}`$ is recorded but does not affect category derivation.
 
 ---
 
-### Rule 4 — Mixed Attribute
+## 4. Step 2 — Measure Axis 1
 
-If Rules 1–3 do not apply and
+Compute $\mathrm{Ax}_1(T)$ per `02` Section 5, using the Step 1 result as precondition input.
 
-$$
-MA(G,P)=1
-$$
-
-then
-
-$$
-\tau(T)=C_{\mathrm{MA}}
-$$
-
-The prediction is classified as Mixed Attribute when it contains both correct and incorrect attribute-level information and this category provides the most appropriate explanation of the error.
+If $\mathrm{Ax}_{2a}(T) = \text{no}$, $\mathrm{Ax}_1(T)$ is forced to `indeterminate` and Steps 3–4 are skipped entirely (Branch A applies; proceed to Step 6).
 
 ---
 
-### Rule 5 — Hallucination
+## 5. Step 3 — Measure Axis 3
 
-If Rules 1–4 do not apply and
+Compute $\mathrm{Ax}_3(T)$ per `02` Section 6, using $G_A$, $P_A$, and the Step 2 result.
 
-$$
-H(G,P)=1
-$$
+If $\mathrm{Ax}_1(T) = \text{misaligned}$, $\mathrm{Ax}_3(T)$ is forced to `not applicable` and Step 4 is skipped (Branch B applies; proceed to Step 6).
 
-then
-
-$$
-\tau(T)=C_{\mathrm{HA}}
-$$
-
-The prediction is classified as Hallucination when it introduces unsupported factual content without constituting a Mixed Attribute case.
-
-Mixed Attribute therefore takes priority over Hallucination when both conditions are potentially satisfied.
+If $`\mathrm{Ax}_1(T) = \text{indeterminate}`$ while $`\mathrm{Ax}_{2a}(T) = \text{yes}`$, $`\mathrm{Ax}_3(T)`$ is forced to `indeterminate` (Branch G applies; proceed to Step 6, then Step 7 routes to $`C_{review}`$).
 
 ---
 
-### Rule 6 — Partial Answer / Incomplete Answer
+## 6. Step 4 — Measure Axis 4
 
-If Rules 1–5 do not apply and
+Compute $\mathrm{Ax}_4(T)$ per `02` Section 7, using the Step 3 result.
 
-$$
-m_Q(Q,P)=1
-$$
-
-and
-
-$$
-m_G(G,P)=1
-$$
-
-and
-
-$$
-0<\kappa(G,P)<\tau_{\mathrm{complete}}
-$$
-
-then
-
-$$
-\tau(T)=C_{\mathrm{PA}}
-$$
-
-The prediction contains semantically correct information but does not provide sufficient coverage of the required answer.
-
-Here, $m_G(G,P)=1$ indicates that the information present in the prediction is semantically correct, while $\kappa(G,P)$ independently measures how much of the required information is covered.
+This step only executes when $\mathrm{Ax}_3(T) \in \{\text{correct}, \text{mixed}\}$ (Branch E or F). When $\mathrm{Ax}_3(T) = \text{incorrect}$ (Branch D), $\mathrm{Ax}_4(T)$ is forced to `not applicable`.
 
 ---
 
-### Rule 7 — Correct
+## 7. Step 5 — Identify Branch or Review State
 
-If none of the previous failure conditions applies and
+Using the results of Steps 1–4, identify the applicable semantic branch defined in `02_decision_functions.md`.
 
-$$
-m_Q(Q,P)=1
-$$
+If the state is unresolved because $`\mathrm{Ax}_3(T) = \text{indeterminate}`$ or $`\mathrm{Ax}_4(T) = \text{indeterminate}`$, mark the instance for $`C_{review}`$ rather than forcing it into Branch D, E, or F.
 
-and
-
-$$
-m_G(G,P)=1
-$$
-
-and
-
-$$
-\kappa(G,P)\geq\theta_{\mathrm{complete}}
-$$
-
-and
-
-$$
-H(G,P)=0 \quad \text{and} \quad MA(G,P)=0
-$$
-
-then
-
-$$
-\tau(T)=C_{\mathrm{correct}}
-$$
-
-Minor wording differences are permitted when the semantic content remains correct.
+Otherwise, identify exactly one of Branches A, B, G, D, E, or F.
 
 ---
 
-### Rule 8 — Review
+## 8. Step 6 — Measure Axis 5, Axis 6, Axis 7
 
-If none of Rules 1–7 applies, then
+Compute $\mathrm{Ax}_5(T)$, $\mathrm{Ax}_6(T)$, and $\mathrm{Ax}_7(T)$ per `02` Sections 8–10.
 
-$$
-\tau(T)=C_{\mathrm{review}}
-$$
+These are computed regardless of which branch was identified in Step 5, subject to the forced values in Branch A ($\mathrm{Ax}_6 = \text{absent}$, $\mathrm{Ax}_7 = \text{none}$).
 
-This fallback is used only when the available evaluation variables do not provide sufficient evidence for automatic assignment to one of the seven final taxonomy categories.
+---
 
-Predictions assigned to $C_{\mathrm{review}}$ must be reviewed and resolved before final seven-category statistics are computed.
+## 9. Step 7 — Derive Core Category
 
-$C_{\mathrm{review}}$ is an internal operational outcome and is not part of the final taxonomy category space $\mathbb{C}$.
-
-
-## 5. Compact Decision Function
-
-The complete decision procedure can be represented as the following ordered piecewise function.
-
-Define the ordered decision conditions:
-
-- $D_{\mathrm{TR}}$: $R_{\mathrm{tr}}(P)=1$
-- $D_{\mathrm{REP}}$: $R_{\mathrm{tr}}(P)=0$ and $R_{\mathrm{rep}}(P)=1$
-- $D_{\mathrm{QM}}$: $R_{\mathrm{tr}}(P)=0$, $R_{\mathrm{rep}}(P)=0$, and $m_Q(Q,P)=0$
-- $D_{\mathrm{MA}}$: $R_{\mathrm{tr}}(P)=0$, $R_{\mathrm{rep}}(P)=0$, $m_Q(Q,P)=1$, and $MA(G,P)=1$
-- $D_{\mathrm{HA}}$: $R_{\mathrm{tr}}(P)=0$, $R_{\mathrm{rep}}(P)=0$, $m_Q(Q,P)=1$, $MA(G,P)=0$, and $H(G,P)=1$
-- $D_{\mathrm{PA}}$: $R_{\mathrm{tr}}(P)=0$, $R_{\mathrm{rep}}(P)=0$, $m_Q(Q,P)=1$, $m_G(G,P)=1$, and $0<\kappa(G,P)<\theta_{\mathrm{complete}}$
-- $D_{\mathrm{correct}}$: $R_{\mathrm{tr}}(P)=0$, $R_{\mathrm{rep}}(P)=0$, $m_Q(Q,P)=1$, $m_G(G,P)=1$, $\kappa(G,P)\geq\theta_{\mathrm{complete}}$, $H(G,P)=0$, and $MA(G,P)=0$
-
-The taxonomy function is then:
+Apply $\delta(T)$ as defined in `03` Section 5, using the branch identified in Step 5 and, where applicable, the Axis 4 value from Step 4.
 
 $$
-\tau(T)=
-\begin{cases}
-C_{\mathrm{TR}} & \text{if } D_{\mathrm{TR}} \\
-C_{\mathrm{REP}} & \text{if } D_{\mathrm{REP}} \\
-C_{\mathrm{QM}} & \text{if } D_{\mathrm{QM}} \\
-C_{\mathrm{MA}} & \text{if } D_{\mathrm{MA}} \\
-C_{\mathrm{HA}} & \text{if } D_{\mathrm{HA}} \\
-C_{\mathrm{PA}} & \text{if } D_{\mathrm{PA}} \\
-C_{\mathrm{correct}} & \text{if } D_{\mathrm{correct}} \\
-C_{\mathrm{review}} & \text{otherwise}
-\end{cases}
+\delta(T) \in \mathbb{C} \cup \{C_{review}\}
 $$
 
-The conditions are evaluated from top to bottom. Therefore, the first satisfied condition determines the operational outcome.
+If $\delta(T) = C_{review}$, proceed to Step 8 (Review Resolution) before finalizing. Otherwise, proceed directly to Step 9.
 
-This ordered structure gives Mixed Attribute priority ($C_{\mathrm{MA}} \succ C_{\mathrm{HA}}$) and assigns unresolved cases to the internal Review outcome.
+---
 
-$C_{\mathrm{review}}$ is not included in the seven final taxonomy categories and must be resolved before final category statistics are reported.
+## 10. Step 8 — Review Resolution
 
+$C_{review}$ arises only from the two cases in `03` Section 4: Axis 3 = indeterminate, or Axis 4 = indeterminate. Both indicate that the automated signal measurement could not reliably resolve a required value.
 
+**Resolution procedure:**
 
-## 6. Mutual Exclusivity
+1. A human reviewer re-examines $T$ directly, applying the same Axis 3 / Axis 4 definitions from `02` Sections 6–7 manually.
+2. The reviewer assigns the attribute-level comparability and correctness judgments that the automated procedure could not determine.
+3. Once the unresolved comparison is resolved, recompute the affected signal(s) and any downstream dependent signal(s) according to `02` Sections 6–7.
+4. Step 7 is re-applied with the updated value, yielding a final $\delta(T) \in \mathbb{C}$.
 
-The ordered decision procedure assigns each prediction exactly one operational outcome from the extended outcome space:
+$C_{review}$ is never included in final category statistics (`03` Section 9); every instance must be resolved to one of the seven core categories before reporting.
 
-$$
-\mathbb{O} = \mathbb{C} \cup \{C_{\mathrm{review}}\}
-$$
+---
 
-For every evaluated prediction $T_i$:
-
-$$
-\sum_{r=1}^{|\mathbb{C}|}
-\mathbf{1}\!\left[\tau(T_i)=C_r\right]
-+
-\mathbf{1}\!\left[\tau(T_i)=C_{\mathrm{review}}\right]
-=1
-$$
-
-where $\mathbf{1}[\cdot]$ is the indicator function.
-
-This means that each prediction receives exactly one operational outcome during the decision procedure.
-
-After all predictions assigned to $C_{\mathrm{review}}$ have been manually resolved into one of the seven final taxonomy categories, the final category assignment satisfies:
+## 11. Step 9 — Final Classification
 
 $$
-\sum_{r=1}^{|\mathbb{C}|}
-\mathbf{1}\!\left[\tau(T_i)=C_r\right]
-=1
+\tau(T) = \left(\delta(T),\ \mathrm{Ax}_5(T),\ \mathrm{Ax}_6(T),\ \mathrm{Ax}_7(T)\right)
 $$
 
-for every evaluated prediction $T_i$.
+with $\delta(T) \in \mathbb{C}$ (post-resolution). This matches `01` Section 11 and `03` Section 6.
 
-Therefore, for a dataset containing $N$ evaluated predictions, the final category counts satisfy:
+---
 
-$$
-\sum_{r=1}^{|\mathbb{C}|} N_r = N
-$$
+## 12. Complete Procedure Summary
 
-where $N_r$ denotes the number of predictions assigned to category $C_r$.
+| Step | Action | Depends on |
+|---|---|---|
+| 1 | Measure Axis 2a, 2b | $T$ |
+| 2 | Measure Axis 1 | Step 1 |
+| 3 | Measure Axis 3 | Step 2, $G_A$, $P_A$ |
+| 4 | Measure Axis 4 | Step 3 |
+| 5 | Identify branch | Steps 1–4 |
+| 6 | Measure Axis 5, 6, 7 | $T$, Step 1 (forced values only) |
+| 7 | Derive $\delta(T)$ | Step 5, Step 4 |
+| 8 | Resolve review (if needed) | Step 7 |
+| 9 | Assemble $\tau(T)$ | Steps 7/8, Step 6 |
 
-Thus, the seven final taxonomy categories form a complete and mutually exclusive partition of the evaluated test set after all Review cases have been resolved.
+Steps 1–7 are fully deterministic given the same $T$ and the same claim-extraction/entailment judgments; Step 8 is the only step requiring human input, and only for the subset of predictions where automated measurement is genuinely insufficient.
 
+---
 
+## 13. Mutual Exclusivity and Determinism
 
-## 7. Operational Interpretation
+By `03` Section 7, the branch identified in Step 5 is unique for every $T$. The automated portion of the procedure is deterministic given the same $T$, claim extraction, entailment judgments, and generation metadata. Cases requiring $C_{review}$ are resolved using the documented review procedure (Step 8); final reproducibility additionally depends on consistent reviewer application of the specified criteria.
 
-The decision procedure can be viewed as a two-stage evaluation process:
+---
 
-$$
-T
-\;\longrightarrow\;
-\text{Structural Evaluation}
-\;\longrightarrow\;
-\text{Semantic Evaluation}
-\;\longrightarrow\;
-\tau(T)
-$$
+## 14. Coverage
 
-### Structural Evaluation
+By `03` Section 8, every $T \in \mathbb{T}$ is assigned a branch in Step 5 and, after Step 8 where needed, a core category in Step 7. No prediction tuple exits the procedure without a final $\tau(T)$.
 
-The structural stage evaluates properties of the generated response that can be identified independently of the semantic correctness of its content:
+---
 
-- **Truncation**, represented by $R_{\mathrm{tr}}(P)$.
-- **Repetition**, represented by $R_{\mathrm{rep}}(P)$.
+## 15. Scope
 
-These conditions are evaluated first because they describe observable structural properties of the generated response and have higher priority in the taxonomy decision order.
+This algorithm defines the per-instance classification procedure. It does not define:
 
-### Semantic Evaluation
+- claim-extraction implementation (how $\mathrm{Claims}(P)$, $P_K$, $P_{\bar K}$ are computed from raw text),
+- the entailment-checking procedure used for Axis 3 and Axis 7 comparisons,
+- inter-annotator agreement or reviewer-calibration procedures for Step 8.
 
-If no structural failure is detected, the prediction is evaluated semantically using:
+These are implementation and annotation-protocol concerns, addressed separately from the mathematical taxonomy.
 
-- **Question Misunderstanding**, represented by $m_Q(Q,P)$.
-- **Mixed Attribute**, represented by $MA(G,P)$.
-- **Hallucination**, represented by $H(G,P)$.
-- **Partial Answer / Incomplete Answer**, determined using $m_G(G,P)$ and $\kappa(G,P)$.
-- **Correct**, determined using $m_Q(Q,P)$, $m_G(G,P)$, and $\kappa(G,P)$.
+**Documented dataset limitation carried forward:** for Toka, q9: `G_A(cultural_significance) = ⊥` (per `01` Section 6, `02` Section 7). This algorithm applies Steps 1–9 identically to Toka q9 instances as to all others; no branch or step is instrument-specific. The resulting structural cap on Axis 4 (`03` Section 10) is a property of the input data, not of this algorithm, and must be disclosed wherever Toka q9 results are reported.
 
-The ordered decision procedure then applies the first satisfied condition to determine the operational outcome $\tau(T)$.
-
-If none of the defined conditions provides sufficient evidence for automatic classification, the prediction is assigned to the internal Review outcome $C_{\mathrm{review}}$ and must be resolved before final seven-category statistics are computed.
-
-This structure ensures that the same evaluation procedure is applied consistently to every prediction while preserving the predefined priority among overlapping failure conditions.
-
-
-
-## 8. Scope
-
-This algorithm defines the operational decision procedure for assigning VQA predictions to the seven-category failure taxonomy.
-
-The procedure:
-
-- operates on the complete prediction tuple $T=(I,Q,G,P)$;
-- evaluates the predefined structural and semantic indicators;
-- applies the fixed priority order to resolve overlapping failure conditions;
-- permits an internal $C_{\mathrm{review}}$ outcome when automatic evidence is insufficient; and
-- requires all Review cases to be resolved before final seven-category statistics are reported.
-
-The taxonomy does not require every category to occur in the evaluated dataset. For any category $C_r \in \mathbb{C}$, its observed count may therefore be zero:
-
-$$
-N_r = 0.
-$$
-
-After all Review cases have been resolved, every evaluated prediction is assigned to exactly one of the seven final taxonomy categories. Consequently, the final category counts form a complete partition of the evaluated test set:
-
-$$
-\sum_{r=1}^{|C|} N_r = N.
-$$
-
-The algorithm is intended to provide a reproducible mapping from each prediction tuple to a final taxonomy category when the same evaluation variables, decision order, thresholds, and Review procedure are applied consistently.
+A category may have zero observed instances ($N_r = 0$) in any given dataset without violating coverage or exclusivity, consistent with `01` Section 10.

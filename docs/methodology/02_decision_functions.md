@@ -62,7 +62,11 @@ Alignment requires only $P_K \neq \emptyset$; a response may be `aligned` while 
 **Preconditions:**
 
 $$
-\mathrm{Ax}_1(T) \neq \text{aligned} \implies \mathrm{Ax}_3(T) = \text{not applicable}
+\mathrm{Ax}_1(T) = \text{misaligned} \implies \mathrm{Ax}_3(T) = \text{not applicable}
+$$
+
+$$
+\mathrm{Ax}_1(T) = \text{indeterminate} \text{ and } \mathrm{Ax}_{2a}(T) = \text{yes} \implies \mathrm{Ax}_3(T) = \text{indeterminate}
 $$
 
 $$
