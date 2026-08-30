@@ -24,7 +24,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
-MODEL = "gemini-3.5-flash-lite"
+MODEL = "gemini-3.1-flash-lite"
 
 INPUT_JSON = r"D:\InternshipGU\Assamese_instrument_VLM\inference\test_predictions.json"
 TEST_OUTPUT_CSV = r"D:\InternshipGU\Assamese_instrument_VLM\results\failure_analysis\revised_taxonomy.csv"
@@ -180,6 +180,16 @@ determine supported_by_G: true only if the claim is explicitly stated in G or
 directly logically entailed by G. Real-world truth outside G does NOT count
 as support. If false, the claim is unsupported.
 
+Step 5 — Determine termination_status from the Prediction text only:
+  - "truncated" = the response clearly ends mid-thought, mid-clause, or before
+    completing its final statement.
+  - "intact" = the response reaches a complete linguistic stopping point,
+    regardless of whether it ends with punctuation.
+  - "indeterminate" = the ending cannot be reliably judged.
+Do NOT use the presence or absence of a full stop alone as evidence of truncation.
+Do NOT judge semantic correctness here; judge only whether the response itself
+appears cut off.
+
 Return ONLY valid JSON in exactly this schema:
 {{
   "claims": [
@@ -187,7 +197,8 @@ Return ONLY valid JSON in exactly this schema:
   ],
   "attribute_evaluation": {{
     "<attribute name>": {{"G_value": "<value or null>", "P_value": "<value or null>", "verdict": "<consistent|contradictory|indeterminate|null>", "coverage": "<covered|not_covered|indeterminate|null>"}}
-  }}
+  }},
+  "termination_status": "<intact|truncated|indeterminate>"
 }}
 """
 
@@ -352,7 +363,7 @@ def classify_one(sample: dict) -> dict:
         ax6 = detect_axis6(prediction)
         ax7 = compute_axis7(claims, ax2a)
 
-    ax5 = "unavailable"  # no stop_reason in current data — migration placeholder
+    ax5 = extraction.get("termination_status", "indeterminate")
 
     category = derive_category(ax2a, ax1, ax3, ax4)
     is_review = category == "C_review"
