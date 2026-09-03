@@ -24,12 +24,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
-MODEL = "gemini-3.1-flash-lite"
+MODEL = "gemini-3.5-flash-lite"
 
-INPUT_JSON = r"D:\InternshipGU\Assamese_instrument_VLM\inference\test_predictions.json"
-TEST_OUTPUT_CSV = r"D:\InternshipGU\Assamese_instrument_VLM\results\failure_analysis\revised_taxonomy.csv"
+INPUT_JSON = r"D:\InternshipGU\Assamese_instrument_VLM\revised\128_tokens\revised_test_predictions.json"
+TEST_OUTPUT_CSV = r"D:\InternshipGU\Assamese_instrument_VLM\revised\128_tokens\analysis\revised_taxonomy_128.csv"
 
-TEST_LIMIT = None  # full dataset  # do NOT run full dataset yet
+TEST_LIMIT = None  
 
 # ---------------------------------------------------------------------------
 # Fixed template table — 01 Section 6
@@ -203,12 +203,24 @@ Return ONLY valid JSON in exactly this schema:
 """
 
 
-def call_gemini_extraction(question, concept, attrs, ground_truth, prediction, retries=3):
+def call_gemini_extraction(
+    question,
+    concept,
+    attrs,
+    ground_truth,
+    prediction,
+    retries=5
+):
     prompt = EXTRACTION_PROMPT.format(
-        concept=concept, attrs=attrs, all_attrs=ALL_ATTRS,
-        question=question, ground_truth=ground_truth, prediction=prediction,
+        concept=concept,
+        attrs=attrs,
+        all_attrs=ALL_ATTRS,
+        question=question,
+        ground_truth=ground_truth,
+        prediction=prediction,
     )
-    for attempt in range(retries):
+
+    for attempt in range(1, retries + 1):
         try:
             response = client.models.generate_content(
                 model=MODEL,
@@ -218,12 +230,51 @@ def call_gemini_extraction(question, concept, attrs, ground_truth, prediction, r
                     response_mime_type="application/json",
                 ),
             )
-            return json.loads(response.text)
-        except Exception as e:
-            if attempt == retries - 1:
-                return {"error": str(e), "claims": [], "attribute_evaluation": {}}
-            time.sleep(5)
 
+            # Make sure Gemini actually returned something
+            if not response.text:
+                raise ValueError("Gemini returned an empty response")
+
+            return json.loads(response.text)
+
+        except Exception as e:
+            error = str(e)
+
+            # Permanent authentication/access errors
+            if "401" in error or "UNAUTHENTICATED" in error:
+                print(f"    ❌ 401 authentication error")
+                return {
+                    "error": error,
+                    "claims": [],
+                    "attribute_evaluation": {}
+                }
+
+            if "403" in error or "PERMISSION_DENIED" in error:
+                print(f"    ❌ 403 permission/access error")
+                return {
+                    "error": error,
+                    "claims": [],
+                    "attribute_evaluation": {}
+                }
+
+            # Retry transient errors
+            print(
+                f"    ⚠️ Gemini error on attempt "
+                f"{attempt}/{retries}: {error[:180]}"
+            )
+
+            if attempt < retries:
+                wait_time = min(5 * attempt, 30)
+                print(f"    🔄 Retrying in {wait_time}s...")
+                time.sleep(wait_time)
+            else:
+                print("    ❌ All retries failed")
+
+                return {
+                    "error": error,
+                    "claims": [],
+                    "attribute_evaluation": {}
+                }
 
 # ---------------------------------------------------------------------------
 # Axis computation — deterministic aggregation per 02
@@ -392,6 +443,8 @@ def classify_one(sample: dict) -> dict:
 # Test harness — TEST_LIMIT samples only, do not run full dataset yet
 # ---------------------------------------------------------------------------
 
+from tqdm import tqdm
+
 def main():
     with open(INPUT_JSON, "r", encoding="utf-8") as f:
         predictions = json.load(f)
@@ -399,24 +452,31 @@ def main():
     test_samples = predictions if TEST_LIMIT is None else predictions[:TEST_LIMIT]
     results = []
 
-    for sample in tqdm(test_samples, desc="Testing revised taxonomy"):
+    pbar = tqdm(
+        test_samples,
+        desc="Testing revised taxonomy",
+        dynamic_ncols=True
+    )
+
+    for idx, sample in enumerate(pbar, start=1):
         result = classify_one(sample)
         results.append(result)
+
+        pd.DataFrame(results).to_csv(
+            TEST_OUTPUT_CSV,
+            index=False,
+            encoding="utf-8-sig"
+        )
+
+        pbar.set_postfix_str(
+            f"Sample {idx}/{len(test_samples)} | ✅ Gemini responded | 💾 Saved",
+            refresh=True
+        )
+
         time.sleep(4.5)
 
-    df = pd.DataFrame(results)
-    df.to_csv(TEST_OUTPUT_CSV, index=False, encoding="utf-8-sig")
-
-    for r in results:
-        print("=" * 60)
-        print(f"Instrument: {r.get('instrument')} | Concept: {r.get('concept')}")
-        print(f"Prediction: {str(r.get('prediction'))[:100]}...")
-        print(f"Ax1={r.get('axis_1_alignment')} Ax3={r.get('axis_3_correctness')} "
-              f"Ax4={r.get('axis_4_completeness')} Ax6={r.get('axis_6_repetition')} "
-              f"Ax7={r.get('axis_7_unsupported')}")
-        print(f"Category: {r.get('core_category')}  Review: {r.get('needs_review')}")
-
-    print(f"\nTest output saved to: {TEST_OUTPUT_CSV}")
+    print(f"\n✅ Finished {len(results)} samples")
+    print(f"Output: {TEST_OUTPUT_CSV}")
 
 
 if __name__ == "__main__":
