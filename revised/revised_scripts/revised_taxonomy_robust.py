@@ -203,13 +203,29 @@ Return ONLY valid JSON in exactly this schema:
 """
 
 
+def _valid_extraction(data):
+    """Return True only for the exact top-level shape this taxonomy expects."""
+    if not isinstance(data, dict):
+        return False
+    if not isinstance(data.get("claims"), list):
+        return False
+    if not isinstance(data.get("attribute_evaluation"), dict):
+        return False
+    if data.get("termination_status") not in {
+        "intact", "truncated", "indeterminate"
+    }:
+        return False
+    return True
+
+
 def call_gemini_extraction(
     question,
     concept,
     attrs,
     ground_truth,
     prediction,
-    retries=5
+    retries=5,
+    on_retry=None,
 ):
     prompt = EXTRACTION_PROMPT.format(
         concept=concept,
@@ -231,49 +247,53 @@ def call_gemini_extraction(
                 ),
             )
 
-            # Make sure Gemini actually returned something
             if not response.text:
                 raise ValueError("Gemini returned an empty response")
 
-            return json.loads(response.text)
+            extraction = json.loads(response.text)
+
+            # Gemini sometimes returns valid JSON with the wrong top-level type.
+            if not _valid_extraction(extraction):
+                raise ValueError(
+                    f"Invalid Gemini response schema/type: "
+                    f"{type(extraction).__name__}"
+                )
+
+            return extraction
 
         except Exception as e:
             error = str(e)
 
-            # Permanent authentication/access errors
+            # Do not waste retries on permanent authentication/access errors.
             if "401" in error or "UNAUTHENTICATED" in error:
-                print(f"    ❌ 401 authentication error")
                 return {
                     "error": error,
                     "claims": [],
-                    "attribute_evaluation": {}
+                    "attribute_evaluation": {},
                 }
 
             if "403" in error or "PERMISSION_DENIED" in error:
-                print(f"    ❌ 403 permission/access error")
                 return {
                     "error": error,
                     "claims": [],
-                    "attribute_evaluation": {}
+                    "attribute_evaluation": {},
                 }
 
-            # Retry transient errors
-            print(
-                f"    ⚠️ Gemini error on attempt "
-                f"{attempt}/{retries}: {error[:180]}"
-            )
-
+            # Retry transient/network/schema failures.
             if attempt < retries:
                 wait_time = min(5 * attempt, 30)
-                print(f"    🔄 Retrying in {wait_time}s...")
+
+                if on_retry is not None:
+                    on_retry(
+                        f"⚠️ retry {attempt + 1}/{retries} in {wait_time}s"
+                    )
+
                 time.sleep(wait_time)
             else:
-                print("    ❌ All retries failed")
-
                 return {
                     "error": error,
                     "claims": [],
-                    "attribute_evaluation": {}
+                    "attribute_evaluation": {},
                 }
 
 # ---------------------------------------------------------------------------
@@ -375,7 +395,7 @@ def derive_category(ax2a, ax1, ax3, ax4):
 # Per-sample classification
 # ---------------------------------------------------------------------------
 
-def classify_one(sample: dict) -> dict:
+def classify_one(sample: dict, on_retry=None) -> dict:
     question = sample.get("question", "")
     ground_truth = sample.get("ground_truth", "")
     prediction = sample.get("prediction", "")
@@ -387,14 +407,143 @@ def classify_one(sample: dict) -> dict:
     concept = template["concept"]
     attrs = template["attrs"]
 
-    extraction = call_gemini_extraction(question, concept, attrs, ground_truth, prediction)
+    extraction = call_gemini_extraction(
+        question,
+        concept,
+        attrs,
+        ground_truth,
+        prediction,
+        retries=5,
+        on_retry=on_retry,
+    )
+
+    return _classify_from_extraction(
+        sample,
+        concept,
+        attrs,
+        prediction,
+        extraction,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Test harness — TEST_LIMIT samples only, do not run full dataset yet
+# ---------------------------------------------------------------------------
+
+from tqdm import tqdm
+
+def _sample_key(row):
+    """Stable identity for resume/checkpointing."""
+    return (
+        str(row.get("image", "")),
+        str(row.get("question_id", row.get("q_id", ""))),
+    )
+
+
+def _atomic_save_csv(rows, path):
+    """Write checkpoint safely, then replace the previous CSV."""
+    output_path = os.path.abspath(path)
+    temp_path = output_path + ".tmp"
+
+    pd.DataFrame(rows).to_csv(
+        temp_path,
+        index=False,
+        encoding="utf-8-sig",
+    )
+    os.replace(temp_path, output_path)
+
+
+def main():
+    with open(INPUT_JSON, "r", encoding="utf-8") as f:
+        predictions = json.load(f)
+
+    test_samples = predictions if TEST_LIMIT is None else predictions[:TEST_LIMIT]
+
+    # Resume from an existing checkpoint.
+    completed = {}
+    if os.path.exists(TEST_OUTPUT_CSV):
+        try:
+            existing_df = pd.read_csv(TEST_OUTPUT_CSV, encoding="utf-8-sig")
+
+            for _, row in existing_df.iterrows():
+                row_dict = row.to_dict()
+
+                # Only skip genuinely completed taxonomy rows.
+                # Rows with taxonomy_error will be retried.
+                if not pd.isna(row.get("taxonomy_error", "")):
+                    continue
+
+                completed[_sample_key(row_dict)] = row_dict
+
+        except Exception:
+            # If the old CSV is unreadable, do not destroy it.
+            completed = {}
+
+    total = len(test_samples)
+    remaining = [
+        sample for sample in test_samples
+        if _sample_key(sample) not in completed
+    ]
+
+    results = list(completed.values())
+    processed_before_run = len(completed)
+
+    pbar = tqdm(
+        remaining,
+        desc="Testing revised taxonomy",
+        dynamic_ncols=True,
+    )
+
+    for offset, sample in enumerate(pbar, start=1):
+        overall_idx = processed_before_run + offset
+
+        def retry_status(message):
+            pbar.set_postfix_str(
+                f"Sample {overall_idx}/{total} | {message}",
+                refresh=True,
+            )
+
+        # Keep retry messages on the same tqdm line.
+        result = classify_one(sample, on_retry=retry_status)
+        results.append(result)
+
+        _atomic_save_csv(results, TEST_OUTPUT_CSV)
+
+        status = (
+            "✅ Gemini responded | 💾 Saved"
+            if "taxonomy_error" not in result
+            else f"⚠️ {result['taxonomy_error'][:60]} | 💾 Saved"
+        )
+
+        pbar.set_postfix_str(
+            f"Sample {overall_idx}/{total} | {status}",
+            refresh=True,
+        )
+
+        time.sleep(4.5)
+
+    print(f"\n✅ Finished/resumed to {len(results)} saved rows")
+    print(f"Output: {TEST_OUTPUT_CSV}")
+
+
+def _classify_from_extraction(sample, concept, attrs, prediction, extraction):
+    """Apply deterministic taxonomy logic to a validated Gemini extraction."""
+    if not isinstance(extraction, dict):
+        return {
+            **sample,
+            "taxonomy_error":
+                f"invalid_gemini_response_type: {type(extraction).__name__}",
+        }
+
     if "error" in extraction:
-        return {**sample, "taxonomy_error": f"gemini_error: {extraction['error']}"}
+        return {
+            **sample,
+            "taxonomy_error": f"gemini_error: {extraction['error']}",
+        }
 
     claims = extraction.get("claims", [])
     attr_eval = extraction.get("attribute_evaluation", {})
 
-    # Branch A short-circuit: no content => forced values, no attr_eval needed
     ax2a = compute_axis2a(claims)
     ax2b = detect_axis2b(prediction)
 
@@ -404,13 +553,19 @@ def classify_one(sample: dict) -> dict:
         ax6 = "absent"
     else:
         ax1, misaligned_target = compute_axis1(claims, attrs, ax2a)
+
         if ax1 == "misaligned":
             ax3, ax4 = "not_applicable", "not_applicable"
         elif ax1 == "indeterminate":
             ax3, ax4 = "indeterminate", "indeterminate"
         else:
             ax3 = compute_axis3(attr_eval, attrs)
-            ax4 = compute_axis4(attr_eval, attrs) if ax3 in ("correct", "mixed") else "not_applicable"
+            ax4 = (
+                compute_axis4(attr_eval, attrs)
+                if ax3 in ("correct", "mixed")
+                else "not_applicable"
+            )
+
         ax6 = detect_axis6(prediction)
         ax7 = compute_axis7(claims, ax2a)
 
@@ -434,49 +589,10 @@ def classify_one(sample: dict) -> dict:
         "core_category": category,
         "needs_review": is_review,
         "toka_q9_limitation": (
-            sample.get("instrument", "").lower() == "toka" and concept == "description"
+            sample.get("instrument", "").lower() == "toka"
+            and concept == "description"
         ),
     }
-
-
-# ---------------------------------------------------------------------------
-# Test harness — TEST_LIMIT samples only, do not run full dataset yet
-# ---------------------------------------------------------------------------
-
-from tqdm import tqdm
-
-def main():
-    with open(INPUT_JSON, "r", encoding="utf-8") as f:
-        predictions = json.load(f)
-
-    test_samples = predictions if TEST_LIMIT is None else predictions[:TEST_LIMIT]
-    results = []
-
-    pbar = tqdm(
-        test_samples,
-        desc="Testing revised taxonomy",
-        dynamic_ncols=True
-    )
-
-    for idx, sample in enumerate(pbar, start=1):
-        result = classify_one(sample)
-        results.append(result)
-
-        pd.DataFrame(results).to_csv(
-            TEST_OUTPUT_CSV,
-            index=False,
-            encoding="utf-8-sig"
-        )
-
-        pbar.set_postfix_str(
-            f"Sample {idx}/{len(test_samples)} | ✅ Gemini responded | 💾 Saved",
-            refresh=True
-        )
-
-        time.sleep(4.5)
-
-    print(f"\n✅ Finished {len(results)} samples")
-    print(f"Output: {TEST_OUTPUT_CSV}")
 
 
 if __name__ == "__main__":
