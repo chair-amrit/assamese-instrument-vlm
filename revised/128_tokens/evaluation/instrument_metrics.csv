@@ -1,0 +1,8 @@
+instrument,lave_accuracy,cosine_similarity,n_samples
+pepa,0.8667,0.8681,45
+bihu_dhol,0.7778,0.8421,45
+bahi,0.7556,0.8363,45
+gogona,0.7333,0.8467,45
+khutitaal,0.7111,0.837,45
+toka,0.6667,0.8044,45
+xutuli,0.6667,0.8065,45
