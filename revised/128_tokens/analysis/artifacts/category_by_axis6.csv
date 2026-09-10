@@ -1,0 +1,5 @@
+core_category,absent,present
+Correct,209,3
+Partial Answer,11,0
+Hallucination,39,0
+Question Misunderstanding,53,0
