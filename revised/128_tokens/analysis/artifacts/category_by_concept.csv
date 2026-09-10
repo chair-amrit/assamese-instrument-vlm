@@ -1,0 +1,10 @@
+concept,Correct,Partial Answer,Hallucination,Question Misunderstanding
+description,24,10,0,1
+festival,21,0,0,14
+instrument_type,27,1,0,7
+material,34,0,1,0
+origin,13,0,0,22
+parts,25,0,3,7
+playing_method,22,0,13,0
+sound,26,0,8,1
+traditional_player,20,0,14,1
