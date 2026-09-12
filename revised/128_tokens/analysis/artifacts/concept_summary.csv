@@ -1,0 +1,10 @@
+concept,total_samples,Correct_count,Correct_pct,Partial Answer_count,Partial Answer_pct,Hallucination_count,Hallucination_pct,Question Misunderstanding_count,Question Misunderstanding_pct,Mixed Attribute_count,Mixed Attribute_pct,Incoherent Response_count,Incoherent Response_pct,Non-Answer / Abstention_count,Non-Answer / Abstention_pct,C_review_count,C_review_pct,axis_5_termination_truncated_count,axis_5_termination_truncated_pct,axis_6_repetition_present_count,axis_6_repetition_present_pct,axis_7_unsupported_present_count,axis_7_unsupported_present_pct
+description,35,24,68.57,10,28.57,0,0.0,1,2.86,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,9,25.71
+festival,35,21,60.0,0,0.0,0,0.0,14,40.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,29,82.86
+instrument_type,35,27,77.14,1,2.86,0,0.0,7,20.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,35,100.0
+material,35,34,97.14,0,0.0,1,2.86,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,1,2.86
+origin,35,13,37.14,0,0.0,0,0.0,22,62.86,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,30,85.71
+parts,35,25,71.43,0,0.0,3,8.57,7,20.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,10,28.57
+playing_method,35,22,62.86,0,0.0,13,37.14,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,12,34.29
+sound,35,26,74.29,0,0.0,8,22.86,1,2.86,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,9,25.71
+traditional_player,35,20,57.14,0,0.0,14,40.0,1,2.86,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,3,8.57,16,45.71
