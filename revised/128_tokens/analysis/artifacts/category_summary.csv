@@ -1,0 +1,9 @@
+core_category,count,percentage
+Correct,212,67.3
+Partial Answer,11,3.49
+Hallucination,39,12.38
+Question Misunderstanding,53,16.83
+Mixed Attribute,0,0.0
+Incoherent Response,0,0.0
+Non-Answer / Abstention,0,0.0
+C_review,0,0.0
