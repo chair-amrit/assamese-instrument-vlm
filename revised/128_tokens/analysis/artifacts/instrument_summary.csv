@@ -1,0 +1,8 @@
+instrument,total_samples,Correct_count,Correct_pct,Partial Answer_count,Partial Answer_pct,Hallucination_count,Hallucination_pct,Question Misunderstanding_count,Question Misunderstanding_pct,Mixed Attribute_count,Mixed Attribute_pct,Incoherent Response_count,Incoherent Response_pct,Non-Answer / Abstention_count,Non-Answer / Abstention_pct,C_review_count,C_review_pct,axis_5_termination_truncated_count,axis_5_termination_truncated_pct,axis_6_repetition_present_count,axis_6_repetition_present_pct,axis_7_unsupported_present_count,axis_7_unsupported_present_pct
+bahi,45,33,73.33,1,2.22,1,2.22,10,22.22,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,1,2.22,18,40.0
+bihu_dhol,45,32,71.11,4,8.89,4,8.89,5,11.11,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,2,4.44,23,51.11
+gogona,45,32,71.11,0,0.0,7,15.56,6,13.33,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,21,46.67
+khutitaal,45,24,53.33,6,13.33,8,17.78,7,15.56,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,22,48.89
+pepa,45,33,73.33,0,0.0,6,13.33,6,13.33,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,20,44.44
+toka,45,28,62.22,0,0.0,8,17.78,9,20.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,27,60.0
+xutuli,45,30,66.67,0,0.0,5,11.11,10,22.22,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,20,44.44
