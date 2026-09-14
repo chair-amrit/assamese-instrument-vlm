@@ -1,0 +1,8 @@
+Instrument,N,Correct (%),Partial Answer (%),Hallucination (%),Question Misunderstanding (%)
+bahi,45,73.33,2.22,2.22,22.22
+bihu_dhol,45,71.11,8.89,8.89,11.11
+gogona,45,71.11,0.0,15.56,13.33
+khutitaal,45,53.33,13.33,17.78,15.56
+pepa,45,73.33,0.0,13.33,13.33
+toka,45,62.22,0.0,17.78,20.0
+xutuli,45,66.67,0.0,11.11,22.22
